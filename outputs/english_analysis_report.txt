@@ -1,0 +1,1220 @@
+128 sentences analysed. 128 with no problems flagged, 0 with problems.
+
+[1.1] C1
+Sentence: The boy laughed.
+Words:    The/DET  boy/NOUN  laughed/VERB
+  Clause 1: main - statement
+    subject:      The boy  [noun | base: boy | 3rd | singular | male | definite]
+    verb:         laughed  [base: laugh | past | simple]
+
+[1.2] C2
+Sentence: Ada cooked dinner.
+Words:    Ada/NAME  cooked/VERB  dinner/NOUN
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         cooked  [base: cook | past | simple]
+    object:       dinner  [noun | base: dinner | 3rd | singular]
+
+[1.3] C4
+Sentence: Birds fly south.
+Words:    Birds/NOUN  fly/VERB  south/ADV
+  Clause 1: main - statement
+    subject:      Birds  [noun | base: bird | 3rd | plural]
+    verb:         fly  [base: fly | present | simple]
+    adverbs:      south
+
+[1.4] C1
+Sentence: The teacher arrived early.
+Words:    The/DET  teacher/NOUN  arrived/VERB  early/ADV
+  Clause 1: main - statement
+    subject:      The teacher  [noun | base: teacher | 3rd | singular | definite]
+    verb:         arrived  [base: arrive | past | simple]
+    adverbs:      early
+
+[1.5] C2
+Sentence: Chika bought a bicycle.
+Words:    Chika/NAME  bought/VERB  a/DET  bicycle/NOUN
+  Clause 1: main - statement
+    subject:      Chika  [name | base: Chika | 3rd | singular | female]
+    verb:         bought  [base: buy | past | simple]
+    object:       a bicycle  [noun | base: bicycle | 3rd | singular | indefinite]
+
+[1.6] C2
+Sentence: They cleaned the classroom.
+Words:    They/PRON  cleaned/VERB  the/DET  classroom/NOUN
+  Clause 1: main - statement
+    subject:      They  [pronoun | base: they | 3rd | plural]
+    verb:         cleaned  [base: clean | past | simple]
+    object:       the classroom  [noun | base: classroom | 3rd | singular | definite]
+
+[2.1] C13
+Sentence: Ada cooked dinner, and Chinedu washed the plates.
+Words:    Ada/NAME  cooked/VERB  dinner/NOUN  ,/COMMA  and/COORD  Chinedu/NAME  washed/VERB  the/DET  plates/NOUN
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         cooked  [base: cook | past | simple]
+    object:       dinner  [noun | base: dinner | 3rd | singular]
+  Clause 2: coordinated (linker: and) - statement
+    subject:      Chinedu  [name | base: Chinedu | 3rd | singular | male]
+    verb:         washed  [base: wash | past | simple]
+    object:       the plates  [noun | base: plate | 3rd | plural | definite]
+
+[2.2] C13
+Sentence: The rain stopped, but the roads remained flooded.
+Words:    The/DET  rain/NOUN  stopped/VERB  ,/COMMA  but/COORD  the/DET  roads/NOUN  remained/VERB  flooded/VERB
+  Clause 1: main - statement
+    subject:      The rain  [noun | base: rain | 3rd | singular | definite]
+    verb:         stopped  [base: stop | past | simple]
+  Clause 2: coordinated (linker: but) - statement
+    subject:      the roads  [noun | base: road | 3rd | plural | definite]
+    verb:         remained  [base: remain | past | simple]
+    complement:   (adjective) flooded
+
+[2.3] C13
+Sentence: We arrived early, so we found good seats.
+Words:    We/PRON  arrived/VERB  early/ADV  ,/COMMA  so/COORD  we/PRON  found/VERB  good/ADJ  seats/NOUN
+  Clause 1: main - statement
+    subject:      We  [pronoun | base: we | 1st | plural]
+    verb:         arrived  [base: arrive | past | simple]
+    adverbs:      early
+  Clause 2: coordinated (linker: so) - statement
+    subject:      we  [pronoun | base: we | 1st | plural]
+    verb:         found  [base: find | past | simple]
+    object:       good seats  [noun | base: seat | 3rd | plural | adjective: good]
+
+[2.4] C13
+Sentence: Musa studied hard, and he passed the exam.
+Words:    Musa/NAME  studied/VERB  hard/ADV  ,/COMMA  and/COORD  he/PRON  passed/VERB  the/DET  exam/NOUN
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         studied  [base: study | past | simple]
+    adverbs:      hard
+  Clause 2: coordinated (linker: and) - statement
+    subject:      he  [pronoun | base: he | 3rd | singular | male]
+    verb:         passed  [base: pass | past | simple]
+    object:       the exam  [noun | base: exam | 3rd | singular | definite]
+
+[2.5] C13
+Sentence: The lights went out, so we used candles.
+Words:    The/DET  lights/NOUN  went/VERB  out/PART  ,/COMMA  so/COORD  we/PRON  used/VERB  candles/NOUN
+  Clause 1: main - statement
+    subject:      The lights  [noun | base: light | 3rd | plural | definite]
+    verb:         went out  [base: go out | past | simple]
+  Clause 2: coordinated (linker: so) - statement
+    subject:      we  [pronoun | base: we | 1st | plural]
+    verb:         used  [base: use | past | simple]
+    object:       candles  [noun | base: candle | 3rd | plural]
+
+[2.6] C13
+Sentence: Ngozi sang beautifully, and everyone applauded.
+Words:    Ngozi/NAME  sang/VERB  beautifully/ADV  ,/COMMA  and/COORD  everyone/INDEF  applauded/VERB
+  Clause 1: main - statement
+    subject:      Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    verb:         sang  [base: sing | past | simple]
+    adverbs:      beautifully
+  Clause 2: coordinated (linker: and) - statement
+    subject:      everyone  [indefinite | base: everyone | 3rd | singular]
+    verb:         applauded  [base: applaud | past | simple]
+
+[3.1] C14
+Sentence: When the rain started, the children ran inside.
+Words:    When/SUB  the/DET  rain/NOUN  started/VERB  ,/COMMA  the/DET  children/NOUN  ran/VERB  inside/ADV
+  Clause 1: subordinate (linker: when, time) - statement
+    subject:      the rain  [noun | base: rain | 3rd | singular | definite]
+    verb:         started  [base: start | past | simple]
+  Clause 2: main - statement
+    subject:      the children  [noun | base: child | 3rd | plural | definite]
+    verb:         ran  [base: run | past | simple]
+    adverbs:      inside
+
+[3.2] C14
+Sentence: Because he studied hard, he passed the examination.
+Words:    Because/SUB  he/PRON  studied/VERB  hard/ADV  ,/COMMA  he/PRON  passed/VERB  the/DET  examination/NOUN
+  Clause 1: subordinate (linker: because, reason) - statement
+    subject:      he  [pronoun | base: he | 3rd | singular | male]
+    verb:         studied  [base: study | past | simple]
+    adverbs:      hard
+  Clause 2: main - statement
+    subject:      he  [pronoun | base: he | 3rd | singular | male]
+    verb:         passed  [base: pass | past | simple]
+    object:       the examination  [noun | base: examination | 3rd | singular | definite]
+
+[3.3] C14
+Sentence: Although the road was dangerous, they continued the journey.
+Words:    Although/SUB  the/DET  road/NOUN  was/BE  dangerous/ADJ  ,/COMMA  they/PRON  continued/VERB  the/DET  journey/NOUN
+  Clause 1: subordinate (linker: although, concession) - statement
+    subject:      the road  [noun | base: road | 3rd | singular | definite]
+    verb:         was  [base: be | past | simple | copula 'be']
+    complement:   (adjective) dangerous
+  Clause 2: main - statement
+    subject:      they  [pronoun | base: they | 3rd | plural]
+    verb:         continued  [base: continue | past | simple]
+    object:       the journey  [noun | base: journey | 3rd | singular | definite]
+
+[3.4] C14
+Sentence: If you finish early, you may leave.
+Words:    If/SUB  you/PRON  finish/VERB  early/ADV  ,/COMMA  you/PRON  may/MODAL  leave/VERB
+  Clause 1: subordinate (linker: if, condition) - statement
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         finish  [base: finish | present | simple]
+    adverbs:      early
+  Clause 2: main - statement
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         may leave  [base: leave | present | simple | modal: possibility]
+
+[3.5] C14
+Sentence: While the baby slept, the mother cooked dinner.
+Words:    While/SUB  the/DET  baby/NOUN  slept/VERB  ,/COMMA  the/DET  mother/NOUN  cooked/VERB  dinner/NOUN
+  Clause 1: subordinate (linker: while, time-during) - statement
+    subject:      the baby  [noun | base: baby | 3rd | singular | definite]
+    verb:         slept  [base: sleep | past | simple]
+  Clause 2: main - statement
+    subject:      the mother  [noun | base: mother | 3rd | singular | female | definite]
+    verb:         cooked  [base: cook | past | simple]
+    object:       dinner  [noun | base: dinner | 3rd | singular]
+
+[3.6] C14
+Sentence: Unless you apologize, she will remain upset.
+Words:    Unless/SUB  you/PRON  apologize/VERB  ,/COMMA  she/PRON  will/MODAL  remain/VERB  upset/ADJ
+  Clause 1: subordinate (linker: unless, negative-condition) - statement
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         apologize  [base: apologize | present | simple]
+  Clause 2: main - statement
+    subject:      she  [pronoun | base: she | 3rd | singular | female]
+    verb:         will remain  [base: remain | future | simple]
+    complement:   (adjective) upset
+
+[4.1] C13+C14
+Sentence: Although the rain was heavy, the players continued the match, and the fans cheered loudly.
+Words:    Although/SUB  the/DET  rain/NOUN  was/BE  heavy/ADJ  ,/COMMA  the/DET  players/NOUN  continued/VERB  the/DET  match/NOUN  ,/COMMA  and/COORD  the/DET  fans/NOUN  cheered/VERB  loudly/ADV
+  Clause 1: subordinate (linker: although, concession) - statement
+    subject:      the rain  [noun | base: rain | 3rd | singular | definite]
+    verb:         was  [base: be | past | simple | copula 'be']
+    complement:   (adjective) heavy
+  Clause 2: main - statement
+    subject:      the players  [noun | base: player | 3rd | plural | definite]
+    verb:         continued  [base: continue | past | simple]
+    object:       the match  [noun | base: match | 3rd | singular | definite]
+  Clause 3: coordinated (linker: and) - statement
+    subject:      the fans  [noun | base: fan | 3rd | plural | definite]
+    verb:         cheered  [base: cheer | past | simple]
+    adverbs:      loudly
+
+[4.2] C13+C14
+Sentence: When the teacher entered the class, the students stood up, and the lesson began.
+Words:    When/SUB  the/DET  teacher/NOUN  entered/VERB  the/DET  class/NOUN  ,/COMMA  the/DET  students/NOUN  stood/VERB  up/PART  ,/COMMA  and/COORD  the/DET  lesson/NOUN  began/VERB
+  Clause 1: subordinate (linker: when, time) - statement
+    subject:      the teacher  [noun | base: teacher | 3rd | singular | definite]
+    verb:         entered  [base: enter | past | simple]
+    object:       the class  [noun | base: class | 3rd | singular | definite]
+  Clause 2: main - statement
+    subject:      the students  [noun | base: student | 3rd | plural | definite]
+    verb:         stood up  [base: stand up | past | simple]
+  Clause 3: coordinated (linker: and) - statement
+    subject:      the lesson  [noun | base: lesson | 3rd | singular | definite]
+    verb:         began  [base: begin | past | simple]
+
+[4.3] C13+C14
+Sentence: If you study consistently, you will succeed, and your parents will be proud.
+Words:    If/SUB  you/PRON  study/VERB  consistently/ADV  ,/COMMA  you/PRON  will/MODAL  succeed/VERB  ,/COMMA  and/COORD  your/POSS  parents/NOUN  will/MODAL  be/BE  proud/ADJ
+  Clause 1: subordinate (linker: if, condition) - statement
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         study  [base: study | present | simple]
+    adverbs:      consistently
+  Clause 2: main - statement
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         will succeed  [base: succeed | future | simple]
+  Clause 3: coordinated (linker: and) - statement
+    subject:      your parents  [noun | base: parent | 3rd | plural | definite | owner: your]
+    verb:         will be  [base: be | future | simple | copula 'be']
+    complement:   (adjective) proud
+
+[4.4] C13+C14
+Sentence: While the children played outside, the mother cleaned the house, and the father cooked dinner.
+Words:    While/SUB  the/DET  children/NOUN  played/VERB  outside/ADV  ,/COMMA  the/DET  mother/NOUN  cleaned/VERB  the/DET  house/NOUN  ,/COMMA  and/COORD  the/DET  father/NOUN  cooked/VERB  dinner/NOUN
+  Clause 1: subordinate (linker: while, time-during) - statement
+    subject:      the children  [noun | base: child | 3rd | plural | definite]
+    verb:         played  [base: play | past | simple]
+    adverbs:      outside
+  Clause 2: main - statement
+    subject:      the mother  [noun | base: mother | 3rd | singular | female | definite]
+    verb:         cleaned  [base: clean | past | simple]
+    object:       the house  [noun | base: house | 3rd | singular | definite]
+  Clause 3: coordinated (linker: and) - statement
+    subject:      the father  [noun | base: father | 3rd | singular | male | definite]
+    verb:         cooked  [base: cook | past | simple]
+    object:       dinner  [noun | base: dinner | 3rd | singular]
+
+[4.5] C13+C14
+Sentence: Since the roads were flooded, we stayed indoors, but the children wanted to go outside.
+Words:    Since/SUB  the/DET  roads/NOUN  were/BE  flooded/VERB  ,/COMMA  we/PRON  stayed/VERB  indoors/ADV  ,/COMMA  but/COORD  the/DET  children/NOUN  wanted/VERB  to/TO_INF  go/VERB  outside/ADV
+  Clause 1: subordinate (linker: since, reason) - statement
+    subject:      the roads  [noun | base: road | 3rd | plural | definite]
+    verb:         were flooded  [base: flood | past | simple | passive]
+  Clause 2: main - statement
+    subject:      we  [pronoun | base: we | 1st | plural]
+    verb:         stayed  [base: stay | past | simple]
+    adverbs:      indoors
+  Clause 3: coordinated (linker: but) - statement
+    subject:      the children  [noun | base: child | 3rd | plural | definite]
+    verb:         wanted to go  [base: want | past | simple | + to go]
+    adverbs:      outside
+
+[4.6] C13+C14
+Sentence: Because the food was delicious, everyone requested more, and the cook smiled proudly.
+Words:    Because/SUB  the/DET  food/NOUN  was/BE  delicious/ADJ  ,/COMMA  everyone/INDEF  requested/VERB  more/QUANT  ,/COMMA  and/COORD  the/DET  cook/NOUN  smiled/VERB  proudly/ADV
+  Clause 1: subordinate (linker: because, reason) - statement
+    subject:      the food  [noun | base: food | 3rd | singular | definite]
+    verb:         was  [base: be | past | simple | copula 'be']
+    complement:   (adjective) delicious
+  Clause 2: main - statement
+    subject:      everyone  [indefinite | base: everyone | 3rd | singular]
+    verb:         requested  [base: request | past | simple]
+    object:       more  [quantity | base: more | quantifier: more]
+  Clause 3: coordinated (linker: and) - statement
+    subject:      the cook  [noun | base: cook | 3rd | singular | definite]
+    verb:         smiled  [base: smile | past | simple]
+    adverbs:      proudly
+
+[5.1] C11
+Sentence: Did you finish the assignment?
+Words:    Did/DO  you/PRON  finish/VERB  the/DET  assignment/NOUN
+  Clause 1: main - yes-no question
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         Did finish  [base: finish | past | simple]
+    object:       the assignment  [noun | base: assignment | 3rd | singular | definite]
+
+[5.2] C12
+Sentence: Where did the children go?
+Words:    Where/WH  did/DO  the/DET  children/NOUN  go/VERB
+  Clause 1: main - wh-question
+    question:     where (asks about the place)
+    subject:      the children  [noun | base: child | 3rd | plural | definite]
+    verb:         did go  [base: go | past | simple]
+    adverbs:      Where
+
+[5.3] C12
+Sentence: Why is the baby crying?
+Words:    Why/WH  is/BE  the/DET  baby/NOUN  crying/VERB
+  Clause 1: main - wh-question
+    question:     why (asks about the reason)
+    subject:      the baby  [noun | base: baby | 3rd | singular | definite]
+    verb:         is crying  [base: cry | present | progressive]
+    adverbs:      Why
+
+[5.4] C12
+Sentence: Who opened the door?
+Words:    Who/WH  opened/VERB  the/DET  door/NOUN
+  Clause 1: main - wh-question
+    question:     who (asks about the subject)
+    subject:      Who  [wh | base: who]
+    verb:         opened  [base: open | past | simple]
+    object:       the door  [noun | base: door | 3rd | singular | definite]
+
+[5.5] C11
+Sentence: Can you help me?
+Words:    Can/MODAL  you/PRON  help/VERB  me/PRON
+  Clause 1: main - yes-no question
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         Can help  [base: help | present | simple | modal: ability]
+    object:       me  [pronoun | base: me | 1st | singular]
+
+[5.6] C12
+Sentence: What caused the accident?
+Words:    What/WH  caused/VERB  the/DET  accident/NOUN
+  Clause 1: main - wh-question
+    question:     what (asks about the subject)
+    subject:      What  [wh | base: what]
+    verb:         caused  [base: cause | past | simple]
+    object:       the accident  [noun | base: accident | 3rd | singular | definite]
+
+[6.1] C15+C6
+Sentence: The man who called yesterday is my uncle.
+Words:    The/DET  man/NOUN  who/REL  called/VERB  yesterday/ADV  is/BE  my/POSS  uncle/NOUN
+  Clause 1: main - statement
+    subject:      The man who called yesterday  [noun | base: man | 3rd | singular | male | definite]
+      relative clause (linker: who) - statement
+        gap:          the subject is the noun this clause describes
+        subject:      -
+        verb:         called  [base: call | past | simple]
+        adverbs:      yesterday
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (noun) my uncle  [noun | base: uncle | 3rd | singular | male | definite | owner: my]
+
+[6.2] C15
+Sentence: The woman whom we visited lives in Lagos.
+Words:    The/DET  woman/NOUN  whom/REL  we/PRON  visited/VERB  lives/VERB  in/PREP  Lagos/NAME
+  Clause 1: main - statement
+    subject:      The woman whom we visited  [noun | base: woman | 3rd | singular | female | definite]
+      relative clause (linker: whom) - statement
+        gap:          the object is the noun this clause describes
+        subject:      we  [pronoun | base: we | 1st | plural]
+        verb:         visited  [base: visit | past | simple]
+    verb:         lives  [base: live | present | simple]
+    in + ...:     Lagos  [name | base: Lagos | 3rd | singular]
+
+[6.3] C15
+Sentence: The book that I borrowed was fascinating.
+Words:    The/DET  book/NOUN  that/REL  I/PRON  borrowed/VERB  was/BE  fascinating/ADJ
+  Clause 1: main - statement
+    subject:      The book that I borrowed  [noun | base: book | 3rd | singular | definite]
+      relative clause (linker: that) - statement
+        gap:          the object is the noun this clause describes
+        subject:      I  [pronoun | base: i | 1st | singular]
+        verb:         borrowed  [base: borrow | past | simple]
+    verb:         was  [base: be | past | simple | copula 'be']
+    complement:   (adjective) fascinating
+
+[6.4] C15
+Sentence: The boy whose bicycle was stolen cried bitterly.
+Words:    The/DET  boy/NOUN  whose/REL  bicycle/NOUN  was/BE  stolen/VERB  cried/VERB  bitterly/ADV
+  Clause 1: main - statement
+    subject:      The boy whose bicycle was stolen  [noun | base: boy | 3rd | singular | male | definite]
+      relative clause (linker: whose) - statement
+        gap:          the possessor is the noun this clause describes
+        subject:      bicycle  [noun | base: bicycle | 3rd | singular]
+        verb:         was stolen  [base: steal | past | simple | passive]
+    verb:         cried  [base: cry | past | simple]
+    adverbs:      bitterly
+
+[6.5] C15
+Sentence: The teacher who taught us linguistics retired last year.
+Words:    The/DET  teacher/NOUN  who/REL  taught/VERB  us/PRON  linguistics/NOUN  retired/VERB  last year/ADV
+  Clause 1: main - statement
+    subject:      The teacher who taught us linguistics  [noun | base: teacher | 3rd | singular | definite]
+      relative clause (linker: who) - statement
+        gap:          the subject is the noun this clause describes
+        subject:      -
+        verb:         taught  [base: teach | past | simple]
+        receiver:     us  [pronoun | base: us | 1st | plural]
+        object:       linguistics  [noun | base: linguistics | 3rd | singular]
+    verb:         retired  [base: retire | past | simple]
+    adverbs:      last year
+
+[6.6] C15
+Sentence: The road that leads to the village is narrow.
+Words:    The/DET  road/NOUN  that/REL  leads/VERB  to/PREP  the/DET  village/NOUN  is/BE  narrow/ADJ
+  Clause 1: main - statement
+    subject:      The road that leads to the village  [noun | base: road | 3rd | singular | definite]
+      relative clause (linker: that) - statement
+        gap:          the subject is the noun this clause describes
+        subject:      -
+        verb:         leads  [base: lead | present | simple]
+        to + ...:     the village  [noun | base: village | 3rd | singular | definite]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (adjective) narrow
+
+[8.1] Focus (S10)
+Sentence: It was Ada who cooked the soup.
+Words:    It/PRON  was/BE  Ada/NAME  who/REL  cooked/VERB  the/DET  soup/NOUN
+  Clause 1: main - statement
+    focus:        Ada  [name | base: Ada | 3rd | singular | female]
+    gap:          the subject is the noun this clause describes
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         cooked  [base: cook | past | simple]
+    object:       the soup  [noun | base: soup | 3rd | singular | definite]
+
+[8.2] Focus (S10)
+Sentence: It was yesterday that the teacher arrived.
+Words:    It/PRON  was/BE  yesterday/ADV  that/REL  the/DET  teacher/NOUN  arrived/VERB
+  Clause 1: main - statement
+    focus:        yesterday
+    gap:          the object or adverb is the noun this clause describes
+    subject:      the teacher  [noun | base: teacher | 3rd | singular | definite]
+    verb:         arrived  [base: arrive | past | simple]
+
+[8.3] Focus (S10)
+Sentence: It is in Lagos that they live.
+Words:    It/PRON  is/BE  in/PREP  Lagos/NAME  that/REL  they/PRON  live/VERB
+  Clause 1: main - statement
+    focus:        in + Lagos  [name | base: Lagos | 3rd | singular]
+    gap:          the object or adverb is the noun this clause describes
+    subject:      they  [pronoun | base: they | 3rd | plural]
+    verb:         live  [base: live | present | simple]
+
+[8.4] Focus (S10)
+Sentence: It was the red bag that Chika bought.
+Words:    It/PRON  was/BE  the/DET  red/ADJ  bag/NOUN  that/REL  Chika/NAME  bought/VERB
+  Clause 1: main - statement
+    focus:        the red bag  [noun | base: bag | 3rd | singular | definite | adjective: red]
+    gap:          the object or adverb is the noun this clause describes
+    subject:      Chika  [name | base: Chika | 3rd | singular | female]
+    verb:         bought  [base: buy | past | simple]
+
+[9.1] Focus (S10)
+Sentence: It was the book that Ada borrowed.
+Words:    It/PRON  was/BE  the/DET  book/NOUN  that/REL  Ada/NAME  borrowed/VERB
+  Clause 1: main - statement
+    focus:        the book  [noun | base: book | 3rd | singular | definite]
+    gap:          the object or adverb is the noun this clause describes
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         borrowed  [base: borrow | past | simple]
+
+[9.2] Focus (S10)
+Sentence: It was the bicycle that Musa repaired.
+Words:    It/PRON  was/BE  the/DET  bicycle/NOUN  that/REL  Musa/NAME  repaired/VERB
+  Clause 1: main - statement
+    focus:        the bicycle  [noun | base: bicycle | 3rd | singular | definite]
+    gap:          the object or adverb is the noun this clause describes
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         repaired  [base: repair | past | simple]
+
+[9.3] Focus (S10)
+Sentence: It was the soup that the child spilled.
+Words:    It/PRON  was/BE  the/DET  soup/NOUN  that/REL  the/DET  child/NOUN  spilled/VERB
+  Clause 1: main - statement
+    focus:        the soup  [noun | base: soup | 3rd | singular | definite]
+    gap:          the object or adverb is the noun this clause describes
+    subject:      the child  [noun | base: child | 3rd | singular | definite]
+    verb:         spilled  [base: spill | past | simple]
+
+[9.4] Focus (S10)
+Sentence: It was the phone that Chika lost.
+Words:    It/PRON  was/BE  the/DET  phone/NOUN  that/REL  Chika/NAME  lost/VERB
+  Clause 1: main - statement
+    focus:        the phone  [noun | base: phone | 3rd | singular | definite]
+    gap:          the object or adverb is the noun this clause describes
+    subject:      Chika  [name | base: Chika | 3rd | singular | female]
+    verb:         lost  [base: lose | past | simple]
+
+[10.1] Focus (S10)
+Sentence: It was Ada who solved the problem.
+Words:    It/PRON  was/BE  Ada/NAME  who/REL  solved/VERB  the/DET  problem/NOUN
+  Clause 1: main - statement
+    focus:        Ada  [name | base: Ada | 3rd | singular | female]
+    gap:          the subject is the noun this clause describes
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         solved  [base: solve | past | simple]
+    object:       the problem  [noun | base: problem | 3rd | singular | definite]
+
+[10.2] Focus (S10)
+Sentence: It was Musa who broke the window.
+Words:    It/PRON  was/BE  Musa/NAME  who/REL  broke/VERB  the/DET  window/NOUN
+  Clause 1: main - statement
+    focus:        Musa  [name | base: Musa | 3rd | singular | male]
+    gap:          the subject is the noun this clause describes
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         broke  [base: break | past | simple]
+    object:       the window  [noun | base: window | 3rd | singular | definite]
+
+[10.3] Focus (S10)
+Sentence: It was the teacher who called the meeting.
+Words:    It/PRON  was/BE  the/DET  teacher/NOUN  who/REL  called/VERB  the/DET  meeting/NOUN
+  Clause 1: main - statement
+    focus:        the teacher  [noun | base: teacher | 3rd | singular | definite]
+    gap:          the subject is the noun this clause describes
+    subject:      the teacher  [noun | base: teacher | 3rd | singular | definite]
+    verb:         called  [base: call | past | simple]
+    object:       the meeting  [noun | base: meeting | 3rd | singular | definite]
+
+[10.4] Focus (S10)
+Sentence: It was Ngozi who prepared the meal.
+Words:    It/PRON  was/BE  Ngozi/NAME  who/REL  prepared/VERB  the/DET  meal/NOUN
+  Clause 1: main - statement
+    focus:        Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    gap:          the subject is the noun this clause describes
+    subject:      Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    verb:         prepared  [base: prepare | past | simple]
+    object:       the meal  [noun | base: meal | 3rd | singular | definite]
+
+[12.1] Passive (S17)
+Sentence: The food was prepared by Ngozi.
+Words:    The/DET  food/NOUN  was/BE  prepared/VERB  by/PREP  Ngozi/NAME
+  Clause 1: main - statement
+    subject:      The food  [noun | base: food | 3rd | singular | definite]
+    verb:         was prepared  [base: prepare | past | simple | passive]
+    doer (by):    Ngozi  [name | base: Ngozi | 3rd | singular | female]
+
+[12.2] Passive (S17)
+Sentence: The car was repaired yesterday.
+Words:    The/DET  car/NOUN  was/BE  repaired/VERB  yesterday/ADV
+  Clause 1: main - statement
+    subject:      The car  [noun | base: car | 3rd | singular | definite]
+    verb:         was repaired  [base: repair | past | simple | passive]
+    adverbs:      yesterday
+
+[12.3] Passive (S17)
+Sentence: The assignment was submitted on time.
+Words:    The/DET  assignment/NOUN  was/BE  submitted/VERB  on time/ADV
+  Clause 1: main - statement
+    subject:      The assignment  [noun | base: assignment | 3rd | singular | definite]
+    verb:         was submitted  [base: submit | past | simple | passive]
+    adverbs:      on time
+
+[12.4] Passive (S17)
+Sentence: The baby was carried by her mother.
+Words:    The/DET  baby/NOUN  was/BE  carried/VERB  by/PREP  her/POSS  mother/NOUN
+  Clause 1: main - statement
+    subject:      The baby  [noun | base: baby | 3rd | singular | definite]
+    verb:         was carried  [base: carry | past | simple | passive]
+    doer (by):    her mother  [noun | base: mother | 3rd | singular | female | definite | owner: her]
+
+[13.1] C14
+Sentence: If you study hard, you will pass.
+Words:    If/SUB  you/PRON  study/VERB  hard/ADV  ,/COMMA  you/PRON  will/MODAL  pass/VERB
+  Clause 1: subordinate (linker: if, condition) - statement
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         study  [base: study | present | simple]
+    adverbs:      hard
+  Clause 2: main - statement
+    subject:      you  [pronoun | base: you | 2nd | singular]
+    verb:         will pass  [base: pass | future | simple]
+
+[13.2] C14
+Sentence: If the rain stops, we will travel.
+Words:    If/SUB  the/DET  rain/NOUN  stops/VERB  ,/COMMA  we/PRON  will/MODAL  travel/VERB
+  Clause 1: subordinate (linker: if, condition) - statement
+    subject:      the rain  [noun | base: rain | 3rd | singular | definite]
+    verb:         stops  [base: stop | present | simple]
+  Clause 2: main - statement
+    subject:      we  [pronoun | base: we | 1st | plural]
+    verb:         will travel  [base: travel | future | simple]
+
+[13.3] C14 (counterfactual)
+Sentence: If Ngozi had arrived earlier, she would have met the lecturer.
+Words:    If/SUB  Ngozi/NAME  had/HAVE  arrived/VERB  earlier/ADV  ,/COMMA  she/PRON  would/MODAL  have/HAVE  met/VERB  the/DET  lecturer/NOUN
+  Clause 1: subordinate (linker: if, condition) - statement
+    subject:      Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    verb:         had arrived  [base: arrive | past | perfect]
+    adverbs:      earlier
+  Clause 2: main - statement
+    subject:      she  [pronoun | base: she | 3rd | singular | female]
+    verb:         would have met  [base: meet | present | perfect | modal: conditional]
+    object:       the lecturer  [noun | base: lecturer | 3rd | singular | definite]
+
+[13.4] C14
+Sentence: If Musa saves enough money, he will buy a laptop.
+Words:    If/SUB  Musa/NAME  saves/VERB  enough/QUANT  money/NOUN  ,/COMMA  he/PRON  will/MODAL  buy/VERB  a/DET  laptop/NOUN
+  Clause 1: subordinate (linker: if, condition) - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         saves  [base: save | present | simple]
+    object:       enough money  [noun | base: money | 3rd | singular | quantifier: enough]
+  Clause 2: main - statement
+    subject:      he  [pronoun | base: he | 3rd | singular | male]
+    verb:         will buy  [base: buy | future | simple]
+    object:       a laptop  [noun | base: laptop | 3rd | singular | indefinite]
+
+[14.1] Optional: imperative
+Sentence: Sit down.
+Words:    Sit/VERB  down/PART
+  Clause 1: main - command
+    subject:      (you)  [pronoun | base: you | 2nd | singular]
+    verb:         Sit down  [base: sit down | present | simple]
+
+[14.2] Optional: imperative
+Sentence: Please close the door.
+Words:    Please/ADV  close/VERB  the/DET  door/NOUN
+  Clause 1: main - command
+    subject:      (you)  [pronoun | base: you | 2nd | singular]
+    verb:         close  [base: close | present | simple]
+    object:       the door  [noun | base: door | 3rd | singular | definite]
+    adverbs:      please
+
+[14.3] Optional: imperative
+Sentence: Do not touch that.
+Words:    Do/DO  not/NEG  touch/VERB  that/DEM_PRON
+  Clause 1: main - command
+    subject:      (you)  [pronoun | base: you | 2nd | singular]
+    verb:         Do not touch  [base: touch | present | simple | negative]
+    object:       that  [demonstrative | base: that | 3rd | singular | far]
+
+[14.4] Optional: imperative
+Sentence: Bring the books here.
+Words:    Bring/VERB  the/DET  books/NOUN  here/ADV
+  Clause 1: main - command
+    subject:      (you)  [pronoun | base: you | 2nd | singular]
+    verb:         Bring  [base: bring | present | simple]
+    object:       the books  [noun | base: book | 3rd | plural | definite]
+    adverbs:      here
+
+[16.1] Optional: existential
+Sentence: There is a problem.
+Words:    There/THERE  is/BE  a/DET  problem/NOUN
+  Clause 1: main - statement
+    existential:  there is / there are
+    subject:      a problem  [noun | base: problem | 3rd | singular | indefinite]
+    verb:         is  [base: be | present | simple | copula 'be']
+
+[16.2] Optional: existential
+Sentence: There are many students outside.
+Words:    There/THERE  are/BE  many/QUANT  students/NOUN  outside/ADV
+  Clause 1: main - statement
+    existential:  there is / there are
+    subject:      many students  [noun | base: student | 3rd | plural | quantifier: many]
+    verb:         are  [base: be | present | simple | copula 'be']
+    adverbs:      outside
+
+[16.3] Optional: existential
+Sentence: There was a loud noise in the market.
+Words:    There/THERE  was/BE  a/DET  loud/ADJ  noise/NOUN  in/PREP  the/DET  market/NOUN
+  Clause 1: main - statement
+    existential:  there is / there are
+    subject:      a loud noise  [noun | base: noise | 3rd | singular | indefinite | adjective: loud]
+    verb:         was  [base: be | past | simple | copula 'be']
+    complement:   (place) in + the market  [noun | base: market | 3rd | singular | definite]
+
+[16.4] Optional: existential
+Sentence: There have been many complaints.
+Words:    There/THERE  have/HAVE  been/BE  many/QUANT  complaints/NOUN
+  Clause 1: main - statement
+    existential:  there is / there are
+    subject:      many complaints  [noun | base: complaint | 3rd | plural | quantifier: many]
+    verb:         have been  [base: be | present | perfect | copula 'be']
+
+[17.1] C6
+Sentence: Ada is a teacher.
+Words:    Ada/NAME  is/BE  a/DET  teacher/NOUN
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (noun) a teacher  [noun | base: teacher | 3rd | singular | indefinite]
+
+[17.2] C7
+Sentence: The soup is hot.
+Words:    The/DET  soup/NOUN  is/BE  hot/ADJ
+  Clause 1: main - statement
+    subject:      The soup  [noun | base: soup | 3rd | singular | definite]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (adjective) hot
+
+[17.3] C7
+Sentence: Musa became angry.
+Words:    Musa/NAME  became/VERB  angry/ADJ
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         became  [base: become | past | simple]
+    complement:   (adjective) angry
+
+[17.4] C7
+Sentence: The children are happy.
+Words:    The/DET  children/NOUN  are/BE  happy/ADJ
+  Clause 1: main - statement
+    subject:      The children  [noun | base: child | 3rd | plural | definite]
+    verb:         are  [base: be | present | simple | copula 'be']
+    complement:   (adjective) happy
+
+[18.1] C3
+Sentence: Musa gave Ada a book.
+Words:    Musa/NAME  gave/VERB  Ada/NAME  a/DET  book/NOUN
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         gave  [base: give | past | simple]
+    receiver:     Ada  [name | base: Ada | 3rd | singular | female]
+    object:       a book  [noun | base: book | 3rd | singular | indefinite]
+
+[18.2] C3
+Sentence: The teacher sent the students a message.
+Words:    The/DET  teacher/NOUN  sent/VERB  the/DET  students/NOUN  a/DET  message/NOUN
+  Clause 1: main - statement
+    subject:      The teacher  [noun | base: teacher | 3rd | singular | definite]
+    verb:         sent  [base: send | past | simple]
+    receiver:     the students  [noun | base: student | 3rd | plural | definite]
+    object:       a message  [noun | base: message | 3rd | singular | indefinite]
+
+[18.3] C3
+Sentence: Ngozi bought her mother a wrapper.
+Words:    Ngozi/NAME  bought/VERB  her/POSS  mother/NOUN  a/DET  wrapper/NOUN
+  Clause 1: main - statement
+    subject:      Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    verb:         bought  [base: buy | past | simple]
+    receiver:     her mother  [noun | base: mother | 3rd | singular | female | definite | owner: her]
+    object:       a wrapper  [noun | base: wrapper | 3rd | singular | indefinite]
+
+[18.4] C3
+Sentence: Chika told the children a story.
+Words:    Chika/NAME  told/VERB  the/DET  children/NOUN  a/DET  story/NOUN
+  Clause 1: main - statement
+    subject:      Chika  [name | base: Chika | 3rd | singular | female]
+    verb:         told  [base: tell | past | simple]
+    receiver:     the children  [noun | base: child | 3rd | plural | definite]
+    object:       a story  [noun | base: story | 3rd | singular | indefinite]
+
+[20.1] C3
+Sentence: Ada cooked Musa dinner.
+Words:    Ada/NAME  cooked/VERB  Musa/NAME  dinner/NOUN
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         cooked  [base: cook | past | simple]
+    receiver:     Musa  [name | base: Musa | 3rd | singular | male]
+    object:       dinner  [noun | base: dinner | 3rd | singular]
+
+[20.2] C3
+Sentence: She bought her mother a gift.
+Words:    She/PRON  bought/VERB  her/POSS  mother/NOUN  a/DET  gift/NOUN
+  Clause 1: main - statement
+    subject:      She  [pronoun | base: she | 3rd | singular | female]
+    verb:         bought  [base: buy | past | simple]
+    receiver:     her mother  [noun | base: mother | 3rd | singular | female | definite | owner: her]
+    object:       a gift  [noun | base: gift | 3rd | singular | indefinite]
+
+[20.3] C3
+Sentence: Chika fetched water for the children.
+Words:    Chika/NAME  fetched/VERB  water/NOUN  for/PREP  the/DET  children/NOUN
+  Clause 1: main - statement
+    subject:      Chika  [name | base: Chika | 3rd | singular | female]
+    verb:         fetched  [base: fetch | past | simple]
+    receiver:     the children  [noun | base: child | 3rd | plural | definite]
+    object:       water  [noun | base: water | 3rd | singular]
+
+[20.4] C3
+Sentence: The teacher wrote recommendations for the students.
+Words:    The/DET  teacher/NOUN  wrote/VERB  recommendations/NOUN  for/PREP  the/DET  students/NOUN
+  Clause 1: main - statement
+    subject:      The teacher  [noun | base: teacher | 3rd | singular | definite]
+    verb:         wrote  [base: write | past | simple]
+    receiver:     the students  [noun | base: student | 3rd | plural | definite]
+    object:       recommendations  [noun | base: recommendation | 3rd | plural]
+
+[25.1] C10
+Sentence: Nobody came.
+Words:    Nobody/INDEF  came/VERB
+  Clause 1: main - statement
+    subject:      Nobody  [indefinite | base: nobody | 3rd | singular | negative]
+    verb:         came  [base: come | past | simple]
+
+[25.2] C10
+Sentence: I never saw anything.
+Words:    I/PRON  never/NEG  saw/VERB  anything/INDEF
+  Clause 1: main - statement
+    subject:      I  [pronoun | base: i | 1st | singular]
+    verb:         never saw  [base: see | past | simple | negative (never)]
+    object:       anything  [indefinite | base: anything | 3rd | singular]
+
+[25.3] C10
+Sentence: Musa did not attend the meeting.
+Words:    Musa/NAME  did/DO  not/NEG  attend/VERB  the/DET  meeting/NOUN
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         did not attend  [base: attend | past | simple | negative]
+    object:       the meeting  [noun | base: meeting | 3rd | singular | definite]
+
+[25.4] C10
+Sentence: Ada cannot swim.
+Words:    Ada/NAME  can/MODAL  not/NEG  swim/VERB
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         can not swim  [base: swim | present | simple | negative | modal: ability]
+
+[26.1] C16
+Sentence: I know that she left.
+Words:    I/PRON  know/VERB  that/COMP  she/PRON  left/VERB
+  Clause 1: main - statement
+    subject:      I  [pronoun | base: i | 1st | singular]
+    verb:         know  [base: know | present | simple]
+      complement clause (linker: that) - statement
+        subject:      she  [pronoun | base: she | 3rd | singular | female]
+        verb:         left  [base: leave | past | simple]
+
+[26.2] C16
+Sentence: Musa believes that Ada is honest.
+Words:    Musa/NAME  believes/VERB  that/COMP  Ada/NAME  is/BE  honest/ADJ
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         believes  [base: believe | present | simple]
+      complement clause (linker: that) - statement
+        subject:      Ada  [name | base: Ada | 3rd | singular | female]
+        verb:         is  [base: be | present | simple | copula 'be']
+        complement:   (adjective) honest
+
+[26.3] C16
+Sentence: The teacher said that the exam was difficult.
+Words:    The/DET  teacher/NOUN  said/VERB  that/COMP  the/DET  exam/NOUN  was/BE  difficult/ADJ
+  Clause 1: main - statement
+    subject:      The teacher  [noun | base: teacher | 3rd | singular | definite]
+    verb:         said  [base: say | past | simple]
+      complement clause (linker: that) - statement
+        subject:      the exam  [noun | base: exam | 3rd | singular | definite]
+        verb:         was  [base: be | past | simple | copula 'be']
+        complement:   (adjective) difficult
+
+[26.4] C16
+Sentence: Chika heard that the market closed early.
+Words:    Chika/NAME  heard/VERB  that/COMP  the/DET  market/NOUN  closed/VERB  early/ADV
+  Clause 1: main - statement
+    subject:      Chika  [name | base: Chika | 3rd | singular | female]
+    verb:         heard  [base: hear | past | simple]
+      complement clause (linker: that) - statement
+        subject:      the market  [noun | base: market | 3rd | singular | definite]
+        verb:         closed  [base: close | past | simple]
+        adverbs:      early
+
+[35.1] C12
+Sentence: Who did Ada invite?
+Words:    Who/WH  did/DO  Ada/NAME  invite/VERB
+  Clause 1: main - wh-question
+    question:     who (asks about the object)
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         did invite  [base: invite | past | simple]
+    object:       Who  [wh | base: who]
+
+[35.2] C12
+Sentence: What did Musa buy?
+Words:    What/WH  did/DO  Musa/NAME  buy/VERB
+  Clause 1: main - wh-question
+    question:     what (asks about the object)
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         did buy  [base: buy | past | simple]
+    object:       What  [wh | base: what]
+
+[35.3] C12
+Sentence: Which student solved the problem?
+Words:    Which/WH  student/NOUN  solved/VERB  the/DET  problem/NOUN
+  Clause 1: main - wh-question
+    question:     which (asks about the subject)
+    subject:      student  [noun | base: student | 3rd | singular | which]
+    verb:         solved  [base: solve | past | simple]
+    object:       the problem  [noun | base: problem | 3rd | singular | definite]
+
+[35.4] C12
+Sentence: Who did the teacher praise?
+Words:    Who/WH  did/DO  the/DET  teacher/NOUN  praise/VERB
+  Clause 1: main - wh-question
+    question:     who (asks about the object)
+    subject:      the teacher  [noun | base: teacher | 3rd | singular | definite]
+    verb:         did praise  [base: praise | past | simple]
+    object:       Who  [wh | base: who]
+
+[40.1] C15+C6
+Sentence: The man who arrived yesterday is my uncle.
+Words:    The/DET  man/NOUN  who/REL  arrived/VERB  yesterday/ADV  is/BE  my/POSS  uncle/NOUN
+  Clause 1: main - statement
+    subject:      The man who arrived yesterday  [noun | base: man | 3rd | singular | male | definite]
+      relative clause (linker: who) - statement
+        gap:          the subject is the noun this clause describes
+        subject:      -
+        verb:         arrived  [base: arrive | past | simple]
+        adverbs:      yesterday
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (noun) my uncle  [noun | base: uncle | 3rd | singular | male | definite | owner: my]
+
+[40.2] C15
+Sentence: The book that Ada borrowed is missing.
+Words:    The/DET  book/NOUN  that/REL  Ada/NAME  borrowed/VERB  is/BE  missing/ADJ
+  Clause 1: main - statement
+    subject:      The book that Ada borrowed  [noun | base: book | 3rd | singular | definite]
+      relative clause (linker: that) - statement
+        gap:          the object is the noun this clause describes
+        subject:      Ada  [name | base: Ada | 3rd | singular | female]
+        verb:         borrowed  [base: borrow | past | simple]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (adjective) missing
+
+[40.3] C15
+Sentence: The girl whose father is a doctor won the prize.
+Words:    The/DET  girl/NOUN  whose/REL  father/NOUN  is/BE  a/DET  doctor/NOUN  won/VERB  the/DET  prize/NOUN
+  Clause 1: main - statement
+    subject:      The girl whose father is a doctor  [noun | base: girl | 3rd | singular | female | definite]
+      relative clause (linker: whose) - statement
+        gap:          the possessor is the noun this clause describes
+        subject:      father  [noun | base: father | 3rd | singular | male]
+        verb:         is  [base: be | present | simple | copula 'be']
+        complement:   (noun) a doctor  [noun | base: doctor | 3rd | singular | indefinite]
+    verb:         won  [base: win | past | simple]
+    object:       the prize  [noun | base: prize | 3rd | singular | definite]
+
+[40.4] C15
+Sentence: The teacher whom the students admired retired.
+Words:    The/DET  teacher/NOUN  whom/REL  the/DET  students/NOUN  admired/VERB  retired/VERB
+  Clause 1: main - statement
+    subject:      The teacher whom the students admired  [noun | base: teacher | 3rd | singular | definite]
+      relative clause (linker: whom) - statement
+        gap:          the object is the noun this clause describes
+        subject:      the students  [noun | base: student | 3rd | plural | definite]
+        verb:         admired  [base: admire | past | simple]
+    verb:         retired  [base: retire | past | simple]
+
+[41.1] C11
+Sentence: Did Musa arrive?
+Words:    Did/DO  Musa/NAME  arrive/VERB
+  Clause 1: main - yes-no question
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         Did arrive  [base: arrive | past | simple]
+
+[41.2] C12
+Sentence: Who bought the food?
+Words:    Who/WH  bought/VERB  the/DET  food/NOUN
+  Clause 1: main - wh-question
+    question:     who (asks about the subject)
+    subject:      Who  [wh | base: who]
+    verb:         bought  [base: buy | past | simple]
+    object:       the food  [noun | base: food | 3rd | singular | definite]
+
+[41.3] C11
+Sentence: You are leaving already?
+Words:    You/PRON  are/BE  leaving/VERB  already/ADV
+  Clause 1: main - yes-no question
+    subject:      You  [pronoun | base: you | 2nd | singular]
+    verb:         are leaving  [base: leave | present | progressive]
+    adverbs:      already
+
+[41.4] C12
+Sentence: Why would anyone do that?
+Words:    Why/WH  would/MODAL  anyone/INDEF  do/DO  that/DEM_PRON
+  Clause 1: main - wh-question
+    question:     why (asks about the reason)
+    subject:      anyone  [indefinite | base: anyone | 3rd | singular]
+    verb:         would do  [base: do | present | simple | modal: conditional]
+    object:       that  [demonstrative | base: that | 3rd | singular | far]
+    adverbs:      Why
+
+[49.1] C8
+Sentence: The children are in the house.
+Words:    The/DET  children/NOUN  are/BE  in/PREP  the/DET  house/NOUN
+  Clause 1: main - statement
+    subject:      The children  [noun | base: child | 3rd | plural | definite]
+    verb:         are  [base: be | present | simple | copula 'be']
+    complement:   (place) in + the house  [noun | base: house | 3rd | singular | definite]
+
+[49.2] C2
+Sentence: Musa put the bag on the table.
+Words:    Musa/NAME  put/VERB  the/DET  bag/NOUN  on/PREP  the/DET  table/NOUN
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         put  [base: put | past | simple]
+    object:       the bag  [noun | base: bag | 3rd | singular | definite]
+    on + ...:     the table  [noun | base: table | 3rd | singular | definite]
+
+[49.3] C8
+Sentence: The goat is behind the fence.
+Words:    The/DET  goat/NOUN  is/BE  behind/PREP  the/DET  fence/NOUN
+  Clause 1: main - statement
+    subject:      The goat  [noun | base: goat | 3rd | singular | definite]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (place) behind + the fence  [noun | base: fence | 3rd | singular | definite]
+
+[49.4] C1
+Sentence: Ada sat near the window.
+Words:    Ada/NAME  sat/VERB  near/PREP  the/DET  window/NOUN
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         sat  [base: sit | past | simple]
+    near + ...:   the window  [noun | base: window | 3rd | singular | definite]
+
+[50.1] C9
+Sentence: Ada has a car.
+Words:    Ada/NAME  has/HAVE  a/DET  car/NOUN
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         has  [base: have | present | simple | possession 'have']
+    object:       a car  [noun | base: car | 3rd | singular | indefinite]
+
+[50.2] C6
+Sentence: The book belongs to Musa.
+Words:    The/DET  book/NOUN  belongs/VERB  to/PREP  Musa/NAME
+  Clause 1: main - statement
+    subject:      The book  [noun | base: book | 3rd | singular | definite]
+    verb:         belongs  [base: belong | present | simple]
+    to + ...:     Musa  [name | base: Musa | 3rd | singular | male]
+
+[50.3] C9
+Sentence: Ngozi owns a bakery.
+Words:    Ngozi/NAME  owns/VERB  a/DET  bakery/NOUN
+  Clause 1: main - statement
+    subject:      Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    verb:         owns  [base: own | present | simple]
+    object:       a bakery  [noun | base: bakery | 3rd | singular | indefinite]
+
+[50.4] C9
+Sentence: The child has two pencils.
+Words:    The/DET  child/NOUN  has/HAVE  two/NUM  pencils/NOUN
+  Clause 1: main - statement
+    subject:      The child  [noun | base: child | 3rd | singular | definite]
+    verb:         has  [base: have | present | simple | possession 'have']
+    object:       two pencils  [noun | base: pencil | 3rd | plural | number: two]
+
+[51.1] Optional: experiencer
+Sentence: Musa likes rice.
+Words:    Musa/NAME  likes/VERB  rice/NOUN
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         likes  [base: like | present | simple]
+    object:       rice  [noun | base: rice | 3rd | singular]
+
+[51.2] Optional: experiencer
+Sentence: The noise frightened Ada.
+Words:    The/DET  noise/NOUN  frightened/VERB  Ada/NAME
+  Clause 1: main - statement
+    subject:      The noise  [noun | base: noise | 3rd | singular | definite]
+    verb:         frightened  [base: frighten | past | simple]
+    object:       Ada  [name | base: Ada | 3rd | singular | female]
+
+[51.3] Optional: experiencer
+Sentence: Ngozi enjoys classical music.
+Words:    Ngozi/NAME  enjoys/VERB  classical/ADJ  music/NOUN
+  Clause 1: main - statement
+    subject:      Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    verb:         enjoys  [base: enjoy | present | simple]
+    object:       classical music  [noun | base: music | 3rd | singular | adjective: classical]
+
+[51.4] Optional: experiencer
+Sentence: The movie surprised the students.
+Words:    The/DET  movie/NOUN  surprised/VERB  the/DET  students/NOUN
+  Clause 1: main - statement
+    subject:      The movie  [noun | base: movie | 3rd | singular | definite]
+    verb:         surprised  [base: surprise | past | simple]
+    object:       the students  [noun | base: student | 3rd | plural | definite]
+
+[52.1] Optional: weather
+Sentence: It is raining.
+Words:    It/PRON  is/BE  raining/VERB
+  Clause 1: main - statement
+    subject:      It  [pronoun | base: it | 3rd | singular]
+    verb:         is raining  [base: rain | present | progressive]
+
+[52.2] Optional: weather
+Sentence: The weather is cold.
+Words:    The/DET  weather/NOUN  is/BE  cold/ADJ
+  Clause 1: main - statement
+    subject:      The weather  [noun | base: weather | 3rd | singular | definite]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (adjective) cold
+
+[52.3] Optional: weather
+Sentence: It became cloudy this morning.
+Words:    It/PRON  became/VERB  cloudy/ADJ  this morning/ADV
+  Clause 1: main - statement
+    subject:      It  [pronoun | base: it | 3rd | singular]
+    verb:         became  [base: become | past | simple]
+    complement:   (adjective) cloudy
+    adverbs:      this morning
+
+[52.4] Optional: weather
+Sentence: It was windy yesterday.
+Words:    It/PRON  was/BE  windy/ADJ  yesterday/ADV
+  Clause 1: main - statement
+    subject:      It  [pronoun | base: it | 3rd | singular]
+    verb:         was  [base: be | past | simple | copula 'be']
+    complement:   (adjective) windy
+    adverbs:      yesterday
+
+[55.1] C3
+Sentence: Ada gave Musa a book.
+Words:    Ada/NAME  gave/VERB  Musa/NAME  a/DET  book/NOUN
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         gave  [base: give | past | simple]
+    receiver:     Musa  [name | base: Musa | 3rd | singular | male]
+    object:       a book  [noun | base: book | 3rd | singular | indefinite]
+
+[55.2] C3
+Sentence: Ada gave a book to Musa.
+Words:    Ada/NAME  gave/VERB  a/DET  book/NOUN  to/PREP  Musa/NAME
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         gave  [base: give | past | simple]
+    receiver:     Musa  [name | base: Musa | 3rd | singular | male]
+    object:       a book  [noun | base: book | 3rd | singular | indefinite]
+
+[55.3] C3
+Sentence: Ngozi sent Chika a message.
+Words:    Ngozi/NAME  sent/VERB  Chika/NAME  a/DET  message/NOUN
+  Clause 1: main - statement
+    subject:      Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    verb:         sent  [base: send | past | simple]
+    receiver:     Chika  [name | base: Chika | 3rd | singular | female]
+    object:       a message  [noun | base: message | 3rd | singular | indefinite]
+
+[55.4] C3
+Sentence: Ngozi sent a message to Chika.
+Words:    Ngozi/NAME  sent/VERB  a/DET  message/NOUN  to/PREP  Chika/NAME
+  Clause 1: main - statement
+    subject:      Ngozi  [name | base: Ngozi | 3rd | singular | female]
+    verb:         sent  [base: send | past | simple]
+    receiver:     Chika  [name | base: Chika | 3rd | singular | female]
+    object:       a message  [noun | base: message | 3rd | singular | indefinite]
+
+[A.1] C4
+Sentence: The children are playing.
+Words:    The/DET  children/NOUN  are/BE  playing/VERB
+  Clause 1: main - statement
+    subject:      The children  [noun | base: child | 3rd | plural | definite]
+    verb:         are playing  [base: play | present | progressive]
+
+[A.2] C4
+Sentence: She is cooking rice.
+Words:    She/PRON  is/BE  cooking/VERB  rice/NOUN
+  Clause 1: main - statement
+    subject:      She  [pronoun | base: she | 3rd | singular | female]
+    verb:         is cooking  [base: cook | present | progressive]
+    object:       rice  [noun | base: rice | 3rd | singular]
+
+[A.3] C4
+Sentence: I eat rice every day.
+Words:    I/PRON  eat/VERB  rice/NOUN  every day/ADV
+  Clause 1: main - statement
+    subject:      I  [pronoun | base: i | 1st | singular]
+    verb:         eat  [base: eat | present | simple]
+    object:       rice  [noun | base: rice | 3rd | singular]
+    adverbs:      every day
+
+[A.4] C5
+Sentence: We will go to the market tomorrow.
+Words:    We/PRON  will/MODAL  go/VERB  to/PREP  the/DET  market/NOUN  tomorrow/ADV
+  Clause 1: main - statement
+    subject:      We  [pronoun | base: we | 1st | plural]
+    verb:         will go  [base: go | future | simple]
+    to + ...:     the market  [noun | base: market | 3rd | singular | definite]
+    adverbs:      tomorrow
+
+[A.5] C5
+Sentence: Musa will buy a car.
+Words:    Musa/NAME  will/MODAL  buy/VERB  a/DET  car/NOUN
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         will buy  [base: buy | future | simple]
+    object:       a car  [noun | base: car | 3rd | singular | indefinite]
+
+[A.6] C10
+Sentence: I will not go.
+Words:    I/PRON  will/MODAL  not/NEG  go/VERB
+  Clause 1: main - statement
+    subject:      I  [pronoun | base: i | 1st | singular]
+    verb:         will not go  [base: go | future | simple | negative]
+
+[A.7] C10
+Sentence: He does not eat meat.
+Words:    He/PRON  does/DO  not/NEG  eat/VERB  meat/NOUN
+  Clause 1: main - statement
+    subject:      He  [pronoun | base: he | 3rd | singular | male]
+    verb:         does not eat  [base: eat | present | simple | negative]
+    object:       meat  [noun | base: meat | 3rd | singular]
+
+[A.8] C10
+Sentence: Ada is not a teacher.
+Words:    Ada/NAME  is/BE  not/NEG  a/DET  teacher/NOUN
+  Clause 1: main - statement
+    subject:      Ada  [name | base: Ada | 3rd | singular | female]
+    verb:         is not  [base: be | present | simple | negative | copula 'be']
+    complement:   (noun) a teacher  [noun | base: teacher | 3rd | singular | indefinite]
+
+[A.9] C10
+Sentence: I do not have a car.
+Words:    I/PRON  do/DO  not/NEG  have/HAVE  a/DET  car/NOUN
+  Clause 1: main - statement
+    subject:      I  [pronoun | base: i | 1st | singular]
+    verb:         do not have  [base: have | present | simple | negative | possession 'have']
+    object:       a car  [noun | base: car | 3rd | singular | indefinite]
+
+[A.10] C8
+Sentence: Musa is at the market.
+Words:    Musa/NAME  is/BE  at/PREP  the/DET  market/NOUN
+  Clause 1: main - statement
+    subject:      Musa  [name | base: Musa | 3rd | singular | male]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (place) at + the market  [noun | base: market | 3rd | singular | definite]
+
+[A.11] C7
+Sentence: This house is big.
+Words:    This/DEM  house/NOUN  is/BE  big/ADJ
+  Clause 1: main - statement
+    subject:      This house  [noun | base: house | 3rd | singular | near]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (adjective) big
+
+[A.12] C7
+Sentence: My car is new.
+Words:    My/POSS  car/NOUN  is/BE  new/ADJ
+  Clause 1: main - statement
+    subject:      My car  [noun | base: car | 3rd | singular | definite | owner: My]
+    verb:         is  [base: be | present | simple | copula 'be']
+    complement:   (adjective) new
