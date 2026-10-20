@@ -247,10 +247,11 @@ Words:    While/SUB  the/DET  children/NOUN  played/VERB  outside/ADV  ,/COMMA  
 
 [4.5] C13+C14
 Sentence: Since the roads were flooded, we stayed indoors, but the children wanted to go outside.
-Words:    Since/SUB  the/DET  roads/NOUN  were/BE  flooded/VERB  ,/COMMA  we/PRON  stayed/VERB  indoors/ADV  ,/COMMA  but/COORD  the/DET  children/NOUN  wanted/VERB  to/TO_INF  go/VERB  outside/ADV
+Words:    Since/SUB  the/DET  roads/NOUN  were/BE  flooded/ADJ  ,/COMMA  we/PRON  stayed/VERB  indoors/ADV  ,/COMMA  but/COORD  the/DET  children/NOUN  wanted/VERB  to/TO_INF  go/VERB  outside/ADV
   Clause 1: subordinate (linker: since, reason) - statement
     subject:      the roads  [noun | base: road | 3rd | plural | definite]
-    verb:         were flooded  [base: flood | past | simple | passive]
+    verb:         were  [base: be | past | simple | copula 'be']
+    complement:   (adjective) flooded
   Clause 2: main - statement
     subject:      we  [pronoun | base: we | 1st | plural]
     verb:         stayed  [base: stay | past | simple]

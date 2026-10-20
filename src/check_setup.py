@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-LEXICON = ROOT / "data" / "lexicon" / "Hausa_RBMT_Lexicon_v2.xlsx"
+LEXICON = ROOT / "data" / "lexicon" / "Hausa_RBMT_Lexicon_v3.xlsx"
 TESTSET = ROOT / "data" / "test" / "CLN731_Hausa_Test_Sentences_v2.xlsx"
 
 

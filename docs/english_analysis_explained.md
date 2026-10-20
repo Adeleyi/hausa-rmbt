@@ -8,7 +8,7 @@ The English analysis is stage 1 of our transfer system. It reads an English sent
 | --- | --- | --- |
 | `src/english_words.py` | Word lists: pronouns, auxiliaries, irregular verbs, names, and so on | Linguists |
 | `src/english_analysis.py` | The rules that do the analysis | Coders |
-| `src/run_english_analysis.py` | Runs the analysis on all test sentences and writes a report | Nobody (just run it) |
+| `src/run_analysis.py` | Runs the analysis on all test sentences and writes a report | Nobody (just run it) |
 | `outputs/english_analysis_report.txt` | The report for every test sentence | Created automatically |
 
 ## How to run it
@@ -16,13 +16,13 @@ The English analysis is stage 1 of our transfer system. It reads an English sent
 One sentence:
 
 ```
-python src/english_analysis.py "The girls did not eat the rice."
+python src/try_sentence.py --analysis "The girls did not eat the rice."
 ```
 
 All test sentences:
 
 ```
-python src/run_english_analysis.py
+python src/run_analysis.py
 ```
 
 ## What the output looks like
@@ -105,8 +105,7 @@ All 128 test sentences are analysed with no problems flagged. "No problems flagg
 ## Known limitations
 
 - "you" is always singular and of unknown sex; the transfer stage uses the masculine default (A2/B11).
-- *If Ngozi had arrived …, she would have met …* is analysed (perfect + conditional) but our rules do not yet translate counterfactuals.
-- *The roads were flooded* is analysed as a passive; Hausa will use a different construction.
+- A past participle is read as an adjective only if it is in the Adjectives tab (*flooded* is, so *were flooded* is *be* + adjective). Otherwise *were* + participle is read as a passive.
 - Weather *it* (*It is raining*) is analysed as a normal subject; the transfer stage must turn it into impersonal *ana*.
 - A word not in any list is guessed from its ending and position. If the report shows a wrong tag, add the word to the right list in `english_words.py`.
 
@@ -115,4 +114,4 @@ All 128 test sentences are analysed with no problems flagged. "No problems flagg
 1. Find the sentence in the report and see which word has the wrong tag or base form.
 2. If a word is missing or in the wrong list, edit `english_words.py` (no coding needed).
 3. If the structure is wrong although every tag is right, tell the analysis engineer: a rule in `english_analysis.py` needs changing.
-4. Run `python src/run_english_analysis.py` again and check that other sentences did not break.
+4. Run `python src/run_analysis.py` again and check that other sentences did not break.

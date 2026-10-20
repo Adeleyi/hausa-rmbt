@@ -14,12 +14,9 @@ and you can fix it.
 """
 import re
 from dataclasses import dataclass, field
-from pathlib import Path
 
 import english_words as W
-
-ROOT = Path(__file__).resolve().parent.parent
-LEXICON_FILE = ROOT / "data" / "lexicon" / "Hausa_RBMT_Lexicon_v2.xlsx"
+import hausa_lexicon as L
 
 
 # ===========================================================================
@@ -119,20 +116,16 @@ def word_classes():
         return _WORDS
     nouns, verbs, adjs = set(W.EXTRA_NOUNS), set(W.EXTRA_VERBS), set(W.EXTRA_ADJECTIVES)
     names = dict(W.NAMES)
-    try:
-        import pandas as pd
-        tabs = pd.read_excel(LEXICON_FILE, sheet_name=["Nouns", "Verbs", "Adjectives", "Names"], dtype=str)
-        for tab, target in (("Nouns", nouns), ("Verbs", verbs), ("Adjectives", adjs)):
-            for keys in tabs[tab]["keys"].dropna():
-                for k in keys.split(";"):
-                    k = k.strip().lower()
-                    if k and " " not in k and k.isalpha():
-                        target.add(k)
-        for _, row in tabs["Names"].iterrows():
-            if isinstance(row["name"], str) and row.get("gender") in ("m", "f"):
-                names.setdefault(row["name"].lower(), row["gender"])
-    except Exception as err:  # the analysis still works with the built-in lists
-        print(f"Warning: could not read the lexicon ({err}). Using built-in word lists only.")
+    tabs = L.tabs()
+    for tab, target in (("Nouns", nouns), ("Verbs", verbs), ("Adjectives", adjs)):
+        for keys in tabs[tab]["keys"]:
+            for k in keys.split(";"):
+                k = k.strip().lower()
+                if k and " " not in k and k.isalpha():
+                    target.add(k)
+    for _, row in tabs["Names"].iterrows():
+        if row["name"] and row["gender"] in ("m", "f"):
+            names.setdefault(row["name"].lower(), row["gender"])
     # grammar words must never be treated as nouns or verbs
     grammar = (set(W.PRONOUNS) | set(W.POSSESSIVES) | set(W.ARTICLES) | set(W.DEMONSTRATIVES)
                | set(W.WH_WORDS) | set(W.BE_FORMS) | set(W.HAVE_FORMS) | set(W.DO_FORMS)
@@ -250,7 +243,7 @@ def noun_base(word):
     return None
 
 
-def possible_tags(tok, position, tokens):
+def possible_tags(tok, position):
     """List every word class this word could have, before looking at context."""
     w = tok.lower
     opts = {}
@@ -327,10 +320,23 @@ VERB_GROUP_TAGS = {"VERB", "BE", "HAVE", "DO", "MODAL"}
 NP_START_TAGS = {"DET", "DEM", "POSS", "NUM", "QUANT", "ADJ", "NOUN", "NAME", "PRON", "INDEF"}
 
 
+def clause_follows(tokens, j):
+    """After before/after/until: is it a noun phrase + verb (a clause), not just a noun phrase?"""
+    np_words = {"DET", "POSS", "DEM", "NUM", "QUANT", "ADJ", "NOUN", "NAME", "PRON", "INDEF"}
+    start = j
+    while j < len(tokens) and set(tokens[j].options) & np_words and not set(tokens[j].options) & {"BE", "MODAL", "HAVE"}:
+        if "VERB" in tokens[j].options and j > start and "NOUN" not in tokens[j].options:
+            break
+        j += 1
+    if j == start or j >= len(tokens):
+        return False
+    return bool(set(tokens[j].options) & {"VERB", "BE", "HAVE", "MODAL", "DO"})
+
+
 def tag_words(tokens):
     """Choose one word class per word, using the words around it (left to right)."""
     for i, tok in enumerate(tokens):
-        tok.options = possible_tags(tok, i, tokens)
+        tok.options = possible_tags(tok, i)
     verb_seen = False                       # has this clause had a verb yet?
     rel_state = 0                           # 1 = inside a relative clause, 2 = its verb has been seen
     for i, tok in enumerate(tokens):
@@ -355,7 +361,11 @@ def tag_words(tokens):
         elif "DEM" in opts:
             verb_follows = any("VERB" in t.options or set(t.options) & {"BE", "HAVE", "MODAL"}
                                for t in tokens[i + 1:])
-            if tok.lower == "that" and p in ("NOUN", "NAME", "PRON", "INDEF", "ADV") and i > 1:
+            told_x_that = i > 1 and p in ("PRON", "NAME") and tokens[i - 2].tag == "VERB" \
+                and tokens[i - 2].lemma in W.SAY_THINK_VERBS and verb_follows
+            if told_x_that:
+                tag = "COMP"                     # "Musa told me that he ..."
+            elif tok.lower == "that" and p in ("NOUN", "NAME", "PRON", "INDEF", "ADV") and i > 1:
                 tag = "REL"                      # "the book that I borrowed"
             elif tok.lower == "that" and p == "VERB" and verb_follows:
                 tag = "COMP"                     # "I know that she left"
@@ -378,7 +388,7 @@ def tag_words(tokens):
             else:
                 tag = "WH"
         # --- "to": infinitive before a verb, preposition otherwise
-        elif "TO" in opts or tok.lower == "to":
+        elif "TO" in opts:
             tag = "TO_INF" if nxt and "VERB" in nxt_opts and not set(nxt_opts) & {"DET", "NAME", "PRON"} \
                 and nxt_opts["VERB"][1] == "base" and "NOUN" not in nxt_opts else "PREP"
             if nxt and "VERB" in nxt_opts and "NOUN" in nxt_opts and p == "VERB":
@@ -390,8 +400,8 @@ def tag_words(tokens):
         elif "PREP" in opts and ("ADV" in opts or "SUB" in opts or "PART" in opts):
             if "PART" in opts and p == "VERB" and (prev.lemma + " " + tok.lower) in W.PHRASAL_VERBS:
                 tag = "PART"
-            elif "SUB" in opts and (i == 0 or p == "PUNCT"):
-                tag = "SUB"
+            elif "SUB" in opts and (i == 0 or p == "PUNCT" or clause_follows(tokens, i + 1)):
+                tag = "SUB"                       # "We left before the rain started."
             elif nxt and set(nxt_opts) & {"DET", "POSS", "NOUN", "NAME", "NUM", "PRON", "DEM"}:
                 tag = "PREP"
             else:
@@ -409,9 +419,10 @@ def tag_words(tokens):
         else:
             has_v, has_n, has_a = "VERB" in opts, "NOUN" in opts, "ADJ" in opts
             vform = opts["VERB"][1] if has_v else ""
-            if has_a and p in ("BE", "ADV") and not (vform in ("ing", "past/participle", "participle")
-                                                      and tok.lower not in word_classes()["adjs"]):
-                tag = "ADJ"                       # "is happy", "is missing"
+            after_be = p in ("BE", "ADV") or (p == "NEG" and i > 1 and tokens[i - 2].tag == "BE")
+            if has_a and after_be and not (vform in ("ing", "past/participle", "participle")
+                                           and tok.lower not in word_classes()["adjs"]):
+                tag = "ADJ"                       # "is happy", "is not big", "is missing"
             elif has_a and nxt and "NOUN" in nxt_opts and "VERB" not in nxt_opts and p != "BE":
                 tag = "ADJ"                       # "red bag", "good seats"
             elif has_a and not has_n and not has_v:
@@ -424,6 +435,9 @@ def tag_words(tokens):
                 tag = "VERB"                      # "is crying", "was stolen"
             elif has_n and p in ("DET", "POSS", "DEM", "NUM", "QUANT", "ADJ", "PREP", "POSS_S"):
                 tag = "NOUN"
+            elif has_v and vform == "base" and p in ("NAME", "NOUN", "PRON") \
+                    and any(t.tag in ("DO", "MODAL") for t in tokens[:i - 1]):
+                tag = "VERB"                      # question: "Did Ada cook ...?", "Can the boy swim?"
             elif has_v and p in ("NOUN", "NAME", "ADV") and not verb_seen:
                 tag = "VERB"                      # "Birds fly", "The man ... lives"
             elif has_v and p in ("NOUN", "NAME") and vform in ("past/participle", "past", "3sg", "participle"):
@@ -441,13 +455,11 @@ def tag_words(tokens):
             else:
                 tag = next(iter(opts))
 
-        # --- "have/do" as helper verbs or main verbs is decided in the verb group parser
+        # ("have" / "do" as helper or main verb is decided later, in parse_verb_group)
         tok.tag = tag
         val = opts.get(tag)
-        if tag == "VERB":
-            tok.lemma, tok.form = val
-        elif tag == "NOUN":
-            tok.lemma, tok.form = val
+        if tag in ("VERB", "NOUN"):
+            tok.lemma, tok.form = val          # (base form, form)
         elif tag in ("REL", "COMP", "DEM_PRON"):
             tok.lemma = tok.lower
         else:
@@ -505,13 +517,8 @@ def split_clauses(tokens):
         else:
             merged.append(c)
 
-    clauses = []
-    for chunk in merged:
-        for piece in split_inside(chunk):
-            clauses.append(piece)
-    # a subordinate clause that comes first is attached to the next main clause;
-    # we keep the order and mark roles so the transfer stage can rebuild it.
-    return clauses
+    # the clauses keep the English order; their roles tell the transfer stage how they connect
+    return [piece for chunk in merged for piece in split_inside(chunk)]
 
 
 def split_inside(chunk):
@@ -591,6 +598,7 @@ def parse_np(tokens, i):
     # determiner slot
     if t.tag == "DET":
         np.definite = W.ARTICLES[t.lower]
+        np.negative = np.definite == "negative"      # "no water"
         i += 1
     elif t.tag == "DEM":
         np.definite, np.number = W.DEMONSTRATIVES[t.lower]
@@ -760,14 +768,14 @@ def parse_verb_group(tokens, i):
             vg.copula = True          # "can be ..."
     else:
         vg.lemma = main.lemma + (" " + vg.particle if vg.particle else "")
-        before = [h for h in helpers]
-        if before and before[-1].tag == "BE" and main.form == "ing":
-            vg.aspect = "progressive"
-        elif before and before[-1].tag == "BE" and main.form in ("participle", "past/participle"):
-            vg.voice = "passive"
-        if any(h.tag == "HAVE" for h in before) and main.form in ("participle", "past/participle"):
-            vg.aspect = "perfect"
-            if before[-1].tag == "BE":
+        last_helper = helpers[-1].tag if helpers else ""
+        if last_helper == "BE" and main.form == "ing":
+            vg.aspect = "progressive"                 # is crying
+        elif last_helper == "BE" and main.form in ("participle", "past/participle"):
+            vg.voice = "passive"                      # was stolen
+        if any(h.tag == "HAVE" for h in helpers) and main.form in ("participle", "past/participle"):
+            vg.aspect = "perfect"                     # has finished / has been stolen
+            if last_helper == "BE":
                 vg.voice = "passive"
     if vg.lemma == "have" and not vg.copula and main is not None and main.lemma == "have":
         vg.possession = True
@@ -936,14 +944,13 @@ def parse_rest(cl, toks, i):
             cl.clauses.append(inner)
             break
         if t.tag in NP_START_TAGS or t.tag in ("DEM_PRON",):
-            if cl.verb is None or (cl.verb.lemma in W.SAY_THINK_VERBS and has_verb(toks[i + 1:])
-                                   and not cl.obj):
-                # "The teacher said the exam was difficult": a clause without "that"
-                if cl.verb is not None:
-                    inner = parse_clause(toks[i:], role="complement", linker="")
-                    cl.clauses.append(inner)
-                    break
             np, j = parse_np(toks, i)
+            if cl.verb is not None and cl.verb.lemma in W.SAY_THINK_VERBS and not cl.obj and np is not None \
+                    and j < len(toks) and (toks[j].tag in VERB_GROUP_TAGS or toks[j].tag in ("NEG", "FUTURE")):
+                # "The teacher said the exam was difficult": a clause without "that"
+                inner = parse_clause(toks[i:], role="complement", linker="")
+                cl.clauses.append(inner)
+                break
             if np is None:
                 cl.adverbs.append(t.text)
                 i += 1
@@ -1109,8 +1116,3 @@ def describe(analysis):
         lines.append("  PROBLEMS: " + "; ".join(analysis.problems))
     return "\n".join(lines)
 
-
-if __name__ == "__main__":
-    import sys
-    text = " ".join(sys.argv[1:]) or "The girls did not eat the rice."
-    print(describe(analyse(text)))

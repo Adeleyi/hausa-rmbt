@@ -1,0 +1,1379 @@
+128 sentences analysed. 125 with no problems flagged, 3 with problems.
+Agreement with the English analysis of the same sentence:
+  negation       128/128
+  sentence type  128/128
+  clauses        128/128
+  main verb      109/128
+
+[1.1] C1   English: The boy laughed.
+Sentence: Yaron ya yi dariya.
+Words:    Yaron<NOUN>  ya<PAC1>  yi<VERB>  dariya<YINOUN/NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Yaron  [noun | English: boy | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi dariya  [Hausa: dariya | English: laugh | form: yi]
+
+[1.2] C2   English: Ada cooked dinner.
+Sentence: Ada ta dafa abincin dare.
+Words:    Ada<NAME>  ta<OF/PRON/PAC1>  dafa<VERB>  abincin dare<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         dafa  [Hausa: dafa | English: cook | form: hausa]
+    object:       abincin dare  [noun | English: dinner | 3sg.m]
+
+[1.3] C4   English: Birds fly south.
+Sentence: Tsuntsaye suna tashi zuwa kudu.
+Words:    Tsuntsaye<NOUN>  suna<PAC1/NOUN>  tashi<VERB/NOUN>  zuwa kudu<ADV>
+  Clause 1: main - statement - verbal
+    subject:      Tsuntsaye  [noun | English: bird | 3pl]
+    PAC:          suna  [3pl | continuous]
+    verb:         tashi  [Hausa: tashi | English: stand up | form: verbal_noun]
+    adverbs:      south
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (fly / stand up)
+
+[1.4] C1   English: The teacher arrived early.
+Sentence: Malamin ya iso da wuri.
+Words:    Malamin<NOUN>  ya<PAC1>  iso<VERB>  da wuri<ADV>
+  Clause 1: main - statement - verbal
+    subject:      Malamin  [noun | English: teacher | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         iso  [Hausa: iso | English: arrive | form: hausa]
+    adverbs:      early
+
+[1.5] C2   English: Chika bought a bicycle.
+Sentence: Chika ta sayi keke.
+Words:    Chika<NAME>  ta<OF/PRON/PAC1>  sayi<VERB>  keke<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Chika  [name | English: Chika | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         sayi  [Hausa: saya | English: buy | form: before_noun]
+    object:       keke  [noun | English: bicycle | 3sg.m]
+
+[1.6] C2   English: They cleaned the classroom.
+Sentence: Sun tsabtace ajin.
+Words:    Sun<PAC1/NOUN>  tsabtace<VERB>  ajin<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 3pl | shown only by the PAC]
+    PAC:          Sun  [3pl | completive]
+    verb:         tsabtace  [Hausa: tsabtace | English: clean | form: hausa]
+    object:       ajin  [noun | English: class | 3sg.m | the]
+
+[2.1] C13   English: Ada cooked dinner, and Chinedu washed the plates.
+Sentence: Ada ta dafa abincin dare, kuma Chinedu ya wanke kwanukan.
+Words:    Ada<NAME>  ta<OF/PRON/PAC1>  dafa<VERB>  abincin dare<NOUN>  kuma<COORD>  Chinedu<NAME>  ya<PAC1>  wanke<VERB>  kwanukan<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         dafa  [Hausa: dafa | English: cook | form: hausa]
+    object:       abincin dare  [noun | English: dinner | 3sg.m]
+  Clause 2: coordinated (linker: kuma = and) - statement - verbal
+    subject:      Chinedu  [name | English: Chinedu | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         wanke  [Hausa: wanke | English: wash | form: hausa]
+    object:       kwanukan  [noun | English: plate | 3pl | the]
+
+[2.2] C13   English: The rain stopped, but the roads remained flooded.
+Sentence: Ruwan sama ya tsaya, amma hanyoyin suna cike da ruwa har yanzu.
+Words:    Ruwan sama<NOUN>  ya<PAC1>  tsaya<VERB>  amma<COORD>  hanyoyin<NOUN>  suna<PAC1/NOUN>  cike da ruwa<QNOUN>  har yanzu<ADV>
+  Clause 1: main - statement - verbal
+    subject:      Ruwan sama  [noun | English: rain | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         tsaya  [Hausa: tsaya | English: stop | form: hausa]
+  Clause 2: coordinated (linker: amma = but) - statement - adjective
+    subject:      hanyoyin  [noun | English: road | 3pl | the]
+    PAC:          suna  [3pl | continuous]
+    complement:   (adjective) flooded
+    adverbs:      still
+
+[2.3] C13   English: We arrived early, so we found good seats.
+Sentence: Mun iso da wuri, don haka mun sami kujeru masu kyau.
+Words:    Mun<PAC1>  iso<VERB>  da wuri<ADV>  don haka<COORD>  mun<PAC1>  sami<VERB>  kujeru<NOUN>  masu<MAI/NOUN>  kyau<QNOUN/NOUN>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 1pl | shown only by the PAC]
+    PAC:          Mun  [1pl | completive]
+    verb:         iso  [Hausa: iso | English: arrive | form: hausa]
+    adverbs:      early
+  Clause 2: coordinated (linker: don haka = so) - statement - verbal
+    subject:      (none)  [pronoun | 1pl | shown only by the PAC]
+    PAC:          mun  [1pl | completive]
+    verb:         sami  [Hausa: samu | English: get | form: before_noun]
+    object:       kujeru masu kyau  [noun | English: chair | 3pl | adjective: good]
+
+[2.4] C13   English: Musa studied hard, and he passed the exam.
+Sentence: Musa ya yi karatu sosai, kuma ya ci jarrabawar.
+Words:    Musa<NAME>  ya<PAC1>  yi<VERB>  karatu<YINOUN/NOUN>  sosai<ADV>  kuma<COORD>  ya<PAC1>  ci<VERB>  jarrabawar<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi karatu  [Hausa: karatu | English: study | form: yi]
+    adverbs:      a lot
+  Clause 2: coordinated (linker: kuma = and) - statement - verbal
+    subject:      (none)  [pronoun | 3sg.m | shown only by the PAC]
+    PAC:          ya  [3sg.m | completive]
+    verb:         ci  [Hausa: ci | English: eat | form: hausa]
+    object:       jarrabawar  [noun | English: exam | 3sg.f | the]
+
+[2.5] C13   English: The lights went out, so we used candles.
+Sentence: Wutar lantarki ta ɗauke, don haka mun yi amfani da kyandir.
+Words:    Wutar lantarki<NOUN>  ta<OF/PRON/PAC1>  ɗauke<VERB>  don haka<COORD>  mun<PAC1>  yi<VERB>  amfani<YINOUN/NOUN>  da<DA>  kyandir<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Wutar lantarki  [noun | English: light | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         ɗauke  [Hausa: ɗauka | English: carry | form: before_pronoun]
+  Clause 2: coordinated (linker: don haka = so) - statement - verbal
+    subject:      (none)  [pronoun | 1pl | shown only by the PAC]
+    PAC:          mun  [1pl | completive]
+    verb:         yi amfani  [Hausa: amfani | English: use | form: yi]
+    object:       kyandir  [noun | English: candle | 3sg.m]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (go out / carry)
+
+[2.6] C13   English: Ngozi sang beautifully, and everyone applauded.
+Sentence: Ngozi ta rera waƙa da kyau, kuma kowa ya yi tafi.
+Words:    Ngozi<NAME>  ta<OF/PRON/PAC1>  rera waƙa<VERB>  da kyau<ADV>  kuma<COORD>  kowa<INDEF>  ya<PAC1>  yi<VERB>  tafi<VERB/YINOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         rera waƙa  [Hausa: rera waƙa | English: sing | form: hausa]
+    adverbs:      well
+  Clause 2: coordinated (linker: kuma = and) - statement - verbal
+    subject:      kowa  [indefinite | English: everyone | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi tafi  [Hausa: tafi | English: applaud | form: yi]
+
+[3.1] C14   English: When the rain started, the children ran inside.
+Sentence: Lokacin da ruwan sama ya fara, yaran suka shiga ciki da gudu.
+Words:    Lokacin da<SUB>  ruwan sama<NOUN>  ya<PAC1>  fara<VERB/ADJ/NOUN>  yaran<NOUN>  suka<PAC1>  shiga<VERB/NOUN>  ciki<ADV/NOUN>  da gudu<ADV>
+  Clause 1: subordinate (linker: lokacin da = when) - statement - verbal
+    subject:      ruwan sama  [noun | English: rain | 3sg.m]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         fara  [Hausa: fara | English: start | form: hausa]
+  Clause 2: main - statement - verbal
+    subject:      yaran  [noun | English: children | 3pl | the]
+    PAC:          suka  [3pl | relative completive]
+    verb:         shiga  [Hausa: shiga | English: enter | form: hausa]
+    adverbs:      inside, running
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (run / enter)
+
+[3.2] C14   English: Because he studied hard, he passed the examination.
+Sentence: Saboda ya yi karatu sosai, ya ci jarrabawar.
+Words:    Saboda<SUB>  ya<PAC1>  yi<VERB>  karatu<YINOUN/NOUN>  sosai<ADV>  ya<PAC1>  ci<VERB>  jarrabawar<NOUN>
+  Clause 1: subordinate (linker: saboda = because) - statement - verbal
+    subject:      (none)  [pronoun | 3sg.m | shown only by the PAC]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi karatu  [Hausa: karatu | English: study | form: yi]
+    adverbs:      a lot
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 3sg.m | shown only by the PAC]
+    PAC:          ya  [3sg.m | completive]
+    verb:         ci  [Hausa: ci | English: eat | form: hausa]
+    object:       jarrabawar  [noun | English: exam | 3sg.f | the]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (pass / eat)
+
+[3.3] C14   English: Although the road was dangerous, they continued the journey.
+Sentence: Ko da yake hanyar tana da haɗari, sun ci gaba da tafiyar.
+Words:    Ko da yake<SUB>  hanyar<NOUN>  tana<PAC1/NOUN>  da<DA>  haɗari<QNOUN/NOUN>  sun<PAC1/NOUN>  ci gaba da<VERB>  tafiyar<NOUN>
+  Clause 1: subordinate (linker: ko da yake = although) - statement - adjective
+    subject:      hanyar  [noun | English: road | 3sg.f | the]
+    PAC:          tana  [3sg.f | continuous]
+    complement:   (adjective) dangerous
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 3pl | shown only by the PAC]
+    PAC:          sun  [3pl | completive]
+    verb:         ci gaba da  [Hausa: ci gaba | English: continue | form: before_noun]
+    object:       tafiyar  [noun | English: journey | 3sg.f | the]
+
+[3.4] C14   English: If you finish early, you may leave.
+Sentence: Idan ka gama da wuri, za ka iya tafiya.
+Words:    Idan<SUB>  ka<PRON/PAC1>  gama<VERB>  da wuri<ADV>  za<PACPART>  ka<PRON/PAC1>  iya<VERB>  tafiya<VERB/YINOUN/NOUN>
+  Clause 1: subordinate (linker: idan = if) - statement - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          ka  [2sg.m | completive]
+    verb:         gama  [Hausa: gama | English: finish | form: hausa]
+    adverbs:      early
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          za ka  [2sg.m | future]
+    verb:         iya tafiya  [Hausa: tafi | English: go | form: verbal_noun | can (iya)]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (leave / go)
+
+[3.5] C14   English: While the baby slept, the mother cooked dinner.
+Sentence: Yayin da jaririn yake barci, mahaifiyar ta dafa abincin dare.
+Words:    Yayin da<SUB>  jaririn<NOUN>  yake<PAC1>  barci<YINOUN/NOUN>  mahaifiyar<NOUN>  ta<OF/PRON/PAC1>  dafa<VERB>  abincin dare<NOUN>
+  Clause 1: subordinate (linker: yayin da = while) - statement - verbal
+    subject:      jaririn  [noun | English: baby | 3sg.m | the]
+    PAC:          yake  [3sg.m | relative continuous]
+    verb:         barci  [Hausa: barci | English: sleep | form: yi]
+  Clause 2: main - statement - verbal
+    subject:      mahaifiyar  [noun | English: mother | 3sg.f | the]
+    PAC:          ta  [3sg.f | completive]
+    verb:         dafa  [Hausa: dafa | English: cook | form: hausa]
+    object:       abincin dare  [noun | English: dinner | 3sg.m]
+
+[3.6] C14   English: Unless you apologize, she will remain upset.
+Sentence: Sai dai idan ka ba da haƙuri, za ta ci gaba da fushi.
+Words:    Sai dai idan<SUB>  ka<PRON/PAC1>  ba da haƙuri<VERB>  za<PACPART>  ta<OF/PRON/PAC1>  ci gaba da<VERB>  fushi<YINOUN/QNOUN/NOUN>
+  Clause 1: subordinate (linker: sai dai idan = unless) - statement - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          ka  [2sg.m | completive]
+    verb:         ba da haƙuri  [Hausa: ba da haƙuri | English: apologize | form: hausa]
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 3sg.f | shown only by the PAC]
+    PAC:          za ta  [3sg.f | future]
+    verb:         ci gaba da  [Hausa: ci gaba | English: continue | form: before_noun]
+    object:       fushi  [noun | English: anger | 3sg.m]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (remain / continue)
+
+[4.1] C13+C14   English: Although the rain was heavy, the players continued the match, and the fans cheered loudly.
+Sentence: Ko da yake ruwan sama yana da ƙarfi, 'yan wasan sun ci gaba da wasan, kuma 'yan kallo sun yi ihu da ƙarfi.
+Words:    Ko da yake<SUB>  ruwan sama<NOUN>  yana<PAC1>  da ƙarfi<ADV>  'yan wasan<NOUN>  sun<PAC1/NOUN>  ci gaba da<VERB>  wasan<NOUN>  kuma<COORD>  'yan kallo<NOUN>  sun<PAC1/NOUN>  yi<VERB>  ihu<YINOUN>  da ƙarfi<ADV>
+  Clause 1: subordinate (linker: ko da yake = although) - statement - adjective
+    subject:      ruwan sama  [noun | English: rain | 3sg.m]
+    PAC:          yana  [3sg.m | continuous]
+    complement:   (adjective) loud
+  Clause 2: main - statement - verbal
+    subject:      'yan wasan  [noun | English: player | 3pl | the]
+    PAC:          sun  [3pl | completive]
+    verb:         ci gaba da  [Hausa: ci gaba | English: continue | form: before_noun]
+    object:       wasan  [noun | English: game | 3sg.m | the]
+  Clause 3: coordinated (linker: kuma = and) - statement - verbal
+    subject:      'yan kallo  [noun | English: fan | 3pl]
+    PAC:          sun  [3pl | completive]
+    verb:         yi ihu  [Hausa: ihu | English: shout | form: yi]
+    adverbs:      loudly
+
+[4.2] C13+C14   English: When the teacher entered the class, the students stood up, and the lesson began.
+Sentence: Lokacin da malamin ya shiga ajin, ɗaliban suka tashi tsaye, kuma darasin ya fara.
+Words:    Lokacin da<SUB>  malamin<NOUN>  ya<PAC1>  shiga<VERB/NOUN>  ajin<NOUN>  ɗaliban<NOUN>  suka<PAC1>  tashi tsaye<VERB>  kuma<COORD>  darasin<NOUN>  ya<PAC1>  fara<VERB/ADJ/NOUN>
+  Clause 1: subordinate (linker: lokacin da = when) - statement - verbal
+    subject:      malamin  [noun | English: teacher | 3sg.m | the]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         shiga  [Hausa: shiga | English: enter | form: hausa]
+    object:       ajin  [noun | English: class | 3sg.m | the]
+  Clause 2: main - statement - verbal
+    subject:      ɗaliban  [noun | English: student | 3pl | the]
+    PAC:          suka  [3pl | relative completive]
+    verb:         tashi tsaye  [Hausa: tashi tsaye | English: stand up | form: hausa]
+  Clause 3: coordinated (linker: kuma = and) - statement - verbal
+    subject:      darasin  [noun | English: lesson | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         fara  [Hausa: fara | English: start | form: hausa]
+
+[4.3] C13+C14   English: If you study consistently, you will succeed, and your parents will be proud.
+Sentence: Idan ka dage da karatu, za ka yi nasara, kuma iyayenka za su yi alfahari da kai.
+Words:    Idan<SUB>  ka<PRON/PAC1>  dage<NOUN>  da<DA>  karatu<YINOUN/NOUN>  za<PACPART>  ka<PRON/PAC1>  yi<VERB>  nasara<YINOUN/NOUN>  kuma<COORD>  iyayenka<NOUN>  za<PACPART>  su<PRON/PAC1/NOUN>  yi<VERB>  alfahari<QNOUN/NOUN>  da<DA>  kai<PRON/VERB/NOUN>
+  Clause 1: subordinate (linker: idan = if) - statement - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          ka  [2sg.m | completive]
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          za ka  [2sg.m | future]
+    verb:         yi nasara  [Hausa: nasara | English: succeed | form: yi]
+  Clause 3: coordinated (linker: kuma = and) - statement - become
+    subject:      iyayenka  [noun | English: parents | 3pl | owner: 2sg.m]
+    PAC:          za su  [3pl | future]
+    complement:   (adjective) proud
+    with + ...:   kai  [pronoun | 2sg.m]
+  PROBLEMS: clause 1: words not placed: dage da karatu
+
+[4.4] C13+C14   English: While the children played outside, the mother cleaned the house, and the father cooked dinner.
+Sentence: Yayin da yaran suke wasa a waje, mahaifiyar ta share gidan, kuma mahaifin ya dafa abincin dare.
+Words:    Yayin da<SUB>  yaran<NOUN>  suke<PAC1>  wasa<YINOUN/NOUN>  a waje<ADV>  mahaifiyar<NOUN>  ta<OF/PRON/PAC1>  share<VERB>  gidan<NOUN>  kuma<COORD>  mahaifin<NOUN>  ya<PAC1>  dafa<VERB>  abincin dare<NOUN>
+  Clause 1: subordinate (linker: yayin da = while) - statement - verbal
+    subject:      yaran  [noun | English: children | 3pl | the]
+    PAC:          suke  [3pl | relative continuous]
+    verb:         wasa  [Hausa: wasa | English: play | form: yi]
+    adverbs:      outside
+  Clause 2: main - statement - verbal
+    subject:      mahaifiyar  [noun | English: mother | 3sg.f | the]
+    PAC:          ta  [3sg.f | completive]
+    verb:         share  [Hausa: share | English: sweep | form: hausa]
+    object:       gidan  [noun | English: house | 3sg.m | the]
+  Clause 3: coordinated (linker: kuma = and) - statement - verbal
+    subject:      mahaifin  [noun | English: father | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         dafa  [Hausa: dafa | English: cook | form: hausa]
+    object:       abincin dare  [noun | English: dinner | 3sg.m]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (clean / sweep)
+
+[4.5] C13+C14   English: Since the roads were flooded, we stayed indoors, but the children wanted to go outside.
+Sentence: Tun da hanyoyin sun cika da ruwa, mun zauna a cikin gida, amma yaran sun so su fita waje.
+Words:    Tun da<SUB>  hanyoyin<NOUN>  sun<PAC1/NOUN>  cika<UNKNOWN>  da<DA>  ruwa<WEATHER/YINOUN/NOUN>  mun<PAC1>  zauna<VERB/NOUN>  a cikin<PREP>  gida<NOUN>  amma<COORD>  yaran<NOUN>  sun<PAC1/NOUN>  so<VERB>  su<PRON/PAC1/NOUN>  fita<VERB/NOUN>  waje<ADV>
+  Clause 1: subordinate (linker: tun da = since) - statement - verbal
+    subject:      hanyoyin  [noun | English: road | 3pl | the]
+    PAC:          sun  [3pl | completive]
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 1pl | shown only by the PAC]
+    PAC:          mun  [1pl | completive]
+    verb:         zauna  [Hausa: zauna | English: sit | form: hausa]
+    in + ...:     gida  [noun | English: house | 3sg.m]
+  Clause 3: coordinated (linker: amma = but) - statement - verbal
+    subject:      yaran  [noun | English: children | 3pl | the]
+    PAC:          sun  [3pl | completive]
+    verb:         so  [Hausa: so | English: want | form: hausa | + to go out]
+    adverbs:      outside
+  PROBLEMS: word(s) not recognised: cika; clause 1: words not placed: cika da ruwa
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (stay / sit)
+
+[4.6] C13+C14   English: Because the food was delicious, everyone requested more, and the cook smiled proudly.
+Sentence: Saboda abincin yana da daɗi, kowa ya nemi ƙari, kuma mai dafa abincin ya yi murmushi cike da alfahari.
+Words:    Saboda<SUB>  abincin<NOUN>  yana<PAC1>  da<DA>  daɗi<QNOUN>  kowa<INDEF>  ya<PAC1>  nemi<VERB>  ƙari<INDEF>  kuma<COORD>  mai dafa abincin<NOUN>  ya<PAC1>  yi<VERB>  murmushi<YINOUN>  cike da alfahari<ADV>
+  Clause 1: subordinate (linker: saboda = because) - statement - adjective
+    subject:      abincin  [noun | English: food | 3sg.m | the]
+    PAC:          yana  [3sg.m | continuous]
+    complement:   (adjective) delicious
+  Clause 2: main - statement - verbal
+    subject:      kowa  [indefinite | English: everyone | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         nemi  [Hausa: nema | English: look for | form: before_noun]
+    object:       ƙari  [indefinite | English: more | 3sg.m]
+  Clause 3: coordinated (linker: kuma = and) - statement - verbal
+    subject:      mai dafa abincin  [noun | English: cook | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi murmushi  [Hausa: murmushi | English: smile | form: yi]
+    adverbs:      proudly
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (request / look for)
+
+[5.1] C11   English: Did you finish the assignment?
+Sentence: Ka gama aikin gidan?
+Words:    Ka<PRON/PAC1>  gama<VERB>  aikin gidan<NOUN>
+  Clause 1: main - yes-no question - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          Ka  [2sg.m | completive]
+    verb:         gama  [Hausa: gama | English: finish | form: hausa]
+    object:       aikin gidan  [noun | English: assignment | 3sg.m | the]
+
+[5.2] C12   English: Where did the children go?
+Sentence: Ina yaran suka tafi?
+Words:    Ina<WH/PAC1>  yaran<NOUN>  suka<PAC1>  tafi<VERB/YINOUN>
+  Clause 1: main - wh-question - verbal
+    question:     where (asks about the place)
+    subject:      yaran  [noun | English: children | 3pl | the]
+    PAC:          suka  [3pl | relative completive]
+    verb:         tafi  [Hausa: tafi | English: go | form: hausa]
+
+[5.3] C12   English: Why is the baby crying?
+Sentence: Me ya sa jaririn yake kuka?
+Words:    Me ya sa<WH>  jaririn<NOUN>  yake<PAC1>  kuka<PAC1/YINOUN/NOUN>
+  Clause 1: main - wh-question - verbal
+    question:     why (asks about the reason)
+    subject:      jaririn  [noun | English: baby | 3sg.m | the]
+    PAC:          yake  [3sg.m | relative continuous]
+    verb:         kuka  [Hausa: kuka | English: cry | form: yi]
+
+[5.4] C12   English: Who opened the door?
+Sentence: Wa ya buɗe ƙofar?
+Words:    Wa<WH/WA>  ya<PAC1>  buɗe<VERB>  ƙofar<NOUN>
+  Clause 1: main - wh-question - verbal
+    question:     who (asks about the subject)
+    subject:      Wa  [wh | English: who]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         buɗe  [Hausa: buɗe | English: open | form: hausa]
+    object:       ƙofar  [noun | English: door | 3sg.f | the]
+
+[5.5] C11   English: Can you help me?
+Sentence: Za ka iya taimake ni?
+Words:    Za<PACPART>  ka<PRON/PAC1>  iya<VERB>  taimake<VERB>  ni<PRON>
+  Clause 1: main - yes-no question - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          Za ka  [2sg.m | future]
+    verb:         iya taimake  [Hausa: taimaka | English: help | form: before_pronoun | can (iya)]
+    object:       ni  [pronoun | 1sg]
+
+[5.6] C12   English: What caused the accident?
+Sentence: Me ya jawo hatsarin?
+Words:    Me<WH>  ya<PAC1>  jawo<VERB>  hatsarin<NOUN>
+  Clause 1: main - wh-question - verbal
+    question:     what (asks about the subject)
+    subject:      Me  [wh | English: what]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         jawo  [Hausa: jawo | English: cause | form: hausa]
+    object:       hatsarin  [noun | English: accident | 3sg.m | the]
+
+[6.1] C15+C6   English: The man who called yesterday is my uncle.
+Sentence: Mutumin da ya kira jiya kawuna ne.
+Words:    Mutumin<NOUN>  da<DA>  ya<PAC1>  kira<VERB>  jiya<ADV>  kawuna<NOUN>  ne<COP>
+  Clause 1: main - statement - equational
+    subject:      Mutumin da ya kira jiya  [noun | English: man | 3sg.m | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          subject
+          subject:      (none)  [gap | English: man | 3sg.m]
+          PAC:          ya  [3sg.m | relative completive]
+          verb:         kira  [Hausa: kira | English: call | form: hausa]
+          adverbs:      yesterday
+    complement:   (noun) kawuna  [noun | English: uncle | 3sg.m | owner: 1sg]
+
+[6.2] C15   English: The woman whom we visited lives in Lagos.
+Sentence: Matar da muka ziyarta tana zama a Legas.
+Words:    Matar<NOUN>  da<DA>  muka<PAC1>  ziyarta<VERB>  tana<PAC1/NOUN>  zama<VERB/NOUN>  a<PREP/PAC1>  Legas<NAME>
+  Clause 1: main - statement - verbal
+    subject:      Matar da muka ziyarta  [noun | English: woman | 3sg.f | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          object
+          subject:      (none)  [pronoun | 1pl | shown only by the PAC]
+          PAC:          muka  [1pl | relative completive]
+          verb:         ziyarta  [Hausa: ziyarta | English: visit | form: hausa]
+    PAC:          tana  [3sg.f | continuous]
+    verb:         zama  [Hausa: zauna | English: sit | form: verbal_noun]
+    in + ...:     Legas  [name | English: Lagos | 3sg.f]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (live / sit)
+
+[6.3] C15   English: The book that I borrowed was fascinating.
+Sentence: Littafin da na aro yana da ban sha'awa.
+Words:    Littafin<NOUN>  da<DA>  na<OF/PAC1>  aro<VERB>  yana<PAC1>  da<DA>  ban sha'awa<QNOUN>
+  Clause 1: main - statement - adjective
+    subject:      Littafin da na aro  [noun | English: book | 3sg.m | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          object
+          subject:      (none)  [pronoun | 1sg | shown only by the PAC]
+          PAC:          na  [1sg | relative completive]
+          verb:         aro  [Hausa: aro | English: borrow | form: hausa]
+    PAC:          yana  [3sg.m | continuous]
+    complement:   (adjective) fascinating
+
+[6.4] C15   English: The boy whose bicycle was stolen cried bitterly.
+Sentence: Yaron da aka sace masa keke ya yi kuka sosai.
+Words:    Yaron<NOUN>  da<DA>  aka<PAC1>  sace<VERB>  masa<PRON>  keke<NOUN>  ya<PAC1>  yi<VERB>  kuka<PAC1/YINOUN/NOUN>  sosai<ADV>
+  Clause 1: main - statement - verbal
+    subject:      Yaron da aka sace masa keke  [noun | English: boy | 3sg.m | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          possessor
+          subject:      (none)  [pronoun | 4 | shown only by the PAC]
+          PAC:          aka  [4 | relative completive]
+          verb:         sace  [Hausa: sace | English: steal | form: hausa]
+          receiver:     masa  [pronoun | 3sg.m]
+          object:       keke  [noun | English: bicycle | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi kuka  [Hausa: kuka | English: cry | form: yi]
+    adverbs:      a lot
+
+[6.5] C15   English: The teacher who taught us linguistics retired last year.
+Sentence: Malamin da ya koya mana linguistics ya yi ritaya shekaran da ta wuce.
+Words:    Malamin<NOUN>  da<DA>  ya<PAC1>  koya<VERB>  mana<PRON/NOUN>  linguistics<NOUN>  ya<PAC1>  yi<VERB>  ritaya<YINOUN>  shekaran da ta wuce<ADV>
+  Clause 1: main - statement - verbal
+    subject:      Malamin da ya koya mana linguistics  [noun | English: teacher | 3sg.m | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          subject
+          subject:      (none)  [gap | English: teacher | 3sg.m]
+          PAC:          ya  [3sg.m | relative completive]
+          verb:         koya  [Hausa: koya | English: learn | form: hausa]
+          receiver:     mana  [pronoun | 1pl]
+          object:       linguistics  [noun | English: linguistics | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi ritaya  [Hausa: ritaya | English: retire | form: yi]
+    adverbs:      last year
+
+[6.6] C15   English: The road that leads to the village is narrow.
+Sentence: Hanyar da ta kai ƙauyen tana da ƙunci.
+Words:    Hanyar<NOUN>  da<DA>  ta<OF/PRON/PAC1>  kai<PRON/VERB/NOUN>  ƙauyen<NOUN>  tana<PAC1/NOUN>  da<DA>  ƙunci<QNOUN/NOUN>
+  Clause 1: main - statement - adjective
+    subject:      Hanyar da ta kai ƙauyen  [noun | English: road | 3sg.f | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          subject
+          subject:      (none)  [gap | English: road | 3sg.f]
+          PAC:          ta  [3sg.f | relative completive]
+          verb:         kai  [Hausa: kai | English: lead | form: hausa]
+          object:       ƙauyen  [noun | English: village | 3sg.m | the]
+    PAC:          tana  [3sg.f | continuous]
+    complement:   (adjective) narrow
+
+[8.1] Focus (S10)   English: It was Ada who cooked the soup.
+Sentence: Ada ce ta dafa miyar.
+Words:    Ada<NAME>  ce<COP/VERB>  ta<OF/PRON/PAC1>  dafa<VERB>  miyar<NOUN>
+  Clause 1: main - statement - verbal
+    focus:        Ada  [name | English: Ada | 3sg.f]
+    gap:          subject
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         dafa  [Hausa: dafa | English: cook | form: hausa]
+    object:       miyar  [noun | English: soup | 3sg.f | the]
+
+[8.2] Focus (S10)   English: It was yesterday that the teacher arrived.
+Sentence: Jiya ne malamin ya iso.
+Words:    Jiya<ADV>  ne<COP>  malamin<NOUN>  ya<PAC1>  iso<VERB>
+  Clause 1: main - statement - verbal
+    focus:        yesterday
+    gap:          object or adverb
+    subject:      malamin  [noun | English: teacher | 3sg.m | the]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         iso  [Hausa: iso | English: arrive | form: hausa]
+
+[8.3] Focus (S10)   English: It is in Lagos that they live.
+Sentence: A Legas ne suke zaune.
+Words:    A<PREP/PAC1>  Legas<NAME>  ne<COP>  suke<PAC1>  zaune<VERB>
+  Clause 1: main - statement - verbal
+    focus:        in + Legas  [name | English: Lagos | 3sg.f]
+    gap:          object or adverb
+    subject:      (none)  [pronoun | 3pl | shown only by the PAC]
+    PAC:          suke  [3pl | relative continuous]
+    verb:         zaune  [Hausa: zauna | English: sit | form: stative]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (live / sit)
+
+[8.4] Focus (S10)   English: It was the red bag that Chika bought.
+Sentence: Jar jakar ce Chika ta saya.
+Words:    Jar<ADJ>  jakar<NOUN>  ce<COP/VERB>  Chika<NAME>  ta<OF/PRON/PAC1>  saya<VERB>
+  Clause 1: main - statement - verbal
+    focus:        Jar jakar  [noun | English: bag | 3sg.f | the | adjective: red]
+    gap:          object or adverb
+    subject:      Chika  [name | English: Chika | 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         saya  [Hausa: saya | English: buy | form: hausa]
+
+[9.1] Focus (S10)   English: It was the book that Ada borrowed.
+Sentence: Littafin ne Ada ta aro.
+Words:    Littafin<NOUN>  ne<COP>  Ada<NAME>  ta<OF/PRON/PAC1>  aro<VERB>
+  Clause 1: main - statement - verbal
+    focus:        Littafin  [noun | English: book | 3sg.m | the]
+    gap:          object or adverb
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         aro  [Hausa: aro | English: borrow | form: hausa]
+
+[9.2] Focus (S10)   English: It was the bicycle that Musa repaired.
+Sentence: Keken ne Musa ya gyara.
+Words:    Keken<NOUN>  ne<COP>  Musa<NAME>  ya<PAC1>  gyara<VERB>
+  Clause 1: main - statement - verbal
+    focus:        Keken  [noun | English: bicycle | 3sg.m | the]
+    gap:          object or adverb
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         gyara  [Hausa: gyara | English: repair | form: hausa]
+
+[9.3] Focus (S10)   English: It was the soup that the child spilled.
+Sentence: Miyar ce yaron ya zubar.
+Words:    Miyar<NOUN>  ce<COP/VERB>  yaron<NOUN>  ya<PAC1>  zubar<VERB>
+  Clause 1: main - statement - verbal
+    focus:        Miyar  [noun | English: soup | 3sg.f | the]
+    gap:          object or adverb
+    subject:      yaron  [noun | English: boy | 3sg.m | the]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         zubar  [Hausa: zubar | English: spill | form: hausa]
+
+[9.4] Focus (S10)   English: It was the phone that Chika lost.
+Sentence: Wayar ce Chika ta ɓatar.
+Words:    Wayar<NOUN>  ce<COP/VERB>  Chika<NAME>  ta<OF/PRON/PAC1>  ɓatar<VERB>
+  Clause 1: main - statement - verbal
+    focus:        Wayar  [noun | English: phone | 3sg.f | the]
+    gap:          object or adverb
+    subject:      Chika  [name | English: Chika | 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         ɓatar  [Hausa: ɓatar | English: lose | form: hausa]
+
+[10.1] Focus (S10)   English: It was Ada who solved the problem.
+Sentence: Ada ce ta warware matsalar.
+Words:    Ada<NAME>  ce<COP/VERB>  ta<OF/PRON/PAC1>  warware<VERB>  matsalar<NOUN>
+  Clause 1: main - statement - verbal
+    focus:        Ada  [name | English: Ada | 3sg.f]
+    gap:          subject
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         warware  [Hausa: warware | English: solve | form: hausa]
+    object:       matsalar  [noun | English: problem | 3sg.f | the]
+
+[10.2] Focus (S10)   English: It was Musa who broke the window.
+Sentence: Musa ne ya fasa tagar.
+Words:    Musa<NAME>  ne<COP>  ya<PAC1>  fasa<VERB>  tagar<NOUN>
+  Clause 1: main - statement - verbal
+    focus:        Musa  [name | English: Musa | 3sg.m]
+    gap:          subject
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         fasa  [Hausa: fasa | English: break | form: hausa]
+    object:       tagar  [noun | English: window | 3sg.f | the]
+
+[10.3] Focus (S10)   English: It was the teacher who called the meeting.
+Sentence: Malamin ne ya kira taron.
+Words:    Malamin<NOUN>  ne<COP>  ya<PAC1>  kira<VERB>  taron<NOUN>
+  Clause 1: main - statement - verbal
+    focus:        Malamin  [noun | English: teacher | 3sg.m | the]
+    gap:          subject
+    subject:      Malamin  [noun | English: teacher | 3sg.m | the]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         kira  [Hausa: kira | English: call | form: hausa]
+    object:       taron  [noun | English: meeting | 3sg.m | the]
+
+[10.4] Focus (S10)   English: It was Ngozi who prepared the meal.
+Sentence: Ngozi ce ta shirya abincin.
+Words:    Ngozi<NAME>  ce<COP/VERB>  ta<OF/PRON/PAC1>  shirya<VERB>  abincin<NOUN>
+  Clause 1: main - statement - verbal
+    focus:        Ngozi  [name | English: Ngozi | 3sg.f]
+    gap:          subject
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         shirya  [Hausa: shirya | English: prepare | form: hausa]
+    object:       abincin  [noun | English: food | 3sg.m | the]
+
+[12.1] Passive (S17)   English: The food was prepared by Ngozi.
+Sentence: Ngozi ce ta shirya abincin.
+Words:    Ngozi<NAME>  ce<COP/VERB>  ta<OF/PRON/PAC1>  shirya<VERB>  abincin<NOUN>
+  Clause 1: main - statement - verbal
+    focus:        Ngozi  [name | English: Ngozi | 3sg.f]
+    gap:          subject
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         shirya  [Hausa: shirya | English: prepare | form: hausa]
+    object:       abincin  [noun | English: food | 3sg.m | the]
+
+[12.2] Passive (S17)   English: The car was repaired yesterday.
+Sentence: An gyara motar jiya.
+Words:    An<PAC1>  gyara<VERB>  motar<NOUN>  jiya<ADV>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 4 | shown only by the PAC]
+    PAC:          An  [4 | completive]
+    verb:         gyara  [Hausa: gyara | English: repair | form: hausa]
+    object:       motar  [noun | English: car | 3sg.f | the]
+    adverbs:      yesterday
+
+[12.3] Passive (S17)   English: The assignment was submitted on time.
+Sentence: An miƙa aikin gidan a kan lokaci.
+Words:    An<PAC1>  miƙa<VERB>  aikin gidan<NOUN>  a kan lokaci<ADV>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 4 | shown only by the PAC]
+    PAC:          An  [4 | completive]
+    verb:         miƙa  [Hausa: miƙa | English: submit | form: hausa]
+    object:       aikin gidan  [noun | English: assignment | 3sg.m | the]
+    adverbs:      on time
+
+[12.4] Passive (S17)   English: The baby was carried by her mother.
+Sentence: Mahaifiyarta ce ta ɗauki jaririyar.
+Words:    Mahaifiyarta<NOUN>  ce<COP/VERB>  ta<OF/PRON/PAC1>  ɗauki<VERB>  jaririyar<UNKNOWN>
+  Clause 1: main - statement - verbal
+    focus:        Mahaifiyarta  [noun | English: mother | 3sg.f | owner: 3sg.f]
+    gap:          subject
+    subject:      Mahaifiyarta  [noun | English: mother | 3sg.f | owner: 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         ɗauki  [Hausa: ɗauka | English: carry | form: before_noun]
+  PROBLEMS: word(s) not recognised: jaririyar; clause 1: words not placed: jaririyar
+
+[13.1] C14   English: If you study hard, you will pass.
+Sentence: Idan ka yi karatu sosai, za ka ci jarrabawa.
+Words:    Idan<SUB>  ka<PRON/PAC1>  yi<VERB>  karatu<YINOUN/NOUN>  sosai<ADV>  za<PACPART>  ka<PRON/PAC1>  ci<VERB>  jarrabawa<NOUN>
+  Clause 1: subordinate (linker: idan = if) - statement - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          ka  [2sg.m | completive]
+    verb:         yi karatu  [Hausa: karatu | English: study | form: yi]
+    adverbs:      a lot
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          za ka  [2sg.m | future]
+    verb:         ci  [Hausa: ci | English: eat | form: hausa]
+    object:       jarrabawa  [noun | English: exam | 3sg.f]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (pass / eat)
+
+[13.2] C14   English: If the rain stops, we will travel.
+Sentence: Idan ruwan sama ya tsaya, za mu yi tafiya.
+Words:    Idan<SUB>  ruwan sama<NOUN>  ya<PAC1>  tsaya<VERB>  za<PACPART>  mu<PRON/PAC1>  yi<VERB>  tafiya<VERB/YINOUN/NOUN>
+  Clause 1: subordinate (linker: idan = if) - statement - verbal
+    subject:      ruwan sama  [noun | English: rain | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         tsaya  [Hausa: tsaya | English: stop | form: hausa]
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 1pl | shown only by the PAC]
+    PAC:          za mu  [1pl | future]
+    verb:         yi tafiya  [Hausa: tafiya | English: travel | form: yi]
+
+[13.3] C14 (counterfactual)   English: If Ngozi had arrived earlier, she would have met the lecturer.
+Sentence: Da Ngozi ta iso da wuri, da ta haɗu da malamin.
+Words:    Da<DA>  Ngozi<NAME>  ta<OF/PRON/PAC1>  iso<VERB>  da wuri<ADV>  da<DA>  ta<OF/PRON/PAC1>  haɗu da<VERB>  malamin<NOUN>
+  Clause 1: subordinate (linker: da = counterfactual) - statement - verbal
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         iso  [Hausa: iso | English: arrive | form: hausa]
+    adverbs:      early
+  Clause 2: main (linker: da = counterfactual) - statement - verbal
+    subject:      (none)  [pronoun | 3sg.f | shown only by the PAC]
+    PAC:          ta  [3sg.f | completive]
+    verb:         haɗu da  [Hausa: haɗu | English: meet | form: before_noun]
+    object:       malamin  [noun | English: teacher | 3sg.m | the]
+
+[13.4] C14   English: If Musa saves enough money, he will buy a laptop.
+Sentence: Idan Musa ya tara isassun kuɗi, zai sayi kwamfutar tafi-da-gidanka.
+Words:    Idan<SUB>  Musa<NAME>  ya<PAC1>  tara<NUM/VERB/NOUN>  isassun<QUANT>  kuɗi<NOUN>  zai<PAC1>  sayi<VERB>  kwamfutar tafi-da-gidanka<NOUN>
+  Clause 1: subordinate (linker: idan = if) - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         tara  [Hausa: tara | English: gather | form: hausa]
+    object:       isassun kuɗi  [noun | English: money | 3pl | enough]
+  Clause 2: main - statement - verbal
+    subject:      (none)  [pronoun | 3sg.m | shown only by the PAC]
+    PAC:          zai  [3sg.m | future]
+    verb:         sayi  [Hausa: saya | English: buy | form: before_noun]
+    object:       kwamfutar tafi-da-gidanka  [noun | English: laptop | 3sg.f]
+
+[14.1] Optional: imperative   English: Sit down.
+Sentence: Zauna.
+Words:    Zauna<VERB/NOUN>
+  Clause 1: main - command - command
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    verb:         Zauna  [Hausa: zauna | English: sit | form: hausa]
+
+[14.2] Optional: imperative   English: Please close the door.
+Sentence: Don Allah ka rufe ƙofar.
+Words:    Don Allah<PLEASE>  ka<PRON/PAC1>  rufe<VERB>  ƙofar<NOUN>
+  Clause 1: main - command - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          ka  [2sg.m | subjunctive]
+    verb:         rufe  [Hausa: rufe | English: close | form: hausa]
+    object:       ƙofar  [noun | English: door | 3sg.f | the]
+    please:       yes
+
+[14.3] Optional: imperative   English: Do not touch that.
+Sentence: Kada ka taɓa wancan.
+Words:    Kada<KADA/NOUN>  ka<PRON/PAC1>  taɓa<VERB>  wancan<DEM>
+  Clause 1: main - command - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          ka  [2sg.m | subjunctive]
+    verb:         taɓa  [Hausa: taɓa | English: touch | form: hausa]
+    object:       wancan  [demonstrative | English: that | 3sg.m]
+    negative:     yes
+
+[14.4] Optional: imperative   English: Bring the books here.
+Sentence: Kawo littattafan nan.
+Words:    Kawo<VERB>  littattafan<NOUN>  nan<ADV>
+  Clause 1: main - command - command
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    verb:         Kawo  [Hausa: kawo | English: bring | form: hausa]
+    object:       littattafan  [noun | English: book | 3pl | the]
+    adverbs:      here
+
+[16.1] Optional: existential   English: There is a problem.
+Sentence: Akwai matsala.
+Words:    Akwai<EXIST>  matsala<NOUN>
+  Clause 1: main - statement - existential
+    subject:      matsala  [noun | English: problem | 3sg.f]
+
+[16.2] Optional: existential   English: There are many students outside.
+Sentence: Akwai ɗalibai da yawa a waje.
+Words:    Akwai<EXIST>  ɗalibai<NOUN>  da yawa<QUANT>  a waje<ADV>
+  Clause 1: main - statement - existential
+    subject:      ɗalibai da yawa  [noun | English: student | 3pl | many]
+    adverbs:      outside
+
+[16.3] Optional: existential   English: There was a loud noise in the market.
+Sentence: An yi hayaniya mai ƙarfi a kasuwa.
+Words:    An<PAC1>  yi<VERB>  hayaniya<NOUN>  mai<MAI/NOUN>  ƙarfi<QNOUN>  a<PREP/PAC1>  kasuwa<NOUN>
+  Clause 1: main - statement - existential
+    subject:      hayaniya mai ƙarfi  [noun | English: noise | 3sg.f | adjective: loud]
+    PAC:          An  [4 | completive]
+    in + ...:     kasuwa  [noun | English: market | 3sg.f]
+
+[16.4] Optional: existential   English: There have been many complaints.
+Sentence: An yi ƙorafe-ƙorafe da yawa.
+Words:    An<PAC1>  yi<VERB>  ƙorafe-ƙorafe<NOUN>  da yawa<QUANT>
+  Clause 1: main - statement - existential
+    subject:      ƙorafe-ƙorafe da yawa  [noun | English: complaint | 3pl | many]
+    PAC:          An  [4 | completive]
+
+[17.1] C6   English: Ada is a teacher.
+Sentence: Ada malama ce.
+Words:    Ada<NAME>  malama<NOUN>  ce<COP/VERB>
+  Clause 1: main - statement - equational
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    complement:   (noun) malama  [noun | English: teacher | 3sg.f]
+
+[17.2] C7   English: The soup is hot.
+Sentence: Miyar tana da zafi.
+Words:    Miyar<NOUN>  tana<PAC1/NOUN>  da<DA>  zafi<WEATHER/QNOUN/NOUN>
+  Clause 1: main - statement - adjective
+    subject:      Miyar  [noun | English: soup | 3sg.f | the]
+    PAC:          tana  [3sg.f | continuous]
+    complement:   (adjective) hot
+
+[17.3] C7   English: Musa became angry.
+Sentence: Musa ya yi fushi.
+Words:    Musa<NAME>  ya<PAC1>  yi<VERB>  fushi<YINOUN/QNOUN/NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi fushi  [Hausa: fushi | English: get angry | form: yi]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (become / get angry)
+
+[17.4] C7   English: The children are happy.
+Sentence: Yaran suna farin ciki.
+Words:    Yaran<NOUN>  suna<PAC1/NOUN>  farin ciki<YINOUN/QNOUN/NOUN>
+  Clause 1: main - statement - adjective
+    subject:      Yaran  [noun | English: children | 3pl | the]
+    PAC:          suna  [3pl | continuous]
+    complement:   (adjective) happy
+
+[18.1] C3   English: Musa gave Ada a book.
+Sentence: Musa ya ba Ada littafi.
+Words:    Musa<NAME>  ya<PAC1>  ba<NEG/PACPART/VERB>  Ada<NAME>  littafi<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         ba  [Hausa: ba | English: give | form: hausa]
+    receiver:     Ada  [name | English: Ada | 3sg.f]
+    object:       littafi  [noun | English: book | 3sg.m]
+
+[18.2] C3   English: The teacher sent the students a message.
+Sentence: Malamin ya aika wa ɗaliban saƙo.
+Words:    Malamin<NOUN>  ya<PAC1>  aika<VERB>  wa<WH/WA>  ɗaliban<NOUN>  saƙo<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Malamin  [noun | English: teacher | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         aika  [Hausa: aika | English: send | form: hausa]
+    receiver:     ɗaliban  [noun | English: student | 3pl | the]
+    object:       saƙo  [noun | English: message | 3sg.m]
+
+[18.3] C3   English: Ngozi bought her mother a wrapper.
+Sentence: Ngozi ta saya wa mahaifiyarta zane.
+Words:    Ngozi<NAME>  ta<OF/PRON/PAC1>  saya<VERB>  wa<WH/WA>  mahaifiyarta<NOUN>  zane<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         saya  [Hausa: saya | English: buy | form: hausa]
+    receiver:     mahaifiyarta  [noun | English: mother | 3sg.f | owner: 3sg.f]
+    object:       zane  [noun | English: wrapper | 3sg.m]
+
+[18.4] C3   English: Chika told the children a story.
+Sentence: Chika ta ba yaran labari.
+Words:    Chika<NAME>  ta<OF/PRON/PAC1>  ba<NEG/PACPART/VERB>  yaran<NOUN>  labari<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Chika  [name | English: Chika | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         ba  [Hausa: ba | English: give | form: hausa]
+    receiver:     yaran  [noun | English: children | 3pl | the]
+    object:       labari  [noun | English: story | 3sg.m]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (tell / give)
+
+[20.1] C3   English: Ada cooked Musa dinner.
+Sentence: Ada ta dafa wa Musa abincin dare.
+Words:    Ada<NAME>  ta<OF/PRON/PAC1>  dafa<VERB>  wa<WH/WA>  Musa<NAME>  abincin dare<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         dafa  [Hausa: dafa | English: cook | form: hausa]
+    receiver:     Musa  [name | English: Musa | 3sg.m]
+    object:       abincin dare  [noun | English: dinner | 3sg.m]
+
+[20.2] C3   English: She bought her mother a gift.
+Sentence: Ta saya wa mahaifiyarta kyauta.
+Words:    Ta<OF/PRON/PAC1>  saya<VERB>  wa<WH/WA>  mahaifiyarta<NOUN>  kyauta<ADJ/NOUN>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 3sg.f | shown only by the PAC]
+    PAC:          Ta  [3sg.f | completive]
+    verb:         saya  [Hausa: saya | English: buy | form: hausa]
+    receiver:     mahaifiyarta  [noun | English: mother | 3sg.f | owner: 3sg.f]
+    object:       kyauta  [noun | English: gift | 3sg.f]
+
+[20.3] C3   English: Chika fetched water for the children.
+Sentence: Chika ta ɗebo wa yaran ruwa.
+Words:    Chika<NAME>  ta<OF/PRON/PAC1>  ɗebo<VERB>  wa<WH/WA>  yaran<NOUN>  ruwa<WEATHER/YINOUN/NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Chika  [name | English: Chika | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         ɗebo  [Hausa: ɗebo | English: fetch | form: hausa]
+    receiver:     yaran  [noun | English: children | 3pl | the]
+    object:       ruwa  [noun | English: water | 3sg.m]
+
+[20.4] C3   English: The teacher wrote recommendations for the students.
+Sentence: Malamin ya rubuta wa ɗaliban takardun shaida.
+Words:    Malamin<NOUN>  ya<PAC1>  rubuta<VERB>  wa<WH/WA>  ɗaliban<NOUN>  takardun shaida<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Malamin  [noun | English: teacher | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         rubuta  [Hausa: rubuta | English: write | form: hausa]
+    receiver:     ɗaliban  [noun | English: student | 3pl | the]
+    object:       takardun shaida  [noun | English: recommendation | 3pl]
+
+[25.1] C10   English: Nobody came.
+Sentence: Ba wanda ya zo.
+Words:    Ba wanda<NOBODY>  ya<PAC1>  zo<VERB>
+  Clause 1: main - statement - verbal
+    subject:      Ba wanda  [indefinite | English: nobody | 3sg.m | negative]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         zo  [Hausa: zo | English: come | form: hausa]
+    negative:     yes
+
+[25.2] C10   English: I never saw anything.
+Sentence: Ban taɓa ganin komai ba.
+Words:    Ban<PAC1>  taɓa<VERB>  ganin<VERB>  komai<INDEF>  ba<NEG/PACPART/VERB>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 1sg | shown only by the PAC]
+    PAC:          Ban  [1sg | negative completive]
+    verb:         taɓa ganin  [Hausa: gani | English: see | form: vn_with_object | ever (taɓa)]
+    object:       komai  [indefinite | English: everything | 3sg.m]
+    negative:     yes
+
+[25.3] C10   English: Musa did not attend the meeting.
+Sentence: Musa bai halarci taron ba.
+Words:    Musa<NAME>  bai<PAC1>  halarci<VERB>  taron<NOUN>  ba<NEG/PACPART/VERB>
+  Clause 1: main - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          bai  [3sg.m | negative completive]
+    verb:         halarci  [Hausa: halarta | English: attend | form: before_noun]
+    object:       taron  [noun | English: meeting | 3sg.m | the]
+    negative:     yes
+
+[25.4] C10   English: Ada cannot swim.
+Sentence: Ada ba ta iya iyo ba.
+Words:    Ada<NAME>  ba<NEG/PACPART/VERB>  ta<OF/PRON/PAC1>  iya<VERB>  iyo<VERB>  ba<NEG/PACPART/VERB>
+  Clause 1: main - statement - verbal
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ba ta  [3sg.f | negative completive]
+    verb:         iya iyo  [Hausa: iyo | English: swim | form: hausa | can (iya)]
+    negative:     yes
+
+[26.1] C16   English: I know that she left.
+Sentence: Na san cewa ta tafi.
+Words:    Na<OF/PAC1>  san<VERB/NOUN>  cewa<CEWA>  ta<OF/PRON/PAC1>  tafi<VERB/YINOUN>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 1sg | shown only by the PAC]
+    PAC:          Na  [1sg | completive]
+    verb:         san  [Hausa: sani | English: know | form: before_noun]
+      reported clause (linker: cewa) - statement - verbal
+        subject:      (none)  [pronoun | 3sg.f | shown only by the PAC]
+        PAC:          ta  [3sg.f | completive]
+        verb:         tafi  [Hausa: tafi | English: go | form: hausa]
+
+[26.2] C16   English: Musa believes that Ada is honest.
+Sentence: Musa ya yarda cewa Ada mai gaskiya ce.
+Words:    Musa<NAME>  ya<PAC1>  yarda<VERB>  cewa<CEWA>  Ada<NAME>  mai<MAI/NOUN>  gaskiya<QNOUN/NOUN>  ce<COP/VERB>
+  Clause 1: main - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yarda  [Hausa: yarda | English: believe | form: hausa]
+      reported clause (linker: cewa) - statement - adjective
+        subject:      Ada  [name | English: Ada | 3sg.f]
+        complement:   (adjective) honest
+
+[26.3] C16   English: The teacher said that the exam was difficult.
+Sentence: Malamin ya ce jarrabawar tana da wuya.
+Words:    Malamin<NOUN>  ya<PAC1>  ce<COP/VERB>  jarrabawar<NOUN>  tana<PAC1/NOUN>  da<DA>  wuya<QNOUN/NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Malamin  [noun | English: teacher | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         ce  [Hausa: ce | English: say | form: hausa]
+      reported clause - statement - adjective
+        subject:      jarrabawar  [noun | English: exam | 3sg.f | the]
+        PAC:          tana  [3sg.f | continuous]
+        complement:   (adjective) difficult
+
+[26.4] C16   English: Chika heard that the market closed early.
+Sentence: Chika ta ji cewa an rufe kasuwar da wuri.
+Words:    Chika<NAME>  ta<OF/PRON/PAC1>  ji<VERB>  cewa<CEWA>  an<PAC1>  rufe<VERB>  kasuwar<NOUN>  da wuri<ADV>
+  Clause 1: main - statement - verbal
+    subject:      Chika  [name | English: Chika | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         ji  [Hausa: ji | English: hear | form: hausa]
+      reported clause (linker: cewa) - statement - verbal
+        subject:      (none)  [pronoun | 4 | shown only by the PAC]
+        PAC:          an  [4 | completive]
+        verb:         rufe  [Hausa: rufe | English: close | form: hausa]
+        object:       kasuwar  [noun | English: market | 3sg.f | the]
+        adverbs:      early
+
+[35.1] C12   English: Who did Ada invite?
+Sentence: Wa Ada ta gayyata?
+Words:    Wa<WH/WA>  Ada<NAME>  ta<OF/PRON/PAC1>  gayyata<VERB>
+  Clause 1: main - wh-question - verbal
+    question:     who (asks about the object)
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | relative completive]
+    verb:         gayyata  [Hausa: gayyata | English: invite | form: hausa]
+    object:       Wa  [wh | English: who]
+
+[35.2] C12   English: What did Musa buy?
+Sentence: Me Musa ya saya?
+Words:    Me<WH>  Musa<NAME>  ya<PAC1>  saya<VERB>
+  Clause 1: main - wh-question - verbal
+    question:     what (asks about the object)
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         saya  [Hausa: saya | English: buy | form: hausa]
+    object:       Me  [wh | English: what]
+
+[35.3] C12   English: Which student solved the problem?
+Sentence: Wane ɗalibi ne ya warware matsalar?
+Words:    Wane<WHICH>  ɗalibi<NOUN>  ne<COP>  ya<PAC1>  warware<VERB>  matsalar<NOUN>
+  Clause 1: main - wh-question - verbal
+    question:     which (asks about the subject)
+    subject:      Wane ɗalibi  [noun | English: student | 3sg.m | which]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         warware  [Hausa: warware | English: solve | form: hausa]
+    object:       matsalar  [noun | English: problem | 3sg.f | the]
+
+[35.4] C12   English: Who did the teacher praise?
+Sentence: Wa malamin ya yaba?
+Words:    Wa<WH/WA>  malamin<NOUN>  ya<PAC1>  yaba<VERB>
+  Clause 1: main - wh-question - verbal
+    question:     who (asks about the object)
+    subject:      malamin  [noun | English: teacher | 3sg.m | the]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         yaba  [Hausa: yaba | English: praise | form: hausa]
+    object:       Wa  [wh | English: who]
+
+[40.1] C15+C6   English: The man who arrived yesterday is my uncle.
+Sentence: Mutumin da ya iso jiya kawuna ne.
+Words:    Mutumin<NOUN>  da<DA>  ya<PAC1>  iso<VERB>  jiya<ADV>  kawuna<NOUN>  ne<COP>
+  Clause 1: main - statement - equational
+    subject:      Mutumin da ya iso jiya  [noun | English: man | 3sg.m | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          subject
+          subject:      (none)  [gap | English: man | 3sg.m]
+          PAC:          ya  [3sg.m | relative completive]
+          verb:         iso  [Hausa: iso | English: arrive | form: hausa]
+          adverbs:      yesterday
+    complement:   (noun) kawuna  [noun | English: uncle | 3sg.m | owner: 1sg]
+
+[40.2] C15   English: The book that Ada borrowed is missing.
+Sentence: Littafin da Ada ta aro ya ɓata.
+Words:    Littafin<NOUN>  da<DA>  Ada<NAME>  ta<OF/PRON/PAC1>  aro<VERB>  ya<PAC1>  ɓata<QNOUN>
+  Clause 1: main - statement - adjective
+    subject:      Littafin da Ada ta aro  [noun | English: book | 3sg.m | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          object
+          subject:      Ada  [name | English: Ada | 3sg.f]
+          PAC:          ta  [3sg.f | relative completive]
+          verb:         aro  [Hausa: aro | English: borrow | form: hausa]
+    PAC:          ya  [3sg.m | completive]
+    complement:   (adjective) missing
+
+[40.3] C15   English: The girl whose father is a doctor won the prize.
+Sentence: Yarinyar da mahaifinta likita ne ta ci kyautar.
+Words:    Yarinyar<NOUN>  da<DA>  mahaifinta<NOUN>  likita<NOUN>  ne<COP>  ta<OF/PRON/PAC1>  ci<VERB>  kyautar<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Yarinyar da mahaifinta likita ne  [noun | English: girl | 3sg.f | the]
+        relative clause (linker: da) - statement - equational
+          gap:          possessor
+          subject:      mahaifinta  [noun | English: father | 3sg.m | owner: 3sg.f]
+          complement:   (noun) likita  [noun | English: doctor | 3sg.m]
+    PAC:          ta  [3sg.f | completive]
+    verb:         ci  [Hausa: ci | English: eat | form: hausa]
+    object:       kyautar  [noun | English: gift | 3sg.f | the]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (win / eat)
+
+[40.4] C15   English: The teacher whom the students admired retired.
+Sentence: Malamin da ɗaliban suke girmamawa ya yi ritaya.
+Words:    Malamin<NOUN>  da<DA>  ɗaliban<NOUN>  suke<PAC1>  girmamawa<VERB>  ya<PAC1>  yi<VERB>  ritaya<YINOUN>
+  Clause 1: main - statement - verbal
+    subject:      Malamin da ɗaliban suke girmamawa  [noun | English: teacher | 3sg.m | the]
+        relative clause (linker: da) - statement - verbal
+          gap:          object
+          subject:      ɗaliban  [noun | English: student | 3pl | the]
+          PAC:          suke  [3pl | relative continuous]
+          verb:         girmamawa  [Hausa: girmama | English: admire | form: verbal_noun]
+    PAC:          ya  [3sg.m | completive]
+    verb:         yi ritaya  [Hausa: ritaya | English: retire | form: yi]
+
+[41.1] C11   English: Did Musa arrive?
+Sentence: Musa ya iso?
+Words:    Musa<NAME>  ya<PAC1>  iso<VERB>
+  Clause 1: main - yes-no question - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         iso  [Hausa: iso | English: arrive | form: hausa]
+
+[41.2] C12   English: Who bought the food?
+Sentence: Wa ya sayi abincin?
+Words:    Wa<WH/WA>  ya<PAC1>  sayi<VERB>  abincin<NOUN>
+  Clause 1: main - wh-question - verbal
+    question:     who (asks about the subject)
+    subject:      Wa  [wh | English: who]
+    PAC:          ya  [3sg.m | relative completive]
+    verb:         sayi  [Hausa: saya | English: buy | form: before_noun]
+    object:       abincin  [noun | English: food | 3sg.m | the]
+
+[41.3] C11   English: You are leaving already?
+Sentence: Har za ka tafi?
+Words:    Har<SUB>  za<PACPART>  ka<PRON/PAC1>  tafi<VERB/YINOUN>
+  Clause 1: main - yes-no question - verbal
+    subject:      (none)  [pronoun | 2sg.m | shown only by the PAC]
+    PAC:          za ka  [2sg.m | future]
+    verb:         tafi  [Hausa: tafi | English: go | form: hausa]
+    adverbs:      already
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (leave / go)
+
+[41.4] C12   English: Why would anyone do that?
+Sentence: Me ya sa wani zai yi haka?
+Words:    Me ya sa<WH>  wani<INDEF>  zai<PAC1>  yi<VERB>  haka<INDEF>
+  Clause 1: main - wh-question - verbal
+    question:     why (asks about the reason)
+    subject:      wani  [indefinite | English: someone | 3sg.m]
+    PAC:          zai  [3sg.m | future]
+    verb:         yi  [Hausa: yi | English: do | form: hausa]
+    object:       haka  [indefinite | English: that | 3sg.m]
+
+[49.1] C8   English: The children are in the house.
+Sentence: Yaran suna cikin gida.
+Words:    Yaran<NOUN>  suna<PAC1/NOUN>  cikin<PREP/NOUN>  gida<NOUN>
+  Clause 1: main - statement - locative
+    subject:      Yaran  [noun | English: children | 3pl | the]
+    PAC:          suna  [3pl | continuous]
+    complement:   (place) in + gida  [noun | English: house | 3sg.m]
+
+[49.2] C2   English: Musa put the bag on the table.
+Sentence: Musa ya ajiye jakar a kan tebur.
+Words:    Musa<NAME>  ya<PAC1>  ajiye<VERB>  jakar<NOUN>  a kan<PREP>  tebur<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    verb:         ajiye  [Hausa: ajiye | English: put | form: hausa]
+    object:       jakar  [noun | English: bag | 3sg.f | the]
+    on + ...:     tebur  [noun | English: table | 3sg.m]
+
+[49.3] C8   English: The goat is behind the fence.
+Sentence: Akuyar tana bayan shingen.
+Words:    Akuyar<NOUN>  tana<PAC1/NOUN>  bayan<PREP/NOUN>  shingen<NOUN>
+  Clause 1: main - statement - locative
+    subject:      Akuyar  [noun | English: goat | 3sg.f | the]
+    PAC:          tana  [3sg.f | continuous]
+    complement:   (place) behind + shingen  [noun | English: fence | 3sg.m | the]
+
+[49.4] C1   English: Ada sat near the window.
+Sentence: Ada ta zauna kusa da taga.
+Words:    Ada<NAME>  ta<OF/PRON/PAC1>  zauna<VERB/NOUN>  kusa da<PREP/ADJ>  taga<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         zauna  [Hausa: zauna | English: sit | form: hausa]
+    near + ...:   taga  [noun | English: window | 3sg.f]
+
+[50.1] C9   English: Ada has a car.
+Sentence: Ada tana da mota.
+Words:    Ada<NAME>  tana<PAC1/NOUN>  da<DA>  mota<NOUN>
+  Clause 1: main - statement - possession
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          tana  [3sg.f | continuous]
+    object:       mota  [noun | English: car | 3sg.f]
+
+[50.2] C6   English: The book belongs to Musa.
+Sentence: Littafin na Musa ne.
+Words:    Littafin<NOUN>  na<OF/PAC1>  Musa<NAME>  ne<COP>
+  Clause 1: main - statement - belong
+    subject:      Littafin  [noun | English: book | 3sg.m | the]
+    complement:   (owner) Musa  [name | English: Musa | 3sg.m]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (belong / be)
+
+[50.3] C9   English: Ngozi owns a bakery.
+Sentence: Ngozi tana da gidan burodi.
+Words:    Ngozi<NAME>  tana<PAC1/NOUN>  da<DA>  gidan burodi<NOUN>
+  Clause 1: main - statement - possession
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          tana  [3sg.f | continuous]
+    object:       gidan burodi  [noun | English: bakery | 3sg.m]
+
+[50.4] C9   English: The child has two pencils.
+Sentence: Yaron yana da fensir biyu.
+Words:    Yaron<NOUN>  yana<PAC1>  da<DA>  fensir<NOUN>  biyu<NUM/ADJ>
+  Clause 1: main - statement - possession
+    subject:      Yaron  [noun | English: boy | 3sg.m | the]
+    PAC:          yana  [3sg.m | continuous]
+    object:       fensir biyu  [noun | English: pencil | 3pl | number: two]
+
+[51.1] Optional: experiencer   English: Musa likes rice.
+Sentence: Musa yana son shinkafa.
+Words:    Musa<NAME>  yana<PAC1>  son<VERB>  shinkafa<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          yana  [3sg.m | continuous]
+    verb:         son  [Hausa: so | English: want | form: vn_with_object]
+    object:       shinkafa  [noun | English: rice | 3sg.f]
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (like / want)
+
+[51.2] Optional: experiencer   English: The noise frightened Ada.
+Sentence: Hayaniyar ta tsorata Ada.
+Words:    Hayaniyar<NOUN>  ta<OF/PRON/PAC1>  tsorata<VERB>  Ada<NAME>
+  Clause 1: main - statement - verbal
+    subject:      Hayaniyar  [noun | English: noise | 3sg.f | the]
+    PAC:          ta  [3sg.f | completive]
+    verb:         tsorata  [Hausa: tsorata | English: frighten | form: hausa]
+    object:       Ada  [name | English: Ada | 3sg.f]
+
+[51.3] Optional: experiencer   English: Ngozi enjoys classical music.
+Sentence: Ngozi tana jin daɗin waƙoƙin gargajiya.
+Words:    Ngozi<NAME>  tana<PAC1/NOUN>  jin daɗin<VERB>  waƙoƙin<NOUN>  gargajiya<QNOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          tana  [3sg.f | continuous]
+    verb:         jin daɗin  [Hausa: ji daɗi | English: enjoy | form: vn_with_object]
+    object:       waƙoƙin gargajiya  [noun | English: song | 3pl | adjective: classical]
+
+[51.4] Optional: experiencer   English: The movie surprised the students.
+Sentence: Fim ɗin ya ba ɗaliban mamaki.
+Words:    Fim<NOUN>  ɗin<DIN>  ya<PAC1>  ba<NEG/PACPART/VERB>  ɗaliban<NOUN>  mamaki<YINOUN/NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Fim ɗin  [noun | English: movie | 3sg.m | the]
+    PAC:          ya  [3sg.m | completive]
+    verb:         ba  [Hausa: ba mamaki | English: surprise | form: hausa]
+    object:       ɗaliban  [noun | English: student | 3pl | the]
+
+[52.1] Optional: weather   English: It is raining.
+Sentence: Ana ruwa.
+Words:    Ana<PAC1>  ruwa<WEATHER/YINOUN/NOUN>
+  Clause 1: main - statement - weather
+    subject:      (none)  [pronoun | 4 | shown only by the PAC]
+    PAC:          Ana  [4 | continuous]
+    complement:   (weather) rain
+  DIFFERS FROM THE ENGLISH ANALYSIS: main verb (rain / be)
+
+[52.2] Optional: weather   English: The weather is cold.
+Sentence: Ana sanyi.
+Words:    Ana<PAC1>  sanyi<WEATHER/QNOUN>
+  Clause 1: main - statement - weather
+    subject:      (none)  [pronoun | 4 | shown only by the PAC]
+    PAC:          Ana  [4 | continuous]
+    complement:   (weather) cold
+
+[52.3] Optional: weather   English: It became cloudy this morning.
+Sentence: Sama ya yi gajimare da safiyar yau.
+Words:    Sama<NOUN>  ya<PAC1>  yi<VERB>  gajimare<WEATHER/QNOUN/NOUN>  da safiyar yau<ADV>
+  Clause 1: main - statement - weather
+    subject:      Sama  [noun | English: sky | 3sg.m]
+    PAC:          ya  [3sg.m | completive]
+    complement:   (weather) cloudy
+    adverbs:      this morning
+
+[52.4] Optional: weather   English: It was windy yesterday.
+Sentence: An yi iska sosai jiya.
+Words:    An<PAC1>  yi<VERB>  iska<WEATHER/QNOUN/NOUN>  sosai<ADV>  jiya<ADV>
+  Clause 1: main - statement - weather
+    subject:      (none)  [pronoun | 4 | shown only by the PAC]
+    PAC:          An  [4 | completive]
+    complement:   (weather) windy
+    adverbs:      a lot, yesterday
+
+[55.1] C3   English: Ada gave Musa a book.
+Sentence: Ada ta ba Musa littafi.
+Words:    Ada<NAME>  ta<OF/PRON/PAC1>  ba<NEG/PACPART/VERB>  Musa<NAME>  littafi<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         ba  [Hausa: ba | English: give | form: hausa]
+    receiver:     Musa  [name | English: Musa | 3sg.m]
+    object:       littafi  [noun | English: book | 3sg.m]
+
+[55.2] C3   English: Ada gave a book to Musa.
+Sentence: Ada ta ba Musa littafi.
+Words:    Ada<NAME>  ta<OF/PRON/PAC1>  ba<NEG/PACPART/VERB>  Musa<NAME>  littafi<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         ba  [Hausa: ba | English: give | form: hausa]
+    receiver:     Musa  [name | English: Musa | 3sg.m]
+    object:       littafi  [noun | English: book | 3sg.m]
+
+[55.3] C3   English: Ngozi sent Chika a message.
+Sentence: Ngozi ta aika wa Chika saƙo.
+Words:    Ngozi<NAME>  ta<OF/PRON/PAC1>  aika<VERB>  wa<WH/WA>  Chika<NAME>  saƙo<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         aika  [Hausa: aika | English: send | form: hausa]
+    receiver:     Chika  [name | English: Chika | 3sg.f]
+    object:       saƙo  [noun | English: message | 3sg.m]
+
+[55.4] C3   English: Ngozi sent a message to Chika.
+Sentence: Ngozi ta aika wa Chika saƙo.
+Words:    Ngozi<NAME>  ta<OF/PRON/PAC1>  aika<VERB>  wa<WH/WA>  Chika<NAME>  saƙo<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Ngozi  [name | English: Ngozi | 3sg.f]
+    PAC:          ta  [3sg.f | completive]
+    verb:         aika  [Hausa: aika | English: send | form: hausa]
+    receiver:     Chika  [name | English: Chika | 3sg.f]
+    object:       saƙo  [noun | English: message | 3sg.m]
+
+[A.1] C4   English: The children are playing.
+Sentence: Yaran suna wasa.
+Words:    Yaran<NOUN>  suna<PAC1/NOUN>  wasa<YINOUN/NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Yaran  [noun | English: children | 3pl | the]
+    PAC:          suna  [3pl | continuous]
+    verb:         wasa  [Hausa: wasa | English: play | form: yi]
+
+[A.2] C4   English: She is cooking rice.
+Sentence: Tana dafa shinkafa.
+Words:    Tana<PAC1/NOUN>  dafa<VERB>  shinkafa<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 3sg.f | shown only by the PAC]
+    PAC:          Tana  [3sg.f | continuous]
+    verb:         dafa  [Hausa: dafa | English: cook | form: vn_with_object]
+    object:       shinkafa  [noun | English: rice | 3sg.f]
+
+[A.3] C4   English: I eat rice every day.
+Sentence: Ina cin shinkafa kullum.
+Words:    Ina<WH/PAC1>  cin<VERB>  shinkafa<NOUN>  kullum<ADV>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 1sg | shown only by the PAC]
+    PAC:          Ina  [1sg | continuous]
+    verb:         cin  [Hausa: ci | English: eat | form: vn_with_object]
+    object:       shinkafa  [noun | English: rice | 3sg.f]
+    adverbs:      every day
+
+[A.4] C5   English: We will go to the market tomorrow.
+Sentence: Za mu tafi kasuwa gobe.
+Words:    Za<PACPART>  mu<PRON/PAC1>  tafi<VERB/YINOUN>  kasuwa<NOUN>  gobe<ADV>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 1pl | shown only by the PAC]
+    PAC:          Za mu  [1pl | future]
+    verb:         tafi  [Hausa: tafi | English: go | form: hausa]
+    to + ...:     kasuwa  [noun | English: market | 3sg.f]
+    adverbs:      tomorrow
+
+[A.5] C5   English: Musa will buy a car.
+Sentence: Musa zai sayi mota.
+Words:    Musa<NAME>  zai<PAC1>  sayi<VERB>  mota<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          zai  [3sg.m | future]
+    verb:         sayi  [Hausa: saya | English: buy | form: before_noun]
+    object:       mota  [noun | English: car | 3sg.f]
+
+[A.6] C10   English: I will not go.
+Sentence: Ba zan tafi ba.
+Words:    Ba<NEG/PACPART/VERB>  zan<PAC1>  tafi<VERB/YINOUN>  ba<NEG/PACPART/VERB>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 1sg | shown only by the PAC]
+    PAC:          Ba zan  [1sg | negative future]
+    verb:         tafi  [Hausa: tafi | English: go | form: hausa]
+    negative:     yes
+
+[A.7] C10   English: He does not eat meat.
+Sentence: Ba ya cin nama.
+Words:    Ba<NEG/PACPART/VERB>  ya<PAC1>  cin<VERB>  nama<NOUN>
+  Clause 1: main - statement - verbal
+    subject:      (none)  [pronoun | 3sg.m | shown only by the PAC]
+    PAC:          Ba ya  [3sg.m | negative continuous]
+    verb:         cin  [Hausa: ci | English: eat | form: vn_with_object]
+    object:       nama  [noun | English: meat | 3sg.m]
+    negative:     yes
+
+[A.8] C10   English: Ada is not a teacher.
+Sentence: Ada ba malama ba ce.
+Words:    Ada<NAME>  ba<NEG/PACPART/VERB>  malama<NOUN>  ba<NEG/PACPART/VERB>  ce<COP/VERB>
+  Clause 1: main - statement - equational
+    subject:      Ada  [name | English: Ada | 3sg.f]
+    complement:   (noun) malama  [noun | English: teacher | 3sg.f]
+    negative:     yes
+
+[A.9] C10   English: I do not have a car.
+Sentence: Ba ni da mota.
+Words:    Ba<NEG/PACPART/VERB>  ni<PRON>  da<DA>  mota<NOUN>
+  Clause 1: main - statement - possession
+    subject:      ni  [pronoun | 1sg]
+    PAC:          ba  [1sg | negative continuous]
+    object:       mota  [noun | English: car | 3sg.f]
+    negative:     yes
+
+[A.10] C8   English: Musa is at the market.
+Sentence: Musa yana kasuwa.
+Words:    Musa<NAME>  yana<PAC1>  kasuwa<NOUN>
+  Clause 1: main - statement - locative
+    subject:      Musa  [name | English: Musa | 3sg.m]
+    PAC:          yana  [3sg.m | continuous]
+    complement:   (place) at + kasuwa  [noun | English: market | 3sg.f]
+
+[A.11] C7   English: This house is big.
+Sentence: Wannan gida babba ne.
+Words:    Wannan<DEM>  gida<NOUN>  babba<ADJ>  ne<COP>
+  Clause 1: main - statement - adjective
+    subject:      Wannan gida  [noun | English: house | 3sg.m | this]
+    complement:   (adjective) big
+
+[A.12] C7   English: My car is new.
+Sentence: Motata sabuwa ce.
+Words:    Motata<NOUN>  sabuwa<ADJ>  ce<COP/VERB>
+  Clause 1: main - statement - adjective
+    subject:      Motata  [noun | English: car | 3sg.f | owner: 1sg]
+    complement:   (adjective) new

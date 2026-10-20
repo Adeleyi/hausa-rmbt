@@ -1,4 +1,5 @@
-"""English word lists used by the English analysis.
+"""English word lists: used to read English (english_analysis.py) and to write it
+(english_generate.py).
 
 This file is DATA, not program logic. Linguists can edit it freely:
 add a word to the right list, save, and run the analysis again.
@@ -39,7 +40,7 @@ POSSESSIVES = {
     "their": ("3", "pl", ""),
 }
 
-ARTICLES = {"a": "indefinite", "an": "indefinite", "the": "definite"}
+ARTICLES = {"a": "indefinite", "an": "indefinite", "the": "definite", "no": "negative"}
 
 # this/that/these/those: word -> (distance, number)
 DEMONSTRATIVES = {
@@ -170,6 +171,8 @@ IRREGULAR_VERBS = {
     "let": ("let", "let"), "lend": ("lent", "lent"), "light": ("lit", "lit"),
     "shut": ("shut", "shut"), "ride": ("rode", "ridden"), "rise": ("rose", "risen"),
     "show": ("showed", "shown"), "hide": ("hid", "hidden"), "bite": ("bit", "bitten"),
+    "sweep": ("swept", "swept"), "flee": ("fled", "fled"), "weep": ("wept", "wept"), "shoot": ("shot", "shot"),
+    "dig": ("dug", "dug"), "hang": ("hung", "hung"), "bend": ("bent", "bent"),
 }
 
 # Irregular plurals: plural -> singular
@@ -178,6 +181,11 @@ IRREGULAR_PLURALS = {
     "feet": "foot", "teeth": "tooth", "mice": "mouse", "wives": "wife",
     "knives": "knife", "lives": "life", "leaves": "leaf", "elders": "elder",
 }
+
+# Things there is only one of. English says "the"; Hausa has no -n/-r.
+#   E -> H: "The rain stopped" -> Ruwan sama ya tsaya (no -n)
+#   H -> E: Ruwan sama ya tsaya -> "The rain stopped" (the is added)
+UNIQUE_NOUNS = {"rain", "sun", "moon", "sky", "weather", "light", "electricity", "world"}
 
 # Nouns that have the same form in singular and plural
 UNCOUNTABLE = {"rice", "water", "money", "food", "bread", "meat", "tea", "milk",
