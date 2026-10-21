@@ -67,4 +67,4 @@ Hausa:   Ina zuwa.
 
 - **Code:** MIT licence (see `LICENSE`).
 - **Data** (`data/`): CC BY-SA 4.0, because the lexicon includes entries from Wiktionary.
-- Sources: Wiktionary Hausa entries via [Kaikki.org](https://kaikki.org/) (CC BY-SA); an English–Hausa word list corrected by the group; verb, demonstrative and question-word lists compiled by the group. Test sentences adapted from the group's construction list and translated or checked by the group's Hausa speaker.
+- Sources: Wiktionary Hausa entries via [Kaikki.org](https://kaikki.org/) (CC BY-SA); the [AfriDict](https://huggingface.co/datasets/taresco/afri-dict) English–Hausa list (TARESCo), corrected by the group; verb, demonstrative and question-word lists compiled by the group. Test sentences adapted from the group's construction list and translated or checked by the group's Hausa speaker.

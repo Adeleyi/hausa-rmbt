@@ -1,20 +1,10 @@
-"""English word lists: used to read English (english_analysis.py) and to write it
-(english_generate.py).
+"""English word lists for reading and writing English. DATA: linguists can edit it.
 
-This file is DATA, not program logic. Linguists can edit it freely:
-add a word to the right list, save, and run the analysis again.
-
-Most nouns, verbs and adjectives come from the English side of our
-lexicon workbook. The lists here cover:
-  1. grammar words (pronouns, determiners, auxiliaries, prepositions ...)
-  2. irregular English forms (went -> go, children -> child)
-  3. names and the sex of people words (needed for Hausa PAC agreement)
-  4. English content words that are not yet in the lexicon
+Most words come from the lexicon workbook. Here: grammar words, irregular forms,
+names and the sex of people words, and words not yet in the lexicon.
 """
 
-# ---------------------------------------------------------------------------
-# 1. Grammar words
-# ---------------------------------------------------------------------------
+# ===== 1. Grammar words =====
 
 # Personal pronouns: word -> (person, number, sex, case)
 # sex is "m", "f" or "" (unknown); case is "subject" or "object"
@@ -121,6 +111,16 @@ ADVERBS = {
     "earlier", "later", "together", "everywhere",
 }
 
+# Possessive pronouns used alone: "The book is mine" -> Littafin nawa ne
+POSSESSIVE_PRONOUNS = {"mine": ("1", "sg"), "yours": ("2", "sg"), "hers": ("3", "sg"),
+                       "ours": ("1", "pl"), "theirs": ("3", "pl")}
+
+# Pronouns that can only be a subject: the next word is a verb ("They hate ...")
+SUBJECT_PRONOUN_WORDS = {"i", "you", "he", "she", "we", "they"}
+
+# Time words that can be the subject of "be": "Today is Friday", "Tomorrow will be hot"
+TIME_WORDS = {"today", "tomorrow", "yesterday", "tonight"}
+
 # Multi-word expressions treated as one unit: written form -> label
 MULTIWORD = {
     "every day": "ADV", "every week": "ADV", "every morning": "ADV",
@@ -140,9 +140,7 @@ INDEFINITES = {
     "anything": ("3", "sg", False), "nothing": ("3", "sg", True),
 }
 
-# ---------------------------------------------------------------------------
-# 2. Irregular English forms
-# ---------------------------------------------------------------------------
+# ===== 2. Irregular English forms =====
 
 # Irregular verbs: base -> (past, past participle)
 IRREGULAR_VERBS = {
@@ -183,8 +181,6 @@ IRREGULAR_PLURALS = {
 }
 
 # Things there is only one of. English says "the"; Hausa has no -n/-r.
-#   E -> H: "The rain stopped" -> Ruwan sama ya tsaya (no -n)
-#   H -> E: Ruwan sama ya tsaya -> "The rain stopped" (the is added)
 UNIQUE_NOUNS = {"rain", "sun", "moon", "sky", "weather", "light", "electricity", "world"}
 
 # Nouns that have the same form in singular and plural
@@ -192,9 +188,7 @@ UNCOUNTABLE = {"rice", "water", "money", "food", "bread", "meat", "tea", "milk",
                "sheep", "fish", "news", "work", "homework", "music", "weather",
                "rain", "linguistics", "information", "advice", "furniture"}
 
-# ---------------------------------------------------------------------------
-# 3. Names and the sex of people words
-# ---------------------------------------------------------------------------
+# ===== 3. Names and the sex of people words =====
 # Person names used in our test sentences. More names are read from the
 # "Names" tab of the lexicon workbook.
 NAMES = {
@@ -209,11 +203,8 @@ FEMALE_NOUNS = {"girl", "woman", "mother", "sister", "wife", "daughter", "aunt",
 MALE_NOUNS = {"boy", "man", "father", "brother", "husband", "son", "uncle",
               "king", "grandfather", "gentleman", "dad"}
 
-# ---------------------------------------------------------------------------
-# 4. Content words not (yet) in the lexicon
-# ---------------------------------------------------------------------------
+# ===== 4. Content words not (yet) in the lexicon =====
 # These tell the analysis the word class. The Hausa translation still has to
-# be added to the lexicon workbook by the lexicographer.
 EXTRA_NOUNS = {
     "bakery", "bird", "candle", "complaint", "fan", "light", "linguistics",
     "meal", "music", "player", "recommendation", "road", "seat", "wrapper",
@@ -230,6 +221,7 @@ EXTRA_VERBS = {
     "praise", "help", "arrive", "borrow", "cook", "like", "frighten", "attend",
 }
 EXTRA_ADJECTIVES = {
+    "hungry", "thirsty", "sleepy", "careful", "quiet", "ready", "sick", "important", "interesting",
     "angry", "classical", "cloudy", "cold", "dangerous", "delicious",
     "difficult", "fascinating", "good", "happy", "hot", "loud", "narrow",
     "proud", "upset", "windy", "honest", "big", "small", "new", "old", "red",

@@ -1,16 +1,11 @@
-"""English analysis: stage 1 of the transfer system.
+"""English analysis: stage 1 of English -> Hausa.
 
-What it does, in order:
   1. clean_up      - expand contractions (didn't -> did not), split punctuation
-  2. tag_words     - give every word a word class (noun, verb, ...) and base form
-  3. split_clauses - cut the sentence into clauses (main, because-clause, ...)
-  4. parse_clause  - inside each clause, find subject, verb group, object, etc.
+  2. tag_words     - give every word a word class and a base form
+  3. split_clauses - cut the sentence into clauses
+  4. parse_clause  - find the subject, verb group, objects, places and times
 
-The result is an Analysis object. The transfer rules (stage 2) read it.
-
-Everything here is a hand-written rule. There is no statistics and no
-machine learning: if the analysis is wrong, a rule or a word list is wrong,
-and you can fix it.
+Explained in docs/english_analysis_explained.md.
 """
 import re
 from dataclasses import dataclass, field
@@ -19,37 +14,35 @@ import english_words as W
 import hausa_lexicon as L
 
 
-# ===========================================================================
-# Data structures: how an analysed sentence is stored
-# ===========================================================================
+# ===== Data structures: how an analysed sentence is stored =====
 
 @dataclass
 class Token:
-    text: str                 # the word as written
-    lower: str                # lower-case form
+    text: str
+    lower: str
     tag: str = ""             # word class, e.g. NOUN, VERB, DET
     lemma: str = ""           # base form, e.g. "go" for "went"
     form: str = ""            # verb form: base, past, participle, ing, 3sg; noun: sg/pl
-    options: dict = field(default_factory=dict)   # possible tags before context decides
+    options: dict = field(default_factory=dict)
 
 
 @dataclass
 class NounPhrase:
-    text: str                 # the words of the phrase
+    text: str
     head: str                 # base form of the main word, e.g. "girl"
     kind: str                 # noun, name, pronoun, indefinite, demonstrative, wh
     person: str = "3"
-    number: str = "sg"        # sg or pl
+    number: str = "sg"
     sex: str = ""             # m, f or "" (unknown) - for PAC agreement
     definite: str = ""        # definite, indefinite, near (this), far (that)
-    possessor: object = None  # another NounPhrase, or a pronoun description
+    possessor: object = None
     adjectives: list = field(default_factory=list)
     modifiers: list = field(default_factory=list)   # nouns in front of the head: "house" in "house door"
-    count: str = ""           # number word: "two"
-    quantifier: str = ""      # many, every, some ...
-    coordinated: list = field(default_factory=list)  # parts of "Musa and Aisha"
-    relative_clause: object = None                   # a Clause
-    negative: bool = False    # nobody, nothing
+    count: str = ""
+    quantifier: str = ""
+    coordinated: list = field(default_factory=list)
+    relative_clause: object = None
+    negative: bool = False
 
 
 @dataclass
@@ -61,33 +54,33 @@ class VerbGroup:
     negative: bool = False
     never: bool = False
     modal: str = ""           # ability, possibility, obligation, conditional
-    voice: str = "active"     # active or passive
-    copula: bool = False      # True for "be" as the main verb
-    possession: bool = False  # True for "have" as the main verb
-    particle: str = ""        # "up" in "stand up"
-    infinitive: str = ""      # "go" in "wanted to go"
+    voice: str = "active"
+    copula: bool = False
+    possession: bool = False
+    particle: str = ""
+    infinitive: str = ""
 
 
 @dataclass
 class Clause:
     role: str = "main"        # main, coordinated, subordinate, relative, complement
-    linker: str = ""          # and, but, because, if, that, who ...
-    linker_type: str = ""     # reason, condition, time ...
+    linker: str = ""
+    linker_type: str = ""
     mood: str = "statement"   # statement, yes-no question, wh-question, command
     subject: object = None
     verb: object = None
-    obj: object = None                 # direct object
+    obj: object = None
     indirect_obj: object = None        # receiver: "Ada" in "gave Ada a book"
     complement: object = None          # after "be": a NounPhrase, an adjective or a place
-    prep_phrases: list = field(default_factory=list)   # (preposition, NounPhrase)
+    prep_phrases: list = field(default_factory=list)
     adverbs: list = field(default_factory=list)
     wh_word: str = ""
     wh_role: str = ""         # subject, object, place, time, reason, manner
     gap: str = ""             # in a relative clause: which role "who/that" fills
-    focus: object = None      # "Ada" in "It was Ada who ..."
-    existential: bool = False # "There is ..."
-    agent: object = None      # "Ngozi" in "... was prepared by Ngozi"
-    clauses: list = field(default_factory=list)  # clauses inside this one (complement)
+    focus: object = None
+    existential: bool = False
+    agent: object = None
+    clauses: list = field(default_factory=list)
 
 
 @dataclass
@@ -98,19 +91,13 @@ class Analysis:
     problems: list = field(default_factory=list)
 
 
-# ===========================================================================
-# Word classes from the lexicon workbook (loaded once)
-# ===========================================================================
+# ===== Word classes from the lexicon workbook (loaded once) =====
 
 _WORDS = None
 
 
 def word_classes():
-    """Return sets of English nouns, verbs and adjectives, plus names.
-
-    They come from the 'keys' column of the lexicon tabs, plus the extra
-    lists in english_words.py.
-    """
+    """Return sets of English nouns, verbs and adjectives, plus names."""
     global _WORDS
     if _WORDS is not None:
         return _WORDS
@@ -137,9 +124,7 @@ def word_classes():
     return _WORDS
 
 
-# ===========================================================================
-# Step 1: clean-up and splitting into words
-# ===========================================================================
+# ===== Step 1: clean-up and splitting into words =====
 
 CONTRACTIONS = [
     (r"\bcan't\b", "can not"), (r"\bcannot\b", "can not"), (r"\bwon't\b", "will not"),
@@ -149,11 +134,21 @@ CONTRACTIONS = [
 ]
 
 
+NUMBER_WORDS = {str(value): word for word, value in W.NUMBERS.items()}
+
+
 def clean_up(sentence):
-    """Straighten quotes and expand contractions."""
+    """Straighten quotes, expand contractions, and tidy capitals and digits."""
     s = sentence.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
+    letters = re.sub(r"[^A-Za-z]", "", s)
+    if len(letters) > 3 and letters.isupper():
+        s = s.lower()                         # THE BOY LAUGHED -> the boy laughed
     for pattern, replacement in CONTRACTIONS:
         s = re.sub(pattern, replacement, s, flags=re.IGNORECASE)
+    # "Can not you see?" -> "Can you not see?"
+    s = re.sub(r"^(\s*\w+) not (i|you|he|she|it|we|they)\b", r"\1 \2 not", s, flags=re.IGNORECASE)
+    s = re.sub(r"\blet's\b", "let us", s, flags=re.IGNORECASE)
+    s = re.sub(r"\b\d+\b", lambda m: NUMBER_WORDS.get(m.group(), m.group()), s)   # 3 -> three
     return s
 
 
@@ -179,9 +174,7 @@ def merge_multiword(tokens):
     return out
 
 
-# ===========================================================================
-# Step 2: word classes and base forms
-# ===========================================================================
+# ===== Step 2: word classes and base forms =====
 
 def undouble(stem):
     """stopp -> stop, runn -> run"""
@@ -194,12 +187,10 @@ def verb_base(word):
     """Return (base form, verb form) if the word is a known verb, else None."""
     verbs = word_classes()["verbs"]
     for base, (past, part) in W.IRREGULAR_VERBS.items():
-        if word == past and word == part:
-            return base, "past/participle"
-        if word == past:
-            return base, "past"
-        if word == part:
-            return base, "participle"
+        # a word can be several forms at once: come = base and participle; put = all three
+        forms = [name for name, w in (("base", base), ("past", past), ("participle", part)) if w == word]
+        if forms and forms != ["base"]:
+            return base, "/".join(forms)
     candidates = []
     if word.endswith("ing"):
         stem = word[:-3]
@@ -220,6 +211,11 @@ def verb_base(word):
         if base in verbs or base in W.IRREGULAR_VERBS:
             return base, form
     return None
+
+
+def has_form(form, name):
+    """has_form("past/participle", "past") -> True. A verb form can hold several names."""
+    return name in form.split("/")
 
 
 def noun_base(word):
@@ -255,6 +251,10 @@ def possible_tags(tok, position):
         return {W.MULTIWORD[w]: w}
     if w in W.INDEFINITES:
         return {"INDEF": w}
+    if w in W.POSSESSIVE_PRONOUNS:
+        return {"POSSPRON": w}
+    if w.isdigit():
+        return {"NUM": w}
     if w in W.ARTICLES:
         opts["DET"] = w
     if w in W.DEMONSTRATIVES:
@@ -299,7 +299,7 @@ def possible_tags(tok, position):
     elif tok.text[0].isupper() and position > 0 and not opts:
         opts["NAME"] = w            # unknown capitalised word in mid-sentence: a name
     if opts and not any(k in opts for k in ("ADV", "PART", "PREP")):
-        return opts                 # grammar words are not also nouns/verbs
+        return opts
     v = verb_base(w)
     if v:
         opts["VERB"] = v
@@ -308,16 +308,22 @@ def possible_tags(tok, position):
         opts["NOUN"] = n
     if w in words["adjs"]:
         opts["ADJ"] = w
-    if not opts:                    # unknown word: guess from its ending
+    if not opts and tok.text[0].isupper():
+        opts["NAME"] = w            # an unknown word with a capital letter is a name, also first in the sentence
+    elif not opts:
         if w.endswith("ing") or w.endswith("ed"):
             opts["VERB"] = (w, "past/participle" if w.endswith("ed") else "ing")
+        elif w.endswith("es") and w[:-2].endswith(("s", "sh", "ch", "x", "z", "o")):
+            opts["NOUN"] = (w[:-2], "pl")          # dishes -> dish, tomatoes -> tomato
+        elif w.endswith("s") and not w.endswith("ss"):
+            opts["NOUN"] = (w[:-1], "pl")
         else:
-            opts["NOUN"] = (w[:-1], "pl") if w.endswith("s") else (w, "sg")
+            opts["NOUN"] = (w, "sg")
     return opts
 
 
 VERB_GROUP_TAGS = {"VERB", "BE", "HAVE", "DO", "MODAL"}
-NP_START_TAGS = {"DET", "DEM", "POSS", "NUM", "QUANT", "ADJ", "NOUN", "NAME", "PRON", "INDEF"}
+NP_START_TAGS = {"DET", "DEM", "POSS", "NUM", "QUANT", "ADJ", "NOUN", "NAME", "PRON", "INDEF", "POSSPRON"}
 
 
 def clause_follows(tokens, j):
@@ -337,7 +343,7 @@ def tag_words(tokens):
     """Choose one word class per word, using the words around it (left to right)."""
     for i, tok in enumerate(tokens):
         tok.options = possible_tags(tok, i)
-    verb_seen = False                       # has this clause had a verb yet?
+    verb_seen = False
     rel_state = 0                           # 1 = inside a relative clause, 2 = its verb has been seen
     for i, tok in enumerate(tokens):
         opts = tok.options
@@ -347,11 +353,14 @@ def tag_words(tokens):
         nxt_opts = nxt.options if nxt else {}
         tag = None
 
-        if len(opts) == 1 and not set(opts) & {"WH", "DEM", "TO", "THERE", "PREP", "PART", "SUB"}:
+        if set(opts) == {"NOUN"} and p == "PRON" and prev.lower in W.SUBJECT_PRONOUN_WORDS and not verb_seen:
+            # "They hate the noise": after a subject pronoun comes a verb, even one the lexicon lacks
+            tag = "VERB"
+            opts["VERB"] = (w_strip_s(tok.lower), "3sg") if tok.lower.endswith("s") else (tok.lower, "base")
+        elif len(opts) == 1 and not set(opts) & {"WH", "DEM", "TO", "THERE", "PREP", "PART", "SUB"}:
             tag = next(iter(opts))
         # --- "her": possessive before a noun, otherwise object pronoun
         elif tok.lower == "her":
-            # "her mother" (possessive) or "carried her" (object pronoun)
             nxt_set = set(nxt_opts)
             if nxt and nxt_set & {"NOUN", "ADJ"} and not nxt_set & {"DET", "NAME", "PRON", "PUNCT", "PREP"}:
                 tag = "POSS"
@@ -381,6 +390,8 @@ def tag_words(tokens):
                 tag = "WH"
             elif tok.lower in W.RELATIVE_WORDS and p in ("NOUN", "NAME", "PRON", "ADV", "INDEF"):
                 tag = "REL"
+            elif tok.lower == "where" and p == "NOUN":
+                tag = "REL"                      # "the house where I live"
             elif "SUB" in opts:
                 tag = "SUB"
             elif p in ("COMMA", "PUNCT"):
@@ -390,7 +401,7 @@ def tag_words(tokens):
         # --- "to": infinitive before a verb, preposition otherwise
         elif "TO" in opts:
             tag = "TO_INF" if nxt and "VERB" in nxt_opts and not set(nxt_opts) & {"DET", "NAME", "PRON"} \
-                and nxt_opts["VERB"][1] == "base" and "NOUN" not in nxt_opts else "PREP"
+                and has_form(nxt_opts["VERB"][1], "base") and "NOUN" not in nxt_opts else "PREP"
             if nxt and "VERB" in nxt_opts and "NOUN" in nxt_opts and p == "VERB":
                 tag = "TO_INF"
         # --- "there is / there are"
@@ -415,12 +426,15 @@ def tag_words(tokens):
             tag = "COORD"
         elif "ADV" in opts and not set(opts) & {"VERB", "NOUN"}:
             tag = "ADV"
+        elif "ADV" in opts and p in ("NAME", "NOUN", "PRON", "VERB") and verb_seen \
+                and (nxt is None or nxt.lower in ".,!?;:" or set(nxt_opts) & {"COORD", "SUB"}):
+            tag = "ADV"                           # "She speaks Hausa well." (not the noun "well")
         # --- content words: noun, verb or adjective?
         else:
             has_v, has_n, has_a = "VERB" in opts, "NOUN" in opts, "ADJ" in opts
             vform = opts["VERB"][1] if has_v else ""
             after_be = p in ("BE", "ADV") or (p == "NEG" and i > 1 and tokens[i - 2].tag == "BE")
-            if has_a and after_be and not (vform in ("ing", "past/participle", "participle")
+            if has_a and after_be and not ((has_form(vform, "ing") or has_form(vform, "participle"))
                                            and tok.lower not in word_classes()["adjs"]):
                 tag = "ADJ"                       # "is happy", "is not big", "is missing"
             elif has_a and nxt and "NOUN" in nxt_opts and "VERB" not in nxt_opts and p != "BE":
@@ -431,21 +445,24 @@ def tag_words(tokens):
                 tag = "VERB"                      # main verb after a relative clause: "whom we visited lives"
             elif has_v and p in ("PRON", "MODAL", "TO_INF", "DO", "NEG", "INDEF", "HAVE", "REL", "FUTURE"):
                 tag = "VERB"
-            elif has_v and p == "BE" and vform in ("ing", "past/participle", "participle", "past"):
+            elif has_v and p == "BE" and any(has_form(vform, f) for f in ("ing", "participle", "past")):
                 tag = "VERB"                      # "is crying", "was stolen"
             elif has_n and p in ("DET", "POSS", "DEM", "NUM", "QUANT", "ADJ", "PREP", "POSS_S"):
                 tag = "NOUN"
-            elif has_v and vform == "base" and p in ("NAME", "NOUN", "PRON") \
+            elif has_v and has_form(vform, "base") and p in ("NAME", "NOUN", "PRON") \
                     and any(t.tag in ("DO", "MODAL") for t in tokens[:i - 1]):
                 tag = "VERB"                      # question: "Did Ada cook ...?", "Can the boy swim?"
             elif has_v and p in ("NOUN", "NAME", "ADV") and not verb_seen:
                 tag = "VERB"                      # "Birds fly", "The man ... lives"
-            elif has_v and p in ("NOUN", "NAME") and vform in ("past/participle", "past", "3sg", "participle"):
+            elif has_v and p in ("NOUN", "NAME") and any(has_form(vform, f) for f in ("past", "3sg", "participle")):
                 tag = "VERB"                      # "the man who called yesterday ... "
             elif has_v and p == "START":
                 tag = "VERB"                      # command: "Sit down."
             elif has_v and p in ("COORD", "PUNCT") and not has_n:
                 tag = "VERB"
+            elif has_v and p == "COMMA" and has_form(vform, "base") and nxt \
+                    and set(nxt_opts) & {"DET", "POSS", "DEM", "PRON", "NAME"}:
+                tag = "VERB"                      # "Before you leave, close the door."
             elif has_n:
                 tag = "NOUN"
             elif has_v:
@@ -459,7 +476,7 @@ def tag_words(tokens):
         tok.tag = tag
         val = opts.get(tag)
         if tag in ("VERB", "NOUN"):
-            tok.lemma, tok.form = val          # (base form, form)
+            tok.lemma, tok.form = val
         elif tag in ("REL", "COMP", "DEM_PRON"):
             tok.lemma = tok.lower
         else:
@@ -468,9 +485,9 @@ def tag_words(tokens):
             tok.tag = "COMMA"
         if tag in VERB_GROUP_TAGS:
             if rel_state == 1:
-                rel_state = 2                     # the relative clause now has its verb
+                rel_state = 2
             elif rel_state == 2 and prev and prev.tag not in VERB_GROUP_TAGS:
-                rel_state = 0                     # a new verb group: the main clause has resumed
+                rel_state = 0
             verb_seen = True
         if tag in ("COMMA", "COORD", "SUB", "REL", "COMP"):
             verb_seen = False
@@ -487,9 +504,14 @@ def tag_words(tokens):
     return tokens
 
 
-# ===========================================================================
-# Step 3: cutting the sentence into clauses
-# ===========================================================================
+# ===== Step 3: cutting the sentence into clauses =====
+
+def w_strip_s(word):
+    """hates -> hate, watches -> watch (for a verb the lexicon does not know)."""
+    if word.endswith("es") and word[:-2].endswith(("s", "sh", "ch", "x", "z", "o")):
+        return word[:-2]
+    return word[:-1]
+
 
 def has_verb(tokens):
     return any(t.tag in VERB_GROUP_TAGS for t in tokens)
@@ -498,7 +520,6 @@ def has_verb(tokens):
 def split_clauses(tokens):
     """Return a list of (role, linker word, linker type, tokens) - one per clause."""
     body = [t for t in tokens if t.tag != "PUNCT"]
-    # cut at commas first
     chunks, current = [], []
     for t in body:
         if t.tag == "COMMA":
@@ -517,7 +538,6 @@ def split_clauses(tokens):
         else:
             merged.append(c)
 
-    # the clauses keep the English order; their roles tell the transfer stage how they connect
     return [piece for chunk in merged for piece in split_inside(chunk)]
 
 
@@ -562,9 +582,7 @@ def starts_new_clause(tokens):
     return False
 
 
-# ===========================================================================
-# Step 4: inside one clause
-# ===========================================================================
+# ===== Step 4: inside one clause =====
 
 def parse_np(tokens, i):
     """Read a noun phrase starting at position i. Returns (NounPhrase, next i) or (None, i)."""
@@ -586,6 +604,14 @@ def parse_np(tokens, i):
         dist, number = W.DEMONSTRATIVES[t.lower]
         np = NounPhrase(text=t.text, head=t.lower, kind="demonstrative", number=number, definite=dist)
         return np, i + 1
+    if t.tag == "POSSPRON":
+        person, number = W.POSSESSIVE_PRONOUNS[t.lower]
+        return NounPhrase(text=t.text, head=t.lower, kind="possessive", person=person, number=number), i + 1
+    if t.tag == "QUANT" and i + 1 < len(tokens) and tokens[i + 1].tag in ("DET", "POSS", "DEM"):
+        np, j = parse_np(tokens, i + 1)       # "all the children", "all my friends"
+        if np is not None:
+            np.quantifier, np.text = t.lower, t.text + " " + np.text
+            return np, j
     if t.tag == "QUANT" and (i + 1 >= len(tokens) or tokens[i + 1].tag not in ("NOUN", "ADJ")):
         np = NounPhrase(text=t.text, head=t.lower, kind="quantity", quantifier=t.lower)
         return np, i + 1
@@ -595,7 +621,6 @@ def parse_np(tokens, i):
         return attach_extras(np, tokens, i + 1, start)
 
     np = NounPhrase(text="", head="", kind="noun")
-    # determiner slot
     if t.tag == "DET":
         np.definite = W.ARTICLES[t.lower]
         np.negative = np.definite == "negative"      # "no water"
@@ -624,6 +649,9 @@ def parse_np(tokens, i):
     if not nouns:
         if np.adjectives and i > start:      # "the red" with no noun: treat adjective as head
             np.head = np.adjectives.pop()
+        elif np.count and not np.adjectives:  # a number alone: "in 2010", "at ten"
+            np.head, np.kind, np.count = np.count, "number", ""
+            return np, i
         else:
             return None, start
     else:
@@ -689,7 +717,7 @@ def parse_relative(tokens, i):
         t = tokens[j]
         if t.tag in VERB_GROUP_TAGS or t.tag in ("NEG", "FUTURE"):
             if verb_done:
-                break                         # a second verb group: the main clause continues
+                break
             j = verb_group_end(tokens, j)
             verb_done = True
             continue
@@ -730,7 +758,6 @@ def parse_verb_group(tokens, i):
             helpers.append(t)
 
     first = helpers[0] if helpers else main
-    # tense from the first word of the group
     if first is None:
         return None, i
     if any(h.tag == "MODAL" and W.MODALS[h.lower] == "future" for h in helpers) or \
@@ -745,7 +772,7 @@ def parse_verb_group(tokens, i):
     elif first.tag == "DO":
         vg.tense = "past" if first.lower == "did" else "present"
     elif first.tag == "VERB":
-        vg.tense = "past" if first.form in ("past", "past/participle") else "present"
+        vg.tense = "past" if has_form(first.form, "past") else "present"
     for h in helpers:
         if h.tag == "MODAL" and W.MODALS[h.lower] != "future":
             vg.modal = W.MODALS[h.lower]
@@ -758,23 +785,23 @@ def parse_verb_group(tokens, i):
         if last.tag == "BE":
             vg.lemma, vg.copula = "be", True
             if any(h.tag == "HAVE" for h in helpers):
-                vg.aspect = "perfect"         # "have been"
+                vg.aspect = "perfect"
         elif last.tag == "HAVE":
             vg.lemma, vg.possession = "have", True
         elif last.tag == "DO":
             vg.lemma = "do"
         else:
             vg.lemma = "be"
-            vg.copula = True          # "can be ..."
+            vg.copula = True
     else:
         vg.lemma = main.lemma + (" " + vg.particle if vg.particle else "")
         last_helper = helpers[-1].tag if helpers else ""
         if last_helper == "BE" and main.form == "ing":
-            vg.aspect = "progressive"                 # is crying
-        elif last_helper == "BE" and main.form in ("participle", "past/participle"):
-            vg.voice = "passive"                      # was stolen
-        if any(h.tag == "HAVE" for h in helpers) and main.form in ("participle", "past/participle"):
-            vg.aspect = "perfect"                     # has finished / has been stolen
+            vg.aspect = "progressive"
+        elif last_helper == "BE" and has_form(main.form, "participle"):
+            vg.voice = "passive"
+        if any(h.tag == "HAVE" for h in helpers) and has_form(main.form, "participle"):
+            vg.aspect = "perfect"
             if last_helper == "BE":
                 vg.voice = "passive"
     if vg.lemma == "have" and not vg.copula and main is not None and main.lemma == "have":
@@ -820,9 +847,15 @@ def parse_clause(tokens, role="main", linker="", ltype="", subject_gap=False):
     while i < len(toks) and toks[i].tag == "ADV" and toks[i].lower == "please":
         cl.adverbs.append("please")
         i += 1
-    if role == "main" and i < len(toks) and (toks[i].tag == "VERB" and toks[i].form == "base"
-                                            or (toks[i].tag == "DO" and i + 2 < len(toks)
-                                                and toks[i + 1].tag == "NEG" and toks[i + 2].tag == "VERB")):
+    if role == "main" and len(toks) > i + 2 and toks[i].lower == "let" and toks[i + 1].lower == "us":
+        cl.mood = "suggestion"                # "Let's go" -> Mu tafi
+        cl.subject = NounPhrase(text="(we)", head="we", kind="pronoun", person="1", number="pl")
+        toks = toks[:i] + toks[i + 2:]
+    elif role == "main" and i < len(toks) and (toks[i].tag == "VERB" and has_form(toks[i].form, "base")
+                                              or (toks[i].tag == "BE" and toks[i].lower == "be")
+                                              or (toks[i].tag == "DO" and i + 2 < len(toks)
+                                                  and toks[i + 1].tag == "NEG"
+                                                  and toks[i + 2].tag in ("VERB", "BE"))):
         if not subject_gap:
             cl.mood = "command"
             cl.subject = NounPhrase(text="(you)", head="you", kind="pronoun", person="2")
@@ -875,6 +908,10 @@ def parse_clause(tokens, role="main", linker="", ltype="", subject_gap=False):
             cl.adverbs.append(toks[i].text)
             i += 1
         subj, i = parse_np(toks, i)
+        if subj is None and cl.adverbs and cl.adverbs[-1].lower() in W.TIME_WORDS:
+            # "Today is good": the time word is the subject
+            word = cl.adverbs.pop()
+            subj = NounPhrase(text=word, head=word.lower(), kind="time")
         cl.subject = subj
     while i < len(toks) and toks[i].tag == "ADV" and toks[i].lower not in ("never",):
         cl.adverbs.append(toks[i].text)
@@ -926,9 +963,13 @@ def parse_rest(cl, toks, i):
                 cl.adverbs.append(t.text)
             i += 1
             continue
-        if t.tag == "VERB" and t.form in ("participle", "past/participle") and cl.verb \
+        if t.tag == "TO_INF" and i + 1 < len(toks) and toks[i + 1].tag == "VERB" and cl.verb and cl.verb.copula:
+            # "It is good to go to school": the infinitive is a clause of its own
+            cl.clauses.append(parse_clause(toks[i + 1:], role="complement", linker="to", subject_gap=True))
+            break
+        if t.tag == "VERB" and has_form(t.form, "participle") and cl.verb \
                 and cl.verb.lemma in ("remain", "become", "seem", "look", "stay", "get"):
-            cl.complement = ("adjective", t.text.lower())     # "remained flooded"
+            cl.complement = ("adjective", t.text.lower())
             i += 1
             continue
         if t.tag in ("ADV", "PART"):
@@ -939,7 +980,7 @@ def parse_rest(cl, toks, i):
             inner = parse_clause(toks[i + 1:], role="complement", linker="that")
             cl.clauses.append(inner)
             break
-        if t.tag in ("VERB",) and cl.verb and t.form == "base" and cl.verb.lemma in W.SAY_THINK_VERBS:
+        if t.tag in ("VERB",) and cl.verb and has_form(t.form, "base") and cl.verb.lemma in W.SAY_THINK_VERBS:
             inner = parse_clause(toks[i:], role="complement", linker="")
             cl.clauses.append(inner)
             break
@@ -961,7 +1002,6 @@ def parse_rest(cl, toks, i):
         cl.adverbs.append(t.text)
         i += 1
 
-    # roles for the noun phrases after the verb
     if cl.verb and cl.verb.copula and nps and cl.complement is None:
         cl.complement = ("noun", nps.pop(0))
     if cl.verb and cl.verb.copula and cl.complement is None and cl.prep_phrases:
@@ -983,9 +1023,7 @@ def parse_rest(cl, toks, i):
     return cl
 
 
-# ===========================================================================
-# The whole pipeline
-# ===========================================================================
+# ===== The whole pipeline =====
 
 def analyse(sentence):
     """Analyse one English sentence. Returns an Analysis."""
@@ -1017,14 +1055,12 @@ def check(analysis):
     return problems
 
 
-# ===========================================================================
-# Showing the result in a readable way
-# ===========================================================================
+# ===== Showing the result in a readable way =====
 
 def describe_np(np):
     if np is None:
         return "-"
-    if isinstance(np, tuple):                    # (preposition, NounPhrase)
+    if isinstance(np, tuple):
         return f"{np[0]} + {describe_np(np[1])}"
     if isinstance(np, str):
         return np

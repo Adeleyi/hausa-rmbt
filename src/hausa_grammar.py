@@ -1,16 +1,10 @@
-"""Hausa grammar tables and group decisions used by English -> Hausa (transfer_en_ha.py).
+"""Hausa grammar choices used by English -> Hausa. DATA: linguists can edit it.
 
-This file is DATA, not program logic. Linguists can edit it freely.
-
-Hausa WORDS (PAC forms, pronouns, possessive suffixes, numbers, nouns, verbs)
-live in the lexicon workbook. This file holds the CHOICES for English -> Hausa: which Hausa
-preposition stands for which English one, which tense uses which PAC column,
-and the decisions recorded in the working doc (A2, A6, A7, A17 ...).
+Hausa words live in the lexicon workbook. This file holds the choices: prepositions,
+which tense uses which PAC column, and the group decisions (A2, A6, A7, A17 ...).
 """
 
-# ---------------------------------------------------------------------------
-# 1. Group decisions (see the working doc). Change a value to change the rule.
-# ---------------------------------------------------------------------------
+# ===== 1. Group decisions (see the working doc). Change a value to change the rule. =====
 
 # A2/B11: when English does not show the sex (you, the teacher), use masculine.
 DEFAULT_SEX = "m"
@@ -40,9 +34,7 @@ NO_PLURAL_MEANS_SINGULAR = True
 # Ada ta dafa abincin dare, kuma Chinedu ya wanke kwanukan.
 COMMA_BEFORE_COORDINATOR = True
 
-# ---------------------------------------------------------------------------
-# 2. Which PAC column each English tense uses
-# ---------------------------------------------------------------------------
+# ===== 2. Which PAC column each English tense uses =====
 # (English tense, English aspect) -> PAC column in the lexicon "Function words" tab.
 # English simple present describes habits ("Birds fly south"), and Hausa uses
 # the continuous for habits: Tsuntsaye suna tashi.
@@ -64,9 +56,7 @@ NEGATIVE_COLUMN = {
     "future": "future",          # negative future = ba + future PAC ... ba (Ba zan tafi ba)
 }
 
-# ---------------------------------------------------------------------------
-# 3. Prepositions
-# ---------------------------------------------------------------------------
+# ===== 3. Prepositions =====
 PREPOSITIONS = {
     "in": "a", "at": "a", "on": "a kan", "to": "zuwa", "towards": "zuwa",
     "from": "daga", "with": "da", "near": "kusa da", "behind": "bayan",
@@ -80,9 +70,7 @@ INSIDE_NOUNS = {"house", "room", "classroom", "car", "box", "bag", "pot", "bus",
 # After these verbs, "to" + place has no preposition: Za mu tafi kasuwa.
 MOTION_VERBS = {"go", "come", "return", "run", "walk", "travel", "move"}
 
-# ---------------------------------------------------------------------------
-# 4. Adverbs and time expressions (looked up here first, then in the lexicon)
-# ---------------------------------------------------------------------------
+# ===== 4. Adverbs and time expressions (looked up here first, then in the lexicon) =====
 ADVERBS = {
     "today": "yau", "tomorrow": "gobe", "yesterday": "jiya", "now": "yanzu",
     "every day": "kullum", "always": "kullum", "early": "da wuri", "late": "a makare",
@@ -103,9 +91,7 @@ ADVERBS = {
 # After a motion verb, these adverbs lose the "a": sun so su tafi waje
 MOTION_ADVERBS = {"outside": "waje", "inside": "ciki", "home": "gida", "indoors": "cikin gida"}
 
-# ---------------------------------------------------------------------------
-# 5. Quantifiers and indefinite pronouns
-# ---------------------------------------------------------------------------
+# ===== 5. Quantifiers and indefinite pronouns =====
 # quantifier -> (Hausa word, goes "before" or "after" the noun, noun number)
 QUANTIFIERS = {
     "many": ("da yawa", "after", "pl"), "a lot of": ("da yawa", "after", "pl"),
@@ -129,17 +115,21 @@ INDEFINITES = {
 NEGATIVE_INDEFINITES = {"anyone": "kowa", "anybody": "kowa", "anything": "komai"}
 # "Nobody came" -> Ba wanda ya zo (ba wanda + relative completive PAC)
 NOBODY_SUBJECT = "ba wanda"
+# The same pattern for "nothing": Nothing happened -> Ba abin da ya faru
+NEGATIVE_SUBJECTS = {"nobody": "ba wanda", "no one": "ba wanda", "nothing": "ba abin da"}
+# "mine, yours ...": na (masculine or plural thing) or ta (feminine thing) + this ending
+#   Littafin nawa ne (the book is mine), Motar tawa ce (the car is mine)
+POSSESSIVE_PRONOUN_ENDINGS = {"1sg": "wa", "2sg.m": "ka", "2sg.f": "ki", "3sg.m": "sa", "3sg.f": "ta",
+                              "1pl": "mu", "2pl": "ku", "3pl": "su"}
 
-# ---------------------------------------------------------------------------
-# 6. Special verbs and constructions
-# ---------------------------------------------------------------------------
+# ===== 6. Special verbs and constructions =====
 # Verbs that describe a state use the completive in the simple present:
 # Na san cewa ... (I know), Musa ya yarda cewa ... (Musa believes), hanyar da ta kai ƙauyen
 STATIVE_VERBS = {"know", "believe", "understand", "agree", "remember", "forget", "lead", "mean"}
 # Feelings use the continuous even in the simple past: ɗaliban suke girmamawa (admired)
 FEELING_VERBS = {"admire", "respect", "love", "like", "hate", "fear"}
 # After these verbs "to X" is an object: hanyar da ta kai ƙauyen
-TO_AS_OBJECT = {"lead", "reach"}
+TO_AS_OBJECT = {"lead", "reach", "listen"}
 # English verbs that mean "have": Ada tana da mota
 POSSESSION_VERBS = {"have", "own", "possess"}
 # Hausa verbs that take the receiver directly, without "wa": ya ba Ada littafi
@@ -156,12 +146,9 @@ CONDITIONAL_COLUMN = "future"
 # "do that / do this" -> yi haka
 DO_THAT = "haka"
 # "remain / stay + adjective" = "still be + adjective": suna cike da ruwa har yanzu
-# ("still" is translated through ADVERBS above)
 REMAIN_VERBS = {"remain", "stay"}
 
-# ---------------------------------------------------------------------------
-# 7. Questions (C11, C12)
-# ---------------------------------------------------------------------------
+# ===== 7. Questions (C11, C12) =====
 # Yes/no questions (C11) keep the statement word order: Musa ya iso?
 # "Can you ...?" is a request and uses the future: Za ka iya taimake ni?
 ABILITY_QUESTION_COLUMN = "future"
@@ -182,18 +169,14 @@ WHAT_IS, WHO_IS = "mene ne", "wane ne"
 RELATIVE_COLUMN = {"completive": "relative completive", "continuous": "relative continuous",
                    "future": "future", "subjunctive": "subjunctive"}
 
-# ---------------------------------------------------------------------------
-# 8. Commands (imperatives)
-# ---------------------------------------------------------------------------
+# ===== 8. Commands (imperatives) =====
 # A plain command is the bare verb: Zauna. Kawo littattafan nan.
 # With "please" it is Don Allah + subjunctive PAC: Don Allah ka rufe ƙofar.
 # A negative command is kada + subjunctive PAC: Kada ka taɓa wancan.
 PLEASE = "don Allah"
 NEGATIVE_COMMAND = "kada"
 
-# ---------------------------------------------------------------------------
-# 9. Joining clauses (C13, C14) and reported clauses (C16)
-# ---------------------------------------------------------------------------
+# ===== 9. Joining clauses (C13, C14) and reported clauses (C16) =====
 # A subordinate clause that comes first is followed by a comma:
 # Saboda ya yi karatu sosai, ya ci jarrabawar.
 COMMA_AFTER_SUBORDINATE = True
@@ -235,14 +218,15 @@ CLAUSE_LINKERS = {
     "unless": "sai dai idan", "before": "kafin", "after": "bayan", "until": "har",
 }
 
-# ---------------------------------------------------------------------------
-# 10. Place names that are spelled differently in Hausa
-# ---------------------------------------------------------------------------
+# ===== 10. Place names that are spelled differently in Hausa =====
 PLACE_NAMES = {"lagos": "Legas", "nigeria": "Najeriya", "london": "Landan"}
 
-# ---------------------------------------------------------------------------
-# 11. Weather
-# ---------------------------------------------------------------------------
+# Days of the week (to check with the speaker: the gender used for ne/ce)
+DAYS = {"monday": "Litinin", "tuesday": "Talata", "wednesday": "Laraba", "thursday": "Alhamis",
+        "friday": "Juma'a", "saturday": "Asabar", "sunday": "Lahadi"}
+DAY_GENDER = "f"
+
+# ===== 11. Weather =====
 # Hausa has no dummy "it". Weather uses the impersonal PAC: Ana ruwa, An yi iska.
 # english word -> (Hausa noun, Hausa subject or None for impersonal)
 WEATHER = {
@@ -250,3 +234,25 @@ WEATHER = {
     "windy": ("iska", None), "sunny": ("rana", None), "cloudy": ("gajimare", "sama"),
 }
 WEATHER_SUBJECTS = {"it", "weather"}
+
+# ===== 12. Feelings: "be hungry" is "feel hunger" in Hausa =====
+# I am hungry -> Ina jin yunwa;  I will be thirsty -> Zan ji ƙishin ruwa
+# English adjective -> Hausa noun after jin / ji
+FEELINGS = {"hungry": "yunwa", "thirsty": "ƙishin ruwa", "sleepy": "barci", "cold": "sanyi", "hot": "zafi"}
+# cold / hot are feelings only for people (I am cold); for things they are qualities (The water is cold)
+FEELINGS_PEOPLE_ONLY = {"cold", "hot"}
+
+# ===== 13. Fixed expressions: greetings and other set phrases, translated whole =====
+# English (lower case, no final punctuation) -> Hausa. Hausa -> English reads this table backwards.
+PHRASES = {
+    "hello": "Sannu", "hi": "Sannu", "good morning": "Ina kwana", "good afternoon": "Barka da rana",
+    "good evening": "Barka da yamma", "good night": "Sai da safe", "welcome": "Barka da zuwa",
+    "thank you": "Na gode", "thanks": "Na gode", "thank you very much": "Na gode sosai",
+    "how are you": "Yaya kake", "i am fine": "Lafiya lau", "fine": "Lafiya lau",
+    "goodbye": "Sai an jima", "bye": "Sai an jima", "see you later": "Sai an jima", "see you tomorrow": "Sai gobe",
+    "yes": "I", "no": "A'a", "okay": "To", "ok": "To", "sorry": "Yi haƙuri", "i am sorry": "Yi haƙuri",
+    "please": "Don Allah", "excuse me": "Gafara dai", "no problem": "Ba komai",
+    "what time is it": "Ƙarfe nawa ne", "how much is this": "Nawa ne wannan",
+}
+# The phrases above that are questions (they end in ? in both languages)
+QUESTION_PHRASES = {"how are you", "what time is it", "how much is this"}

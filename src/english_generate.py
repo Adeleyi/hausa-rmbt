@@ -1,12 +1,5 @@
-"""English generation: the last stage of Hausa -> English.
-
-The transfer stage decides WHAT the English sentence says (verb "buy", past,
-negative, subject Ada, object "car", indefinite). This file writes it out:
-  - verb forms: bought, buys, buying, did not buy, is buying, was bought
-  - helper verbs in questions: Did Ada buy a car?
-  - plurals: children, students
-  - a / an / the
-  - capital letter and final punctuation
+"""English generation: writes out what transfer_ha_en.py decided
+(verb forms, helper verbs in questions, plurals, a/an/the, capitals and punctuation).
 """
 import english_words as EW
 
@@ -16,9 +9,7 @@ _PART = {base: forms[1] for base, forms in EW.IRREGULAR_VERBS.items()}
 _PLURAL = {sg: pl for pl, sg in EW.IRREGULAR_PLURALS.items()}
 
 
-# ---------------------------------------------------------------------------
-# Words
-# ---------------------------------------------------------------------------
+# ===== Words =====
 
 # Two-syllable verbs stressed on the end also double: submit -> submitted
 DOUBLE_LAST = {"submit", "admit", "permit", "commit", "prefer", "occur", "refer", "regret", "forget", "begin",
@@ -92,10 +83,10 @@ def plural(noun, mass_nouns=()):
     word = tail
     if word in _PLURAL:
         out = _PLURAL[word]
-    elif word in EW.IRREGULAR_PLURALS:        # already plural: children
+    elif word in EW.IRREGULAR_PLURALS:
         out = word
     elif word.endswith("s") and not word.endswith("ss") and len(word) > 3:
-        out = word                            # the lexicon already gives a plural: parents
+        out = word
     elif word.endswith(("s", "sh", "ch", "x", "z")):
         out = word + "es"
     elif word.endswith("y") and len(word) > 1 and word[-2] not in VOWELS:
@@ -111,9 +102,7 @@ def a_or_an(word):
     return "an" if word[:1].lower() in VOWELS and not word.lower().startswith(("uni", "use", "eu")) else "a"
 
 
-# ---------------------------------------------------------------------------
-# Verb groups
-# ---------------------------------------------------------------------------
+# ===== Verb groups =====
 
 def be_form(tense, person, number):
     if tense == "past":
@@ -127,14 +116,10 @@ def verb_group(lemma, tense="present", aspect="simple", negative=False, modal=""
                passive=False, question=False):
     """Return the verb words as a list. In a question, the first word is the helper
     verb that goes before the subject.
-
-    verb_group("buy", "past", negative=True)        -> ["did", "not", "buy"]
-    verb_group("cook", "present", "progressive")    -> ["is", "cooking"]
-    verb_group("buy", "past", question=True)        -> ["did", "buy"]   (Did Ada buy ...?)
     """
     neg = ["not"] if negative else []
     third = number == "sg" and person == "3"
-    if modal:                                   # will / can / would have ...
+    if modal:
         words = [modal] + neg
         if aspect == "perfect":
             return words + ["have", participle(lemma)]
@@ -162,13 +147,12 @@ def verb_group(lemma, tense="present", aspect="simple", negative=False, modal=""
     return [third_person(lemma) if third else lemma]
 
 
-# ---------------------------------------------------------------------------
-# The sentence
-# ---------------------------------------------------------------------------
+# ===== The sentence =====
 
 def sentence(words, end="."):
     text = " ".join(w.strip() for w in words if w and w.strip())
     text = " ".join(text.split()).replace(" ,", ",").replace("can not", "cannot")
     if not text:
         return ""
-    return text[0].upper() + text[1:] + end
+    k = 1 if text[0] == "[" else 0              # [ƙishin] -> [Ƙishin]
+    return text[:k] + text[k].upper() + text[k + 1:] + end

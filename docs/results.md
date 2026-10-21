@@ -17,6 +17,17 @@ Scores are measured against the Hausa speaker's translations (English → Hausa)
 
 The rules were written while looking at the 128 development sentences. The 30 blind sentences are everyday sentences the system had never seen; they were run once, on 20 October 2026, with no rule changes before the score was recorded. The blind score is the fair estimate for new sentences.
 
+## Blind test after error analysis
+
+After the official run, we looked at what went wrong (missing words, feelings such as *hungry*, *nobody*, sentence-initial adverbs, possessives such as *mine*) and fixed the rules that were general, not just for one sentence. Running the blind test again then gives:
+
+| Direction | Exact match | chrF | BLEU |
+| --- | --- | --- | --- |
+| English → Hausa | 9 (30.0%) | 69.7 | 49.4 |
+| Hausa → English | 8 (26.7%) | 58.9 | 33.3 |
+
+These numbers are **not** a fair test any more, because we have now seen the blind sentences. The official result is the one above. The development scores did not change. Workbooks: `outputs/eval_results_blind_after_fixes.xlsx` and `outputs/eval_results_blind_ha_en_after_fixes.xlsx`.
+
 ## Development set, by phase (English → Hausa)
 
 | Phase | Constructions | Sentences | Exact |

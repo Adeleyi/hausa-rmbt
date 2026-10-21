@@ -1,33 +1,21 @@
-"""English -> Hausa transfer: stage 2 of the English -> Hausa system.
+"""English -> Hausa transfer: stage 2. One rule (function) per construction:
 
-It reads the English analysis (stage 1) and decides what the Hausa sentence
-contains: which construction, which PAC, which verb form, which words.
-Generation (hausa_generate.py) then writes the words out.
-
-There is one rule (one function) per construction:
-
-    verbal_clause       Musa ya sayi mota.              C1-C5, C10, ditransitives (C3)
+    verbal_clause       Musa ya sayi mota.              C1-C5, C10
     equational_clause   Ada malama ce.                  C6
-    adjective_clause    Wannan gida babba ne. / Miyar tana da zafi.   C7
+    adjective_clause    Wannan gida babba ne.           C7
     become_clause       Musa ya yi fushi.               C7
     locative_clause     Yaran suna cikin gida.          C8
     possession_clause   Ada tana da mota.               C9
     belong_clause       Littafin na Musa ne.            C6/C9
-    existential_clause  Akwai matsala. / An yi hayaniya.
+    existential_clause  Akwai matsala.
     weather_clause      Ana ruwa.
-    passive_clause      An gyara motar jiya. / Ngozi ce ta shirya abincin.     S17
+    passive_clause      An gyara motar jiya.
 
-Rules that work across clauses:
-    question words      Me Musa ya saya?                C12 (transfer_clause)
-    focus               Ada ce ta dafa miyar.           S10 (transfer_clause)
-    relative clauses    Mutumin da ya kira jiya ...     C15 (relative_clause_words)
-    reported clauses    Na san cewa ta tafi.            C16 (transfer_clause)
-    clause linkers      Lokacin da ..., Idan ..., Da ... da ...   C13, C14 (translate_analysis)
-
-Every rule writes a short note saying what it did ("PAC 3sg.m + completive
--> ya"), so you can see why a translation came out the way it did.
-A word missing from the lexicon appears in [brackets] and is listed.
+Questions, focus, relative and reported clauses are handled in transfer_clause.
+Every rule writes a note, so you can see why the Hausa came out as it did.
+Explained in docs/english_to_hausa_explained.md.
 """
+import re
 from dataclasses import dataclass, field, replace
 
 import english_words as EW
@@ -38,16 +26,14 @@ from hausa_generate import (HNoun, adjective_form, copula, linker, noun_phrase,
                             sentence, split_frame)
 
 
-# ===========================================================================
-# The result of translating one sentence
-# ===========================================================================
+# ===== The result of translating one sentence =====
 
 @dataclass
 class Translation:
     english: str
     hausa: str
-    rules: list = field(default_factory=list)     # notes on the rules used
-    missing: list = field(default_factory=list)   # English words not in the lexicon
+    rules: list = field(default_factory=list)
+    missing: list = field(default_factory=list)
     analysis: object = None
 
 
@@ -56,7 +42,6 @@ class Notes:
 
     def __init__(self):
         self.rules, self.missing = [], []
-        # Settings for the clause being translated (saved and restored around inner clauses):
         self.relative_pac = False      # relative PAC (suka, yake): question words, focus, relative clauses
         self.force_column = None       # PAC column chosen by a linker: idan + completive ...
         self.gap_head = None           # the noun a relative clause describes (its missing subject)
@@ -80,11 +65,11 @@ class Notes:
 
 # The missing subject of a relative clause or a subject focus: "the man who [ ] called"
 GAP = NounPhrase(text="", head="", kind="gap")
+# The unnamed subject of "to go" in "It is good to go": the impersonal PAC (a)
+IMPERSONAL = NounPhrase(text="", head="", kind="impersonal")
 
 
-# ===========================================================================
-# Person and PAC
-# ===========================================================================
+# ===== Person and PAC =====
 
 def person_key(person, number, sex):
     """English person/number/sex -> the PAC row name: 1sg, 2sg.m, 3sg.f, 3pl ..."""
@@ -97,12 +82,7 @@ def person_key(person, number, sex):
 
 
 def pac_column(vg, notes):
-    """Which PAC column the English tense and aspect need (hausa_grammar.PAC_COLUMN).
-
-    A clause linker can decide instead (idan + completive, yayin da + continuous).
-    State verbs (know, believe) use the completive in the simple present;
-    feelings (admire) use the continuous in the simple past.
-    """
+    """Which PAC column the English tense and aspect need (hausa_grammar.PAC_COLUMN)."""
     if notes.force_column:
         notes.rule(f"PAC column set by the clause linker: {notes.force_column}")
         return notes.force_column
@@ -120,15 +100,7 @@ def pac_column(vg, notes):
 
 
 def pac_words(person, column, negative, notes):
-    """Return (words before the verb, words at the end of the clause).
-
-    Negative completive:  ba ta ... ba    (Ada ba ta iya iyo ba)
-    Negative continuous:  ba ya ...       (Ba ya cin nama)
-    Negative future:      ba zan ... ba   (Ba zan tafi ba)
-
-    After a question word (C12) the PAC takes its relative form:
-    completive -> relative completive (suka), continuous -> relative continuous (yake).
-    """
+    """Return (words before the verb, words at the end of the clause)."""
     if notes.relative_pac and not negative:
         column = G.RELATIVE_COLUMN.get(column, column)
     if not negative:
@@ -146,17 +118,10 @@ def pac_words(person, column, negative, notes):
     return [before], [after] if after else []
 
 
-# ===========================================================================
-# Noun phrases: English NounPhrase -> Hausa HNoun
-# ===========================================================================
+# ===== Noun phrases: English NounPhrase -> Hausa HNoun =====
 
 def to_np(np, role, notes, sex_hint="", negative=False):
-    """Translate one English noun phrase.
-
-    role: subject, object, receiver, after_prep, predicate, owner.
-    negative: the clause is negative (anyone -> kowa, anything -> komai).
-    It decides the pronoun set (ni / shi / masa), "the" -> -n/-r, and so on.
-    """
+    """Translate one English noun phrase."""
     if np is None:
         return None
     if isinstance(np, str):
@@ -174,8 +139,32 @@ def to_np(np, role, notes, sex_hint="", negative=False):
         h = notes.gap_head
         return HNoun(word="", english="", kind="gap", gender=h.gender, number=h.number, person=h.person)
 
+    if np.kind == "impersonal":               # It is good [to go]: the impersonal subject of "to go"
+        return HNoun(word="", english="", kind="gap", person="4")
+
+    if np.kind == "possessive":               # "Mine is red" (as a subject or object)
+        key = person_key(np.person, np.number, "")
+        return HNoun(word="na" + G.POSSESSIVE_PRONOUN_ENDINGS[key], english=np.head, person="3sg.m")
+
+    if np.kind == "number":
+        return HNoun(word=L.number(np.head), english=np.head, person="3sg.m")
+
+    if np.kind == "time":                     # Today is Friday -> Yau Juma'a ce
+        word = G.ADVERBS.get(np.head) or notes.miss("adverb", np.head)
+        notes.rule(f"Time word as the subject: {np.head} -> {word}")
+        return HNoun(word=word, english=np.head, kind="name", gender="m", person="3sg.m")
+
+    if np.kind == "name" and np.head.lower() in G.DAYS:
+        word = G.DAYS[np.head.lower()]
+        notes.rule(f"Day of the week: {np.head} -> {word}")
+        return HNoun(word=word, english=np.head, kind="name", gender=G.DAY_GENDER, person=f"3sg.{G.DAY_GENDER}")
+
     if np.kind == "name":
-        sex = np.sex or L.name_gender(np.head) or G.DEFAULT_SEX
+        sex = np.sex or L.name_gender(np.head)
+        if not sex:
+            sex = G.DEFAULT_SEX
+            if np.head.lower() not in EW.PLACE_NAMES | set(G.PLACE_NAMES):
+                notes.rule(f"{np.head} is not in the Names tab: treated as a name, {'male' if sex == 'm' else 'female'} (A2)")
         word = G.PLACE_NAMES.get(np.head.lower(), np.head)
         if word != np.head:
             notes.rule(f"Place name: {np.head} -> {word}")
@@ -190,7 +179,7 @@ def to_np(np, role, notes, sex_hint="", negative=False):
             word = G.INDEFINITES.get(head) or notes.miss("indefinite", np.head)
         return HNoun(word=word, english=np.head, kind="indefinite", person="3sg.m")
 
-    if np.kind == "demonstrative":            # "that" used alone
+    if np.kind == "demonstrative":
         return HNoun(word=L.demonstrative(np.head, "m", np.number), english=np.head, person="3sg.m")
 
     if np.kind == "coordinated":
@@ -205,7 +194,7 @@ def to_np(np, role, notes, sex_hint="", negative=False):
         word = G.QUESTION_WORDS.get(np.head.lower()) or notes.miss("wh", np.head)
         return HNoun(word=word, english=np.head, kind="wh", person="3sg.m")
 
-    if np.kind == "quantity":                 # "more" used alone -> ƙari
+    if np.kind == "quantity":
         word = G.QUANTITY_WORDS.get(np.head.lower()) or notes.miss("quantity", np.head)
         return HNoun(word=word, english=np.head, person="3sg.m")
 
@@ -237,7 +226,6 @@ def to_np(np, role, notes, sex_hint="", negative=False):
     if after_number:
         notes.rule(f"A17: singular noun after a number ({np.count} {np.head}s -> {word} ...)")
 
-    # this / that / these / those (before the noun)
     if np.definite in ("near", "far"):
         eng = {("near", "sg"): "this", ("near", "pl"): "these",
                ("far", "sg"): "that", ("far", "pl"): "those"}[(np.definite, np.number)]
@@ -252,16 +240,17 @@ def to_np(np, role, notes, sex_hint="", negative=False):
         notes.rule(f"which -> {which} (agrees with {word})")
 
     # quantifiers: many -> da yawa (after), some -> wasu (before)
-    if np.quantifier in G.QUANTIFIERS:
+    if np.quantifier in ("some", "any") and np.head in EW.UNCOUNTABLE:
+        notes.rule(f"some + an uncountable noun: no Hausa word ({word})")     # some water -> ruwa
+    elif np.quantifier in G.QUANTIFIERS:
         q, place, _ = G.QUANTIFIERS[np.quantifier]
         form_key = "pl" if number == "pl" else gender
-        q = G.AGREEMENT.get(q, {}).get(form_key, q)          # kowace, isassun
+        q = G.AGREEMENT.get(q, {}).get(form_key, q)
         (hn.before if place == "before" else hn.after).append(q)
         notes.rule(f"Quantifier: {np.quantifier} -> {q} ({place} the noun)")
     elif np.quantifier:
         hn.after.append(notes.miss("quantifier", np.quantifier))
 
-    # adjectives
     for a in np.adjectives:
         adj = L.adjective(a)
         if adj is None:
@@ -330,12 +319,7 @@ def subject_words(subj, notes):
 
 
 def relative_clause_words(rel, head, notes):
-    """C15: noun + -n/-r + da + clause with the relative PAC.
-
-    subject gap:   Mutumin da ya kira jiya          (the PAC agrees with the head noun)
-    object gap:    Matar da muka ziyarta            (the verb has no object after it)
-    whose:         Yarinyar da mahaifinta likita ne / Yaron da aka sace masa keke
-    """
+    """C15: noun + -n/-r + da + clause with the relative PAC."""
     state = notes.save()
     notes.relative_pac, notes.force_column, notes.gap_head, notes.whose_head = True, None, None, None
     if rel.gap == "subject":
@@ -350,9 +334,7 @@ def relative_clause_words(rel, head, notes):
     return " ".join(w for w in [G.RELATIVE_MARKER] + words if w)
 
 
-# ===========================================================================
-# Verbs
-# ===========================================================================
+# ===== Verbs =====
 
 def verb_entry(lemma, notes):
     v = L.verb(lemma)
@@ -364,14 +346,7 @@ def verb_entry(lemma, notes):
 
 
 def finite_verb(v, obj, with_wa, notes, has_clause=False):
-    """Verb form after a completive, future or subjunctive PAC, and in commands.
-
-    yi-verb:              yi dariya
-    before 'wa':          saya wa ...
-    before a pronoun:     saye (ya saye shi)
-    before a noun:        sayi (ya sayi mota)
-    nothing after it:     saya (also when the object is a question word: Me Musa ya saya?)
-    """
+    """Verb form after a completive, future or subjunctive PAC, and in commands."""
     if v["yi_verb"]:
         notes.rule(f"yi-verb: yi {v['hausa']}")
         return ["yi", v["hausa"]]
@@ -399,9 +374,7 @@ def verbal_noun(v, has_object, notes):
     return [form]
 
 
-# ===========================================================================
-# Places and adverbs
-# ===========================================================================
+# ===== Places and adverbs =====
 
 def place_words(prep_phrases, verb_lemma, notes, locative=False):
     """in the house -> cikin gida; to the market (after go) -> kasuwa."""
@@ -433,15 +406,15 @@ def adverb_words(adverbs, notes, motion=False):
         if motion and key in G.MOTION_ADVERBS:
             word = G.MOTION_ADVERBS[key]
             notes.rule(f"After a motion verb: {key} -> {word}")
+        elif key.isdigit():
+            word = key
         else:
             word = G.ADVERBS.get(key) or L.adverb(key) or notes.miss("adverb", a)
         out.append(word)
     return out
 
 
-# ===========================================================================
-# One rule per construction
-# ===========================================================================
+# ===== One rule per construction =====
 
 def question_word(np, notes):
     """The fronted question phrase: wa, me, or wane ɗalibi ne (which + noun + ne/ce)."""
@@ -455,21 +428,15 @@ def question_word(np, notes):
 
 
 def verbal_clause(cl, notes):
-    """Subject + PAC + verb + receiver + object + places + adverbs (+ ba).
-
-    Also handles, inside the same pattern:
-      question word as subject or object (C12):  Wa ya buɗe ƙofar?  Me Musa ya saya?
-      commands:                                  Zauna.  Don Allah ka rufe ƙofar.  Kada ka taɓa wancan.
-      can / never / must / would
-    """
+    """Subject + PAC + verb + receiver + object + places + adverbs (+ ba)."""
     vg = cl.verb
     notes.rule("Construction: verbal sentence")
-    negative = vg.negative or vg.never
-    command = cl.mood == "command"
+    # "I saw nobody / nothing": Hausa makes the clause negative (Ban ga kowa ba)
+    negative = vg.negative or vg.never or (getattr(cl.obj, "kind", "") == "indefinite" and cl.obj.negative)
+    command = cl.mood in ("command", "suggestion")
     adverbs = list(cl.adverbs)
     front = []
 
-    # --- the subject (or a question word standing for it)
     if cl.mood == "wh-question" and cl.wh_role == "subject":
         front, subj = question_word(cl.subject, notes)
         person, show_subject = subj.person, False
@@ -478,7 +445,7 @@ def verbal_clause(cl, notes):
         person, show_subject = (subj.person if subj else f"2sg.{G.DEFAULT_SEX}"), not command
 
     v = verb_entry(vg.lemma, notes)
-    has_clause = bool(cl.clauses)                     # "I know that ..." (C16)
+    has_clause = bool(cl.clauses)
     if has_clause and vg.lemma in G.REPORT_VERBS:     # said that -> ya ce
         word = G.REPORT_VERBS[vg.lemma]
         v = dict(v, hausa=word, before_noun=word, before_pronoun=word, yi_verb=False)
@@ -501,7 +468,7 @@ def verbal_clause(cl, notes):
         obj_np = None
     obj = to_np(obj_np, "object", notes, negative=negative) if obj_np is not None else None
     if obj is not None and vg.lemma == "do" and obj_np.kind == "demonstrative":
-        obj.word = G.DO_THAT                          # do that -> yi haka
+        obj.word = G.DO_THAT
         notes.rule(f"do that -> yi {G.DO_THAT}")
 
     # --- the receiver: ba Ada / aika wa Chika / aika masa
@@ -539,6 +506,9 @@ def verbal_clause(cl, notes):
         elif please:
             notes.rule(f"Command with please: {G.PLEASE} + subjunctive PAC")
             before = start + [L.pac(person, "subjunctive")]
+        elif cl.mood == "suggestion":
+            notes.rule("Let's + verb -> subjunctive PAC mu + verb")
+            before = [L.pac(person, "subjunctive")]
         else:
             notes.rule("Command: the bare verb, no PAC")
             before = []
@@ -554,9 +524,9 @@ def verbal_clause(cl, notes):
         column = G.ABILITY_QUESTION_COLUMN if future else "completive"
         notes.rule(f"{'may' if vg.modal == 'possibility' else 'can'} -> {column} PAC + {G.ABILITY_VERB} + verb")
         before, after = pac_words(person, column, negative, notes)
-        if obj is None and not with_wa:                   # iya iyo, iya tafiya (verbal noun)
+        if obj is None and not with_wa:
             verb = [G.ABILITY_VERB] + verbal_noun(v, False, notes)
-        else:                                             # iya taimake ni
+        else:
             verb = [G.ABILITY_VERB] + finite_verb(v, obj, with_wa, notes)
     elif vg.modal in G.MODAL_BEFORE_SUBJUNCTIVE:
         word = G.MODAL_BEFORE_SUBJUNCTIVE[vg.modal]
@@ -575,7 +545,7 @@ def verbal_clause(cl, notes):
             verb = verbal_noun(v, main_obj is not None or with_wa or has_clause or bool(vg.infinitive), notes)
         else:
             verb = finite_verb(v, main_obj, with_wa, notes, has_clause)
-        if vg.infinitive:                                 # sun so su tafi
+        if vg.infinitive:
             inf = verb_entry(vg.infinitive, notes)
             pac = L.pac(person, "subjunctive")
             verb += [pac] + finite_verb(inf, obj, with_wa, notes)
@@ -586,8 +556,9 @@ def verbal_clause(cl, notes):
         rel = "relative continuous" if column == "continuous" else \
               "future" if column == "future" else "relative completive"
         form = L.pac("3sg.m", rel)
-        notes.rule(f"nobody -> {G.NOBODY_SUBJECT} + {rel} PAC ({form})")
-        before, after = [G.NOBODY_SUBJECT, form], []
+        start = G.NEGATIVE_SUBJECTS.get(cl.subject.head.lower(), G.NOBODY_SUBJECT)
+        notes.rule(f"{cl.subject.head.lower()} -> {start} + {rel} PAC ({form})")
+        before, after = [start, form], []
         show_subject = False
 
     # --- the object, with "da" for yi + da verbs and a word after it for ba ... mamaki
@@ -606,11 +577,7 @@ def verbal_clause(cl, notes):
 
 
 def passive_clause(cl, notes):
-    """S17 passive.
-
-    without "by":  An gyara motar jiya.          (impersonal PAC an / aka + verb + the thing)
-    with "by":     Ngozi ce ta shirya abincin.   (the doer in focus: X ne/ce + relative PAC)
-    """
+    """S17 passive."""
     vg = cl.verb
     v = verb_entry(vg.lemma, notes)
     thing = to_np(cl.subject, "object", notes)
@@ -627,7 +594,7 @@ def passive_clause(cl, notes):
         notes.rule("Passive without by: impersonal PAC (an / aka)")
     before, after = pac_words(person, column, vg.negative, notes)
     receiver = []
-    if notes.whose_head is not None:              # Yaron da aka sace masa keke
+    if notes.whose_head is not None:
         receiver = [L.pronoun("indirect object", notes.whose_head.person)]
         notes.rule(f"whose + passive: the owner becomes {receiver[0]}")
     if column == "continuous":
@@ -642,14 +609,21 @@ def equational_clause(cl, notes):
     """X is a Y -> X Y ne/ce;  negative: X ba Y ba ne/ce  (C6)."""
     notes.rule("Construction: equational (X Y ne/ce)")
     subj = to_np(cl.subject, "subject", notes)
-    # the sex of the subject person: Ada, she, my mother -> f
+    owner = cl.complement[1]
+    if getattr(owner, "kind", "") == "possessive":          # The book is mine -> Littafin nawa ne
+        key = person_key(owner.person, owner.number, "")
+        word = ("ta" if subj.feminine else "na") + G.POSSESSIVE_PRONOUN_ENDINGS[key]
+        cop = copula(subj)
+        notes.rule(f"{owner.head} -> {word} (na/ta agrees with {subj.word}), copula {cop}")
+        middle = ["ba", word, "ba"] if cl.verb.negative else [word]
+        return [noun_phrase(subj)] + middle + [cop]
     sex = subj.gender if subj and subj.kind in ("name", "pronoun") else getattr(cl.subject, "sex", "")
     pred = to_np(cl.complement[1], "predicate", notes, sex_hint=sex)
     if sex and pred.gender == sex:
         notes.rule(f"Predicate noun chosen to match the subject's sex ({pred.word})")
     cop = copula(pred)
     notes.rule(f"Copula: {cop} (agrees with {pred.word})")
-    subj_words = [noun_phrase(subj)] if subj else []       # pronouns stay: Ita malama ce
+    subj_words = [noun_phrase(subj)] if subj else []
     if cl.verb.negative:
         notes.rule("Negative equational: ba ... ba before ne/ce")
         return subj_words + ["ba", noun_phrase(pred), "ba", cop]
@@ -665,17 +639,27 @@ def zama_or(adj, subj, noun_verb):
 
 
 def adjective_clause(cl, notes, adj_word):
-    """X is ADJ.  Three Hausa patterns, chosen by the 'type' column (C7):
-
-    adjective:         Wannan gida babba ne.
-    noun with da:      Miyar tana da zafi.
-    noun without da:   Yaran suna farin ciki.
-    """
+    """X is ADJ.  Three Hausa patterns, chosen by the 'type' column (C7):"""
     subj = to_np(cl.subject, "subject", notes)
-    adj = L.adjective(adj_word)
-    if adj is None:
-        return [noun_phrase(subj), notes.miss("adjective", adj_word)]
     negative = cl.verb.negative
+    person_subject = getattr(cl.subject, "kind", "") in ("pronoun", "name", "coordinated") \
+        and cl.subject.head != "it" or getattr(cl.subject, "sex", "")
+    if adj_word in G.FEELINGS and (adj_word not in G.FEELINGS_PEOPLE_ONLY or person_subject):
+        # I am hungry -> Ina jin yunwa;  I will be thirsty -> Zan ji ƙishin ruwa
+        future = cl.verb.tense == "future"
+        before, after = pac_words(subj.person, "future" if future else "continuous", negative, notes)
+        noun = G.FEELINGS[adj_word]
+        notes.rule(f"Feeling: be {adj_word} -> {'ji' if future else 'jin'} {noun}")
+        return subject_words(subj, notes) + before + ["ji" if future else "jin", noun] \
+            + adverb_words(cl.adverbs, notes) + after
+    adj = L.adjective(adj_word)
+    if cl.mood == "command":                     # Be careful -> Ka yi hankali;  Don't be late
+        start = [G.NEGATIVE_COMMAND] if negative else []
+        verb = zama_or(adj, subj, "yi") if adj else ["zama", notes.miss("adjective", adj_word)]
+        notes.rule(f"Command with be + adjective -> subjunctive PAC + {verb[0]}")
+        return start + [L.pac(subj.person, "subjunctive")] + verb
+    if adj is None:
+        return [noun_phrase(subj), notes.miss("adjective", adj_word), copula(subj)]
     if cl.verb.tense == "future":                 # will be proud -> za su yi alfahari
         before, after = pac_words(subj.person, "future", negative, notes)
         verb = zama_or(adj, subj, "yi")
@@ -756,7 +740,7 @@ def possession_clause(cl, notes):
     notes.rule("Construction: possession (PAC + da)")
     subj = to_np(cl.subject, "subject", notes)
     obj = to_np(cl.obj, "object", notes) if cl.obj is not None else None
-    if cl.verb.negative or getattr(cl.obj, "negative", False):     # "do not have" / "have no"
+    if cl.verb.negative or getattr(cl.obj, "negative", False):
         pron = L.pronoun("direct object", subj.person)
         notes.rule(f"Negative possession: ba {pron} da")
         start = subject_words(subj, notes) + ["ba", pron, "da"]
@@ -784,10 +768,10 @@ def belong_clause(cl, notes):
 def existential_clause(cl, notes):
     """There is X -> Akwai X;  there is no X -> Babu X;  there was X -> An yi X."""
     vg = cl.verb
-    negative = vg.negative or getattr(cl.subject, "negative", False)    # "There is no water"
+    negative = vg.negative or getattr(cl.subject, "negative", False)
     thing = to_np(cl.subject, "subject", notes)
     places = list(cl.prep_phrases)
-    if cl.complement and cl.complement[0] == "place":     # "in the market"
+    if cl.complement and cl.complement[0] == "place":
         places.insert(0, cl.complement[1])
     rest = [noun_phrase(thing)] + place_words(places, "be", notes) + adverb_words(cl.adverbs, notes)
     if vg.tense == "past" or vg.aspect == "perfect":
@@ -817,7 +801,7 @@ def weather_clause(cl, notes, word):
     person = "3sg.m" if subject else "4"
     notes.rule(f"Construction: weather ({'subject ' + subject if subject else 'impersonal PAC'}) + {noun}")
     ongoing = vg.lemma != "become" and (vg.aspect == "progressive" or (vg.tense == "present" and vg.aspect == "simple"))
-    if notes.force_column in ("completive", "subjunctive"):      # Idan an yi ruwa, ...
+    if notes.force_column in ("completive", "subjunctive"):
         ongoing = False
     if ongoing and vg.tense != "future":                  # It is raining / It was raining -> ana ruwa
         before, after = pac_words(person, "continuous", vg.negative, notes)
@@ -847,9 +831,7 @@ def what_is_clause(cl, notes):
     return [start] + ([noun_phrase(to_np(other, "subject", notes))] if other is not None else [])
 
 
-# ===========================================================================
-# Choosing the rule for each clause, and the whole sentence
-# ===========================================================================
+# ===== Choosing the rule for each clause, and the whole sentence =====
 
 def focus_words(cl, notes):
     """S10: the focused part goes first, then ne/ce: Ada ce ..., Jiya ne ..., A Legas ne ..."""
@@ -857,25 +839,26 @@ def focus_words(cl, notes):
     if isinstance(f, NounPhrase):
         hn = to_np(f, "object", notes)
         words, cop = [noun_phrase(hn)], copula(hn)
-    elif isinstance(f, tuple):                    # It is in Lagos that ...
+    elif isinstance(f, tuple):
         hn, words, cop = None, place_words([f], "be", notes), "ne"
-    else:                                         # It was yesterday that ...
+    else:
         hn, words, cop = None, adverb_words([f], notes), "ne"
     notes.rule(f"S10 focus: {' '.join(words)} + {cop} first, then the relative PAC")
     return words + [cop], hn
 
 
 def transfer_clause(cl, notes, force_column=None, relative=False):
-    """Pick the construction rule for one clause and run it.
-
-    force_column / relative come from the clause linker (translate_analysis).
-    """
+    """Pick the construction rule for one clause and run it."""
     vg = cl.verb
     notes.relative_pac, notes.force_column = relative, force_column
     notes.gap_head = notes.whose_head = None
     if vg is None:
         notes.rule("No verb found in the English analysis")
         return [noun_phrase(to_np(cl.subject, "subject", notes))] if cl.subject else []
+    if cl.subject is None and cl.mood != "command" and (vg.copula or vg.possession):
+        # a "be"/"have" clause with no subject found: carry on with "it" (3sg.m) instead of failing
+        notes.rule("No subject found in the English analysis: 3sg.m used")
+        cl = replace(cl, subject=NounPhrase(text="it", head="it", kind="pronoun"))
 
     front = []
     # --- focus (S10): It was Ada who cooked the soup -> Ada ce ta dafa miyar
@@ -905,6 +888,10 @@ def transfer_clause(cl, notes, force_column=None, relative=False):
 
     # --- reported clauses (C16): Na san cewa ta tafi; Malamin ya ce ...
     for inner in cl.clauses:
+        if inner.linker == "to":                 # It is good to go -> Yana da kyau a tafi
+            notes.rule("It is ADJ to VERB -> ... + impersonal subjunctive PAC a + verb")
+            words += transfer_clause(replace(inner, subject=IMPERSONAL), notes, force_column="subjunctive")
+            continue
         if vg.lemma not in G.REPORT_VERBS:
             words.append(G.COMPLEMENTISER)
             notes.rule(f"C16: reported clause after {G.COMPLEMENTISER}")
@@ -937,7 +924,7 @@ def choose_rule(cl, notes):
             return adjective_clause(cl, notes, comp[1])
         if comp[0] == "place":
             return locative_clause(cl, notes)
-    if vg.copula and not comp and cl.adverbs:          # We are here -> Muna nan
+    if vg.copula and not comp and cl.adverbs:
         return place_adverb_clause(cl, notes)
     if vg.lemma == "belong":
         return belong_clause(cl, notes)
@@ -947,10 +934,7 @@ def choose_rule(cl, notes):
 
 
 def clause_linker(cl, counterfactual):
-    """Decide the Hausa linker and its PAC for a subordinate clause (C14).
-
-    Returns (Hausa linker, PAC column or None, relative PAC?, name of the rule).
-    """
+    """Decide the Hausa linker and its PAC for a subordinate clause (C14)."""
     vg = cl.verb
     simple = vg is not None and vg.aspect in ("simple", "perfect")
     key = cl.linker
@@ -960,7 +944,7 @@ def clause_linker(cl, counterfactual):
         key = "when (past)" if vg is not None and vg.tense == "past" else "when"
     if key in G.SUBORDINATE_PAC:
         link, column, relative = G.SUBORDINATE_PAC[key]
-        if key in ("while", "when (past)"):          # always relative; the column only for simple tenses
+        if key in ("while", "when (past)"):
             return link, column if simple or key == "while" else None, relative, f"{key} -> {link}"
         if simple:
             return link, column, relative, f"{key} -> {link} + {column}"
@@ -970,14 +954,7 @@ def clause_linker(cl, counterfactual):
 
 
 def translate_analysis(analysis):
-    """Turn a stage-1 Analysis into a Translation.
-
-    Clauses keep the English order. The linker of each clause decides its PAC:
-      Lokacin da ruwan sama ya fara, yaran suka ...   (past when: relative completive in both)
-      Yayin da jaririn yake barci, ...                (while: relative continuous)
-      Idan ka gama da wuri, za ka iya tafiya.         (if: completive)
-      Da Ngozi ta iso da wuri, da ta haɗu da malamin. (counterfactual: da ... da ...)
-    """
+    """Turn a stage-1 Analysis into a Translation."""
     notes = Notes()
     clauses = analysis.clauses
     counterfactual = any(c.role == "subordinate" and c.linker == "if" and c.verb is not None
@@ -1007,13 +984,58 @@ def translate_analysis(analysis):
         after_past_when = cl.role == "subordinate" and cl.linker == "when" and \
             cl.verb is not None and cl.verb.tense == "past"
         words += ([link] if link else []) + transfer_clause(cl, notes, force, relative)
+    if clauses and all(c.verb is None for c in clauses):
+        words = word_by_word(analysis, notes)
     marks = [t.lower for t in analysis.tokens if t.tag == "PUNCT"]
     end = "?" if "?" in marks else "!" if "!" in marks else "."
     return Translation(english=analysis.sentence, hausa=sentence(words, end), rules=notes.rules,
                        missing=notes.missing, analysis=analysis)
 
 
+def phrase_key(text):
+    """'Good morning!' -> 'good morning' (the form used in hausa_grammar.PHRASES)."""
+    return " ".join(re.sub(r"[.,!?;:]", " ", text.replace("’", "'").lower()).split())
+
+
+def W_PRONOUN(word):
+    """English pronoun -> (person, number, sex), e.g. she -> ('3', 'sg', 'f')."""
+    person, number, sex, _ = EW.PRONOUNS[word]
+    return person, number, sex
+
+
+def word_by_word(analysis, notes):
+    """No sentence pattern was found (no verb): translate the words one by one."""
+    notes.rule("No verb found: the words are translated one by one")
+    out = []
+    for t in analysis.tokens:
+        if t.tag in ("PUNCT", "COMMA", "DET", "POSS_S"):
+            continue
+        entry = L.noun(t.lemma) if t.tag == "NOUN" else L.verb(t.lemma) if t.tag == "VERB" else \
+            L.adjective(t.lemma) if t.tag == "ADJ" else None
+        word = (entry or {}).get("hausa") or (entry or {}).get("masc") or G.ADVERBS.get(t.lower) \
+            or G.CLAUSE_LINKERS.get(t.lower) or G.QUESTION_WORDS.get(t.lower) or G.PREPOSITIONS.get(t.lower)
+        if t.tag == "NAME":
+            word = t.text
+        if t.tag == "NUM":
+            word = L.number(t.lemma)
+        if t.tag == "PRON":
+            word = L.pronoun("independent", "3sg.m" if t.lower == "it" else person_key(*W_PRONOUN(t.lower)))
+        out.append(word or notes.miss("word", t.text))
+    return out or [notes.miss("word", t.text) for t in analysis.tokens if t.tag not in ("PUNCT", "COMMA")]
+
+
 def translate(english):
-    """English sentence -> Translation (analysis, transfer and generation)."""
+    """English text -> Translation (analysis, transfer and generation)."""
+    sentences = [s for s in re.split(r"(?<=[.!?])\s+", english.strip()) if s]
+    if len(sentences) > 1:
+        parts = [translate(s) for s in sentences]
+        return Translation(english=english, hausa=" ".join(p.hausa for p in parts),
+                           rules=[r for p in parts for r in p.rules],
+                           missing=[m for p in parts for m in p.missing], analysis=parts[0].analysis)
+    key = phrase_key(english)
+    if key in G.PHRASES:
+        end = "?" if key in G.QUESTION_PHRASES else "."
+        return Translation(english=english, hausa=G.PHRASES[key] + end, analysis=analyse(english),
+                           rules=[f"Fixed expression: {key} -> {G.PHRASES[key]}"])
     return translate_analysis(analyse(english))
 

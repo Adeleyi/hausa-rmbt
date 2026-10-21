@@ -32,4 +32,5 @@ After that, every `git push` updates the app automatically.
 - Practise with sentences you know work, for example (all from the development set):
   - English → Hausa: *The boy laughed.* · *Ada is a teacher.* · *The children are in the house.* · *Musa gave Ada a book.* · *When the rain started, the children ran inside.*
   - Hausa → English: *Musa bai halarci taron ba.* · *Ada tana da mota.* · *Me Musa ya saya?* · *Mutumin da ya kira jiya kawuna ne.*
-- Greetings and idioms (*Ina kwana?*) are not translated correctly yet: the system reads them word by word.
+- Common greetings and set phrases (*Good morning*, *Ina kwana?*, *Na gode*) come from a fixed list, not from rules. Other idioms and proverbs are read word by word and will come out wrong.
+- Words in [brackets] are not in the lexicon yet.

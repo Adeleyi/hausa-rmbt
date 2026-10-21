@@ -1,26 +1,12 @@
 """Score the system against the reference translations.
 
-Run from the project folder:
-    python src/evaluate.py              English -> Hausa, all 128 test sentences
-    python src/evaluate.py --phase 1    only the Phase 1 sentences
-    python src/evaluate.py --hausa      Hausa -> English: the speaker's Hausa is the input,
-                                        the original English is the reference
+    python src/evaluate.py              English -> Hausa, the 128 development sentences
+    python src/evaluate.py --phase 1    only Phase 1
+    python src/evaluate.py --hausa      Hausa -> English
     python src/evaluate.py --blind      the 30 blind test sentences (add --hausa for Hausa -> English)
 
-What it measures, for each sentence:
-  exact   the output is the same as the speaker's translation
-          (ignoring capitals, final punctuation and extra spaces)
-  chrF    how many letter sequences the output shares with the speaker's
-          translation, from 0 to 100. It gives part credit, so
-          "bayan shinge" against "bayan shingen" still scores high.
-  BLEU    the usual MT score, from 0 to 100, based on shared word sequences.
-          It is computed over the whole set (it is unreliable on one short sentence).
-
-Results are written to outputs/eval_results.xlsx (Hausa -> English: eval_results_ha_en.xlsx;
-blind test: eval_results_blind.xlsx and eval_results_blind_ha_en.xlsx):
-  Sentences       one row per sentence, with an empty "Error type" column for the group
-  Summary         scores per phase and per construction
-  Missing words   English words the lexicon could not translate
+Scores: exact match, chrF and BLEU (see docs/results.md).
+Results go to outputs/eval_results*.xlsx: one row per sentence, a summary, and missing words.
 """
 import re
 import sys
@@ -66,7 +52,7 @@ def main():
     results = ROOT / "outputs" / f"eval_results{'_blind' if blind else ''}{'_ha_en' if hausa_in else ''}.xlsx"
     tests = pd.read_excel(testset, sheet_name="Hausa test set", header=1, dtype=str)
     gold_col = next(c for c in GOLD_COLUMNS if c in tests.columns)
-    if "Phase" not in tests:              # the blind set is grouped by sentence type only
+    if "Phase" not in tests:
         tests["Phase"] = None
     if phase:
         tests = tests[tests["Phase"] == str(phase)]

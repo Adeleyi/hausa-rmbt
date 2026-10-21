@@ -1,10 +1,4 @@
-"""Hausa -> English transfer: stage 2 of the Hausa -> English system.
-
-It reads the Hausa analysis (stage 1, hausa_analysis.py) and decides what the
-English sentence contains: tense, the English verb, a/the, word order.
-English generation (english_generate.py) writes the words out.
-
-One rule (one function) per Hausa construction, mirroring transfer_en_ha.py:
+"""Hausa -> English transfer: stage 2. One rule (function) per Hausa construction:
 
     verbal         Musa ya sayi mota.         -> Musa bought a car.
     equational     Ada malama ce.             -> Ada is a teacher.
@@ -15,19 +9,18 @@ One rule (one function) per Hausa construction, mirroring transfer_en_ha.py:
     belong         Littafin na Musa ne.       -> The book belongs to Musa.
     existential    Akwai matsala.             -> There is a problem.
     weather        Ana ruwa.                  -> It is raining.
-    command        Zauna.                     -> Sit down.
-plus questions, focus (Ada ce ta ... -> It was Ada who ...), relative clauses,
-reported clauses (cewa), passives (an + verb) and clause linkers.
 
-Every rule writes a note, so you can see why the English came out as it did.
+Explained in docs/hausa_to_english_explained.md.
 """
 import copy
+import re
 from dataclasses import dataclass, field
 
 import english_generate as EG
 import english_grammar as G
 import english_words as EW
 import hausa_analysis as H
+import hausa_words as HW
 from hausa_analysis import HNounPhrase
 
 MASS = G.MASS_NOUNS | EW.UNCOUNTABLE
@@ -54,9 +47,7 @@ class Notes:
             self.rules.append(text)
 
 
-# ===========================================================================
-# Persons and noun phrases
-# ===========================================================================
+# ===== Persons and noun phrases =====
 
 def person_number(key):
     """'3sg.f' -> ('3', 'sg'); '4' (impersonal) -> ('3', 'pl')."""
@@ -72,15 +63,12 @@ def is_person(np):
 
 
 def np_words(np, role, notes, negative=False, question=False, owner_hidden=False):
-    """English words for a Hausa noun phrase.
-
-    role: subject, object, receiver, place, predicate, owner
-    """
+    """English words for a Hausa noun phrase."""
     if np is None:
         return []
     if isinstance(np, str):
         return [np]
-    if isinstance(np, tuple):                         # (preposition, noun phrase)
+    if isinstance(np, tuple):
         return [np[0]] + np_words(np[1], "place", notes)
     k = np.kind
     if k == "gap":
@@ -96,8 +84,8 @@ def np_words(np, role, notes, negative=False, question=False, owner_hidden=False
     if k == "name":
         return [np.english or np.hausa]
     if k == "indefinite":
-        if np.english == "nobody":
-            return ["nobody"]
+        if np.english in ("nobody", "nothing"):
+            return [np.english]
         alt = np.english_negative or np.english
         if (negative or question) and alt != np.english:
             notes.rule(f"In a negative sentence or question: {np.hausa} -> {alt}")
@@ -106,7 +94,10 @@ def np_words(np, role, notes, negative=False, question=False, owner_hidden=False
     if k == "demonstrative":
         return [np.english]
     if k == "coordinated":
-        parts = [" ".join(np_words(p, role, notes)) for p in np.coordinated]
+        nps = list(np.coordinated)
+        if nps[0].kind == "pronoun" and nps[0].person == "1sg":
+            nps = nps[1:] + nps[:1]               # Ni da Musa -> Musa and I
+        parts = [" ".join(np_words(p, role, notes)) for p in nps]
         return [" and ".join(parts)]
 
     # --- an ordinary noun
@@ -167,9 +158,7 @@ def relative_words(rel, head, notes):
     return [word] + clause_words(rel, notes, ctx)
 
 
-# ===========================================================================
-# Tense and the English verb
-# ===========================================================================
+# ===== Tense and the English verb =====
 
 def english_verb(cl, notes):
     """Choose the English verb, using the word-sense rules in english_grammar.py."""
@@ -253,10 +242,11 @@ def clause_tense(cl, lemma, ctx, notes):
         notes.rule("Counterfactual: da ... -> would have ...")
     if cl.verb is not None and cl.verb.ability:
         modal = "can"                                # ta iya iyo -> can swim (an ability now)
-        tense = "present"
-        if aspect == "perfect":
-            aspect = "simple"
+        tense, aspect = "present", "simple"
         notes.rule("iya -> can")
+    if cl.modal:                                     # Dole ne ka tafi -> You must leave
+        tense, aspect, modal = "present", "simple", cl.modal
+        notes.rule(f"{cl.modal} + subjunctive PAC")
     return tense, aspect, modal
 
 
@@ -275,16 +265,23 @@ def adverb_words(cl):
     return [a for a in cl.adverbs if a not in ("already", "still")]
 
 
+def place_phrase(prep, np, notes):
+    """English for a place: a kasuwa -> in the market; zuwa gida / a gida -> home / at home."""
+    if isinstance(np, HNounPhrase) and np.hausa == "gida" and np.after in ("", "a", "zuwa") \
+            and not (np.definite or np.possessor or np.adjectives):
+        notes.rule("gida with no -n or owner -> home")
+        return ["home"] if prep == "to" else ["at", "home"]
+    return [prep] + np_words(np, "place", notes)
+
+
 def place_words(cl, notes):
     out = []
     for prep, np in cl.places:
-        out += [prep] + np_words(np, "place", notes)
+        out += place_phrase(prep, np, notes)
     return out
 
 
-# ===========================================================================
-# One rule per construction
-# ===========================================================================
+# ===== One rule per construction =====
 
 def clause_words(cl, notes, ctx):
     """English words for one Hausa clause (no final punctuation)."""
@@ -293,12 +290,16 @@ def clause_words(cl, notes, ctx):
     subj = [] if (ctx.get("relative") and cl.gap == "subject") else \
         np_words(cl.subject, "subject", notes, negative, question, owner_hidden=ctx.get("whose", False))
     person, number = subject_info(cl)
+    if cl.wh_word == "where" and subj[:1] in (["a"], ["an"]):
+        subj = ["the"] + subj[1:]                  # Ina kasuwa take? -> Where is the market?
     c = cl.construction
 
     if cl.focus is not None:
         return focus_words(cl, notes, ctx)
     if c == "what-is":
         notes.rule(f"{cl.wh_word} is X?")
+        if cl.subject is None:
+            return [cl.wh_word]                    # Me? -> What?
         return [cl.wh_word, "is"] + np_words(cl.subject, "predicate", notes)
     if c == "existential":
         return existential_words(cl, notes, ctx)
@@ -321,7 +322,7 @@ def assemble(front, subj, verb, rest, question, wh_subject=False):
 
 def verbal_words(cl, notes, ctx, subj, person, number, question):
     v = cl.verb
-    if isinstance(cl.subject, HNounPhrase) and cl.subject.english == "nobody":
+    if isinstance(cl.subject, HNounPhrase) and cl.subject.english in ("nobody", "nothing"):
         cl.negative = False                         # Ba wanda ya zo -> Nobody came (not "did not come")
         notes.rule("nobody + positive verb")
     lemma = english_verb(cl, notes)
@@ -366,7 +367,7 @@ def verbal_words(cl, notes, ctx, subj, person, number, question):
             subj = np_words(cl.subject, "subject", notes)
             verb = EG.verb_group(lemma, tense, aspect, cl.negative, modal, person, number, passive)
         elif cl.wh_word == "which" and isinstance(cl.obj, HNounPhrase):
-            front = np_words(cl.obj, "object", notes)              # Which book did Ada buy?
+            front = np_words(cl.obj, "object", notes)
         else:
             front = [cl.wh_word]
         notes.rule(f"Question word first: {cl.wh_word}")
@@ -395,7 +396,7 @@ def verbal_words(cl, notes, ctx, subj, person, number, question):
         notes.rule(f"{lemma} + thing + for + receiver")
     else:
         rest += rec_w + obj_w
-    for inner in cl.clauses:                         # reported clause
+    for inner in cl.clauses:
         rest += ["that"] + clause_words(inner, notes, {"follow_past": tense == "past" and not modal})
         notes.rule("Reported clause: that + clause")
     rest += place_words(cl, notes) + adverb_words(cl)
@@ -411,7 +412,7 @@ def copular_words(cl, notes, ctx, subj, person, number, question):
     kind, value = cl.complement if cl.complement else ("", None)
     tense, aspect, modal = clause_tense(cl, "be", ctx, notes) if cl.pac is not None else ("present", "simple", "")
     if cl.pac is None and ctx.get("follow_past") and not ctx.get("relative"):
-        tense = "past"                               # (ne/ce in a relative clause keeps the present)
+        tense = "past"
     if c == "adjective" and cl.pac is not None and "completive" in cl.pac.column and not ctx.get("follow_past"):
         tense = "present"                            # Littafin ya ɓata -> The book is missing (a state)
         notes.rule("Completive + state word -> present state (is missing, is tired)")
@@ -444,17 +445,18 @@ def copular_words(cl, notes, ctx, subj, person, number, question):
         if "still" in cl.adverbs:
             verb += ["still"]
         rest = very(cl) + [value]
-    else:                                            # locative
+    else:
         notes.rule("PAC + place -> be + place")
         verb = EG.verb_group("be", tense, aspect, neg, modal, person, number)
         if kind == "place":
             prep, np = value
-            rest = [prep] + np_words(np, "place", notes)
+            rest = place_phrase(prep, np, notes)
         elif value == "where":
             rest = []
         else:
             rest = [value] if value else []
     rest += place_words(cl, notes) + [a for a in adverb_words(cl) if a != "a lot"]
+    rest += [f"[{w}]" for w in cl.leftovers]         # Hausa words the analysis could not place
     return assemble(front, subj, verb, rest, question)
 
 
@@ -475,7 +477,7 @@ def existential_words(cl, notes, ctx):
             thing = thing[1:]
         words.append("no")
     notes.rule(f"Existential -> there {be}{' no' if cl.negative else ''}")
-    return words + thing + place_words(cl, notes) + adverb_words(cl)
+    return words + thing + place_words(cl, notes) + adverb_words(cl) + [f"[{w}]" for w in cl.leftovers]
 
 
 def weather_words(cl, notes, ctx):
@@ -489,11 +491,11 @@ def weather_words(cl, notes, ctx):
     if word in G.WEATHER_VERBS:
         aspect = "progressive" if "continuous" in col else "simple"
         verb = EG.verb_group(G.WEATHER_VERBS[word], tense, aspect, cl.negative, modal)
-        return ["it"] + verb + adverb_words(cl)
+        return ["it"] + verb + adverb_words(cl) + [f"[{w}]" for w in cl.leftovers]
     lemma = "become" if sky else "be"
     verb = EG.verb_group(lemma, tense, "simple", cl.negative, modal)
     rest = very(cl) + [word] + [a for a in adverb_words(cl) if a != "a lot"]
-    return ["it"] + verb + rest
+    return ["it"] + verb + rest + [f"[{w}]" for w in cl.leftovers]
 
 
 def focus_words(cl, notes, ctx):
@@ -517,9 +519,7 @@ def focus_words(cl, notes, ctx):
     return ["it", be] + focus + [word] + rest
 
 
-# ===========================================================================
-# The whole sentence
-# ===========================================================================
+# ===== The whole sentence =====
 
 def translate_analysis(analysis):
     notes = Notes()
@@ -556,13 +556,31 @@ def translate_analysis(analysis):
         if prev is not None and prev.role == "subordinate" and cl.role == "main" and words:
             words[-1] += ","
         words += link + clause_words(cl, notes, ctx)
+    if not words:                                    # nothing understood: show the words, in [brackets]
+        words = [f"[{t.text}]" for t in analysis.tokens if not set(t.options) & {"PUNCT", "COMMA"}]
     marks = [t.lower for t in analysis.tokens if "PUNCT" in t.options]
     end = "?" if "?" in marks else "!" if "!" in marks else "."
     return Translation(hausa=analysis.sentence, english=EG.sentence(words, end), rules=notes.rules,
                        missing=notes.missing, analysis=analysis)
 
 
+def phrase_key(text):
+    """'Na gode!' -> 'na gode' (the form used in hausa_words.PHRASES)."""
+    return " ".join(re.sub(r"[.,!?;:]", " ", text.replace("’", "'").lower()).split())
+
+
 def translate(hausa):
-    """Hausa sentence -> Translation (analysis, transfer, generation)."""
+    """Hausa text -> Translation (analysis, transfer, generation)."""
+    sentences = [s for s in re.split(r"(?<=[.!?])\s+", hausa.strip()) if s]
+    if len(sentences) > 1:
+        parts = [translate(s) for s in sentences]
+        return Translation(hausa=hausa, english=" ".join(p.english for p in parts),
+                           rules=[r for p in parts for r in p.rules],
+                           missing=[m for p in parts for m in p.missing], analysis=parts[0].analysis)
+    key = phrase_key(hausa)
+    if key in HW.PHRASES:
+        end = "?" if HW.PHRASES[key] in HW.HG.QUESTION_PHRASES else "."
+        return Translation(hausa=hausa, english=EG.sentence([HW.PHRASES[key]], end), analysis=H.analyse(hausa),
+                           rules=[f"Fixed expression: {key} -> {HW.PHRASES[key]}"])
     return translate_analysis(H.analyse(hausa))
 

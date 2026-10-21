@@ -1,19 +1,10 @@
-"""Run stage 1 (the analysis) on every test sentence, in both languages, and write two reports.
+"""Run stage 1 (the analysis) on every development sentence, in both languages.
 
-Run from the project folder:   python src/run_analysis.py
+    python src/run_analysis.py
 
-  outputs/english_analysis_report.txt   the English analysis of every sentence
-  outputs/hausa_analysis_report.txt     the Hausa analysis of every sentence, checked
-                                        against the English analysis of its partner
-
-The check: the English and the Hausa analysis of the same sentence should agree on
-  - negation          (is the sentence negative?)
-  - sentence type     (statement, yes/no question, question-word question, command)
-  - number of clauses
-  - the main verb     (Hausa verb read as English, or "be" / "have" for ne/ce,
-                       da and place sentences)
-The verb is the weakest check: one Hausa verb can stand for several English
-verbs (ci = eat / pass / win), and the transfer stage chooses between them.
+Writes outputs/english_analysis_report.txt and outputs/hausa_analysis_report.txt.
+The Hausa report checks that both analyses agree on negation, sentence type,
+number of clauses and the main verb.
 """
 from pathlib import Path
 
@@ -29,9 +20,7 @@ HAUSA_REPORT = ROOT / "outputs" / "hausa_analysis_report.txt"
 BE_LIKE = {"equational", "adjective", "locative", "belong", "existential", "weather", "what-is", "become"}
 
 
-# ---------------------------------------------------------------------------
-# Comparing the English and the Hausa analysis of one sentence
-# ---------------------------------------------------------------------------
+# ===== Comparing the English and the Hausa analysis of one sentence =====
 
 def is_negative(clauses, english):
     for cl in clauses:
@@ -76,9 +65,7 @@ def compare(english, hausa):
     return out
 
 
-# ---------------------------------------------------------------------------
-# The two reports
-# ---------------------------------------------------------------------------
+# ===== The two reports =====
 
 def main():
     tests = pd.read_excel(TESTSET, sheet_name="Hausa test set", header=1, dtype=str)

@@ -44,8 +44,11 @@ def main():
     rules, analysis = "--rules" in options, "--analysis" in options
     source = "Hausa" if hausa_in else "English"
 
-    if sentence:                                  # one sentence from the command line
-        show(sentence, hausa_in, rules, analysis)
+    if sentence:
+        try:
+            show(sentence, hausa_in, rules, analysis)
+        except Exception as err:
+            print(f"Sorry, the system failed on this sentence: {err}")
         return
     print(f"Hausa RBMT: {source} -> {'English' if hausa_in else 'Hausa'}. Type q to quit.\n")
     while True:

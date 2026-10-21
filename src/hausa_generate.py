@@ -1,40 +1,30 @@
-"""Hausa generation: stage 3 of the English -> Hausa system.
-
-The transfer stage (transfer_en_ha.py) decides WHAT the Hausa sentence contains:
-which words, which PAC, which construction. This file decides HOW the words
-are written:
-  - the -n/-r suffix for "the" and for the linker (yaro -> yaron, miya -> miyar)
-  - possessive suffixes (mota + -ta -> motata)
-  - adjective agreement (sabo / sabuwa / sababbi)
-  - ne / ce
-  - putting the words of a noun phrase in order
-  - the final sentence: spaces, capital letter, full stop
+"""Hausa generation: stage 3 of English -> Hausa. Writes out what transfer_en_ha.py decided:
+-n/-r suffixes (yaron, miyar), possessive suffixes (motata), adjective agreement,
+ne/ce, word order in the noun phrase, and the final sentence.
 """
 from dataclasses import dataclass, field
 
 VOWELS = "aeiouAEIOU"
 
 
-# ---------------------------------------------------------------------------
-# A Hausa noun phrase, as the transfer stage hands it over
-# ---------------------------------------------------------------------------
+# ===== A Hausa noun phrase, as the transfer stage hands it over =====
 
 @dataclass
 class HNoun:
     word: str                    # Hausa noun, already singular or plural: yaro, yara
-    english: str = ""            # the English head, for messages
+    english: str = ""
     kind: str = "noun"           # noun, name, pronoun, indefinite, coordinated
-    gender: str = "m"            # Hausa gender of the noun: m or f
-    number: str = "sg"           # sg or pl
+    gender: str = "m"
+    number: str = "sg"
     person: str = "3sg.m"        # PAC person: 1sg, 2sg.m, 3sg.f, 3pl, 4 ...
-    definite: bool = False       # English "the" -> -n/-r
+    definite: bool = False
     relative: bool = False       # a relative clause follows: mutumin da ... (always the linker)
-    linked: str = ""             # the lexicon's -n/-r form, if it gives one
+    linked: str = ""
     before: list = field(default_factory=list)   # words before the noun: wannan, wasu, babban
     after: list = field(default_factory=list)    # words after the noun: biyu, da yawa, mai zafi
-    possessive_suffix: str = ""  # nta, rta, na ... (my/her/his ...)
-    possessor: object = None     # another HNoun: gidan Musa
-    parts: list = field(default_factory=list)    # for "Musa da Ada"
+    possessive_suffix: str = ""
+    possessor: object = None
+    parts: list = field(default_factory=list)
 
     @property
     def feminine(self):
@@ -42,16 +32,10 @@ class HNoun:
         return self.gender == "f" and self.number == "sg"
 
 
-# ---------------------------------------------------------------------------
-# Word-level rules
-# ---------------------------------------------------------------------------
+# ===== Word-level rules =====
 
 def add_suffix(word, suffix):
-    """Attach a suffix to the last word.
-
-    Plurals in -ai drop the -i:          ɗalibai -> ɗaliban, ɗalibansa
-    A consonant-final word gets -i-:     tebur -> teburin
-    """
+    """Attach a suffix to the last word."""
     if not word:
         return word
     head, _, last = word.rpartition(" ")
@@ -63,12 +47,7 @@ def add_suffix(word, suffix):
 
 
 def linker(word, feminine, linked_form="", definite=False):
-    """The -n/-r form used for 'the' (A6) and for 'of' (gidan Musa).
-
-    Feminine singular nouns ending in -a take -r (miya -> miyar);
-    everything else takes -n (yaro -> yaron, yara -> yaran).
-    For "the", a noun ending in a consonant takes a separate ɗin: fim -> fim ɗin.
-    """
+    """The -n/-r form used for 'the' (A6) and for 'of' (gidan Musa)."""
     if linked_form:
         return linked_form
     if definite and word[-1] not in VOWELS:
@@ -98,15 +77,10 @@ def split_frame(pac_form):
     return pac_form, ""
 
 
-# ---------------------------------------------------------------------------
-# Noun phrases
-# ---------------------------------------------------------------------------
+# ===== Noun phrases =====
 
 def noun_phrase(hn):
-    """Write out a Hausa noun phrase in the right order.
-
-    order:  [wannan / wasu / babban]  NOUN(-n/-r/suffix) [owner]  [biyu / da yawa / mai zafi]
-    """
+    """Write out a Hausa noun phrase in the right order."""
     if hn is None:
         return ""
     if hn.kind == "coordinated":
@@ -123,9 +97,7 @@ def noun_phrase(hn):
     return " ".join(w for w in hn.before + [head] + hn.after if w)
 
 
-# ---------------------------------------------------------------------------
-# The whole sentence
-# ---------------------------------------------------------------------------
+# ===== The whole sentence =====
 
 def sentence(words, end="."):
     """Join the words, tidy the spaces, add a capital letter and the final mark."""
@@ -133,5 +105,5 @@ def sentence(words, end="."):
     text = " ".join(text.split())
     if not text:
         return ""
-    k = 1 if text[0] == "'" else 0              # 'yar'uwata -> 'Yar'uwata
+    k = 1 if text[0] in "'[" else 0             # 'yar'uwata -> 'Yar'uwata; [bath] -> [Bath]
     return text[:k] + text[k].upper() + text[k + 1:] + end

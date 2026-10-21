@@ -744,7 +744,7 @@ Words:    Akwai<EXIST>  matsala<NOUN>
 
 [16.2] Optional: existential   English: There are many students outside.
 Sentence: Akwai ɗalibai da yawa a waje.
-Words:    Akwai<EXIST>  ɗalibai<NOUN>  da yawa<QUANT>  a waje<ADV>
+Words:    Akwai<EXIST>  ɗalibai<NOUN>  da yawa<ADV/QUANT>  a waje<ADV>
   Clause 1: main - statement - existential
     subject:      ɗalibai da yawa  [noun | English: student | 3pl | many]
     adverbs:      outside
@@ -759,7 +759,7 @@ Words:    An<PAC1>  yi<VERB>  hayaniya<NOUN>  mai<MAI/NOUN>  ƙarfi<QNOUN>  a<PR
 
 [16.4] Optional: existential   English: There have been many complaints.
 Sentence: An yi ƙorafe-ƙorafe da yawa.
-Words:    An<PAC1>  yi<VERB>  ƙorafe-ƙorafe<NOUN>  da yawa<QUANT>
+Words:    An<PAC1>  yi<VERB>  ƙorafe-ƙorafe<NOUN>  da yawa<ADV/QUANT>
   Clause 1: main - statement - existential
     subject:      ƙorafe-ƙorafe da yawa  [noun | English: complaint | 3pl | many]
     PAC:          An  [4 | completive]

@@ -1,22 +1,12 @@
-"""Hausa analysis: stage 1 of the Hausa -> English system.
+"""Hausa analysis: stage 1 of Hausa -> English.
 
-It reads a Hausa sentence and labels every part of it, so that the transfer
-rules can build the English sentence.
+  1. split_words   - split into words; join fixed expressions (lokacin da, da wuri)
+  2. recognise     - find every possible reading of each word, using the lexicon backwards
+  3. split_clauses - cut at commas, kuma/amma, idan/saboda ..., cewa
+  4. parse_clause  - find the PAC first: before it is the subject, after it the verb and the rest
 
-What it does, in order:
-  1. split_words      - split the sentence into words; join fixed expressions
-                        (abincin dare, lokacin da, da wuri) into one unit
-  2. recognise        - find every possible reading of each word, using the
-                        lexicon read backwards (sayi -> saya "buy", yaran -> yara + "the",
-                        motata -> mota + "my")
-  3. split_clauses    - cut the sentence at commas, kuma/amma, idan/saboda ..., cewa
-  4. parse_clause     - inside each clause, find the PAC first. Whatever comes
-                        before it is the subject; what comes after is the verb,
-                        the objects, places and times.
-
-Written Hausa does not show tone or vowel length, so one form can have several
-readings (ta = she / her / of). The program picks a reading from the words
-around it; the rules for this are in parse_clause and parse_np.
+Tone is not written, so one form can have several readings (ta = she / her / of);
+the words around it decide. Explained in docs/hausa_analysis_explained.md.
 """
 import re
 from dataclasses import dataclass, field
@@ -26,40 +16,39 @@ import hausa_lexicon as L
 import hausa_words as HW
 
 
-# ===========================================================================
-# Data structures
-# ===========================================================================
+# ===== Data structures =====
 
 @dataclass
 class HToken:
-    text: str                 # as written
-    lower: str                # lower case
-    parts: list = field(default_factory=list)       # the words of a joined expression
+    text: str
+    lower: str
+    parts: list = field(default_factory=list)
     options: dict = field(default_factory=dict)     # every possible reading: tag -> information
-    tag: str = ""             # the reading chosen while parsing
+    tag: str = ""
 
 
 @dataclass
 class HNounPhrase:
     text: str
-    hausa: str = ""           # base form: yara, mota
-    english: str = ""         # English word: children, car
+    hausa: str = ""
+    english: str = ""
     kind: str = "noun"        # noun, name, pronoun, indefinite, demonstrative, wh, quantity, gap
     person: str = "3sg.m"     # PAC person this noun phrase agrees with
     number: str = "sg"
     gender: str = "m"
     definite: bool = False    # -n/-r or ɗin: "the"
-    demonstrative: str = ""   # this, that, these, those
+    demonstrative: str = ""
     possessor: object = None  # a person key ("1sg" = my) or another HNounPhrase (gidan Musa)
-    adjectives: list = field(default_factory=list)   # English adjectives
+    adjectives: list = field(default_factory=list)
     quantifier: str = ""      # many, some, every, enough
-    count: str = ""           # number word in English: two
+    count: str = ""
     negative: bool = False    # ba wanda (nobody), babu
-    coordinated: list = field(default_factory=list)  # Musa da Ada
-    relative_clause: object = None                   # an HClause
+    coordinated: list = field(default_factory=list)
+    relative_clause: object = None
     which: bool = False       # wane ɗalibi
     english_negative: str = ""  # indefinites in a negative sentence: kowa -> anyone (not everyone)
     from_pac: bool = False    # no subject word: the PAC alone shows the person (Sun tafi)
+    after: str = ""           # the Hausa preposition in front of it: a, cikin, kan ... (a gida = at home)
 
 
 @dataclass
@@ -73,9 +62,9 @@ class HPAC:
 @dataclass
 class HVerb:
     text: str
-    hausa: str = ""           # base Hausa verb: saya
-    english: str = ""         # English verb: buy
-    form: str = ""            # which form was written: before_noun, verbal_noun ...
+    hausa: str = ""
+    english: str = ""
+    form: str = ""
     ability: bool = False     # iya: can
     ever: bool = False        # taɓa: ever / never
     infinitive: object = None # sun so [su fita]: (PAC, HVerb)
@@ -85,8 +74,8 @@ class HVerb:
 @dataclass
 class HClause:
     role: str = "main"        # main, coordinated, subordinate, complement, relative
-    linker: str = ""          # Hausa linker: kuma, idan, lokacin da ...
-    linker_english: str = ""  # and, if, when ...
+    linker: str = ""
+    linker_english: str = ""
     construction: str = ""    # verbal, equational, adjective, possession, locative, existential,
                               # weather, belong, become, command, what-is
     mood: str = "statement"   # statement, yes-no question, wh-question, command
@@ -96,17 +85,18 @@ class HClause:
     obj: object = None
     receiver: object = None
     complement: object = None # (kind, value) for ne/ce, adjective and place clauses
-    places: list = field(default_factory=list)       # (English preposition, HNounPhrase)
-    adverbs: list = field(default_factory=list)      # English adverbs
+    places: list = field(default_factory=list)
+    adverbs: list = field(default_factory=list)
     negative: bool = False
-    wh_word: str = ""         # English question word
+    wh_word: str = ""
     wh_role: str = ""         # subject, object, place, time, reason, manner
     focus: object = None      # Ada ce ta dafa miyar: the focused noun phrase / adverb
-    gap: str = ""             # relative clause: subject or object
+    gap: str = ""
     please: bool = False
-    clauses: list = field(default_factory=list)      # reported clauses (cewa ...)
-    leftovers: list = field(default_factory=list)    # words the parser could not place
-    copula: str = ""          # ne or ce, in a ne/ce clause
+    clauses: list = field(default_factory=list)
+    leftovers: list = field(default_factory=list)
+    copula: str = ""
+    modal: str = ""           # dole ne -> must
 
 
 @dataclass
@@ -117,9 +107,7 @@ class HAnalysis:
     problems: list = field(default_factory=list)
 
 
-# ===========================================================================
-# Step 2 (built once): the lexicon read backwards
-# ===========================================================================
+# ===== Step 2 (built once): the lexicon read backwards =====
 
 _R = None
 
@@ -143,7 +131,7 @@ def reader():
         if not form or form == "nan":
             return
         index.setdefault(form, []).append(value)
-        if " " in form and form.split()[0] != HW.DO_VERB:      # yi + noun is read by parse_verb
+        if " " in form and form.split()[0] != HW.DO_VERB:
             R["multi"].add(tuple(form.split()))
 
     for order, (_, row) in enumerate(tabs["Nouns"].iterrows()):
@@ -216,24 +204,20 @@ def reader():
     for name, sex in EW.NAMES.items():
         R["names"].setdefault(name, sex)
 
-    # fixed expressions from hausa_words.py
     for table in (HW.COORDINATORS, HW.SUBORDINATORS, HW.QUESTION_WORDS, HW.WHAT_IS, HW.PREPOSITIONS,
                   HW.ADVERBS, HW.QUANTIFIERS, HW.INDEFINITES):
         for k in table:
             if " " in k:
                 R["multi"].add(tuple(k.split()))
-    for k in (HW.PLEASE, HW.NOBODY):
-        R["multi"].add(tuple(k.split()))
+    for k in [HW.PLEASE] + list(HW.NEGATIVE_SUBJECTS) + list(HW.MODALS):
+        if " " in k:
+            R["multi"].add(tuple(k.split()))
     _R = R
     return R
 
 
 def noun_readings(form):
-    """Every way to read a written noun: (entry, definite?, owner person or None).
-
-    yaran     -> yara + the            motata -> mota + my
-    ɗaliban   -> ɗalibai + the         mutumin -> mutum + the
-    """
+    """Every way to read a written noun: (entry, definite?, owner person or None)."""
     R = reader()
     out = [(e, e["linked"], None, form) for e in R["nouns"].get(form, [])]
     # possessive suffixes: gidana, motata, mahaifiyarta, iyayenka
@@ -262,9 +246,7 @@ def adjective_readings(form):
     return reader()["adjs"].get(form, [])
 
 
-# ===========================================================================
-# Step 1: words and fixed expressions
-# ===========================================================================
+# ===== Step 1: words and fixed expressions =====
 
 def split_words(sentence):
     s = sentence.replace("’", "'").replace("‘", "'")
@@ -274,10 +256,7 @@ def split_words(sentence):
 
 
 def join_expressions(tokens):
-    """Join fixed expressions into one unit, longest first: abincin dare, lokacin da, da wuri.
-
-    The last word may carry -n/-r: abincin daren, aikin gidan, 'yan wasan.
-    """
+    """Join fixed expressions into one unit, longest first: abincin dare, lokacin da, da wuri."""
     multi = reader()["multi"]
     out, i = [], 0
     while i < len(tokens):
@@ -304,9 +283,7 @@ def join_expressions(tokens):
     return out
 
 
-# ===========================================================================
-# Step 2: every possible reading of each word
-# ===========================================================================
+# ===== Step 2: every possible reading of each word =====
 
 def recognise(tokens):
     R = reader()
@@ -335,8 +312,10 @@ def recognise(tokens):
             o["KADA"] = w
         if w == HW.PLEASE:
             o["PLEASE"] = w
-        if w == HW.NOBODY:
-            o["NOBODY"] = w
+        if w in HW.NEGATIVE_SUBJECTS:
+            o["NOBODY"] = HW.NEGATIVE_SUBJECTS[w]
+        if w in HW.MODALS:
+            o["MODAL"] = HW.MODALS[w]
         if w == HW.COMPLEMENTISER:
             o["CEWA"] = w
         if w == HW.RECEIVER_MARKER:
@@ -377,9 +356,7 @@ def recognise(tokens):
     return tokens
 
 
-# ===========================================================================
-# Step 3: cutting the sentence into clauses
-# ===========================================================================
+# ===== Step 3: cutting the sentence into clauses =====
 
 def has(t, *tags):
     return t is not None and any(tag in t.options for tag in tags)
@@ -427,7 +404,7 @@ def split_clauses(tokens):
         for k in range(1, len(ch)):
             if has(ch[k], "COORD", "SUB") and clause_has_pac(ch[k + 1:]) and clause_has_pac(ch[start:k]) \
                     and not inside_relative(ch, k):
-                pieces.append(ch[start:k])                 # ... kafin ruwan sama ya fara / ... har ka zo
+                pieces.append(ch[start:k])
                 start = k
         pieces.append(ch[start:])
     out = []
@@ -435,7 +412,9 @@ def split_clauses(tokens):
     for number, p in enumerate(pieces):
         role, link, eng = "main", "", ""
         first = p[0]
-        if has(first, "COORD"):
+        if number > 0 and len(p) > 2 and p[1].lower == "kuma" and has(first, "PRON", "NOUN", "NAME"):
+            role, link, eng, p = "coordinated", "kuma", "and", [first] + p[2:]   # ..., ni kuma na wanke ...
+        elif has(first, "COORD"):
             role, link, eng, p = "coordinated", first.lower, first.options["COORD"], p[1:]
         elif first.lower == "da" and counterfactual:
             role, link, eng, p = "subordinate", "da", "counterfactual", p[1:]
@@ -456,9 +435,7 @@ def split_clauses(tokens):
     return out
 
 
-# ===========================================================================
-# Step 4: noun phrases
-# ===========================================================================
+# ===== Step 4: noun phrases =====
 
 def person_of(np):
     if np.kind in ("pronoun", "gap"):
@@ -476,18 +453,14 @@ def preferred(reading):
 
 
 def parse_np(toks, i, receiver=False, allow_relative=True):
-    """Read a noun phrase starting at i. Returns (HNounPhrase, next i) or (None, i).
-
-    Hausa order:  [wannan] [wasu] [babban] NOUN[-n/-r/-ta] [owner] [biyu] [mai X] [da yawa] [da + relative clause]
-    receiver=True: do not read a following noun as an owner (ya aika wa ɗaliban saƙo).
-    """
+    """Read a noun phrase starting at i. Returns (HNounPhrase, next i) or (None, i)."""
     if i >= len(toks):
         return None, i
     start = i
     t = toks[i]
     np = HNounPhrase(text="")
     if has(t, "NOBODY"):
-        np = HNounPhrase(text=t.text, english="nobody", kind="indefinite", negative=True)
+        np = HNounPhrase(text=t.text, english=t.options["NOBODY"], kind="indefinite", negative=True)
         return np, i + 1
     if has(t, "INDEF") and not has(t, "NOUN"):
         pos, neg = t.options["INDEF"]
@@ -498,6 +471,14 @@ def parse_np(toks, i, receiver=False, allow_relative=True):
         _, person = next(((k, p) for k, p in t.options["PRON"] if k == "independent"), t.options["PRON"][0])
         np = HNounPhrase(text=t.text, hausa=t.lower, kind="pronoun", person=person,
                          number="pl" if "pl" in person else "sg", gender="f" if person.endswith(".f") else "m")
+        if independent and i + 2 < len(toks) and has(toks[i + 1], "DA") and has(toks[i + 2], "NAME", "NOUN") \
+                and not receiver:             # Ni da Musa (Musa and I)
+            other, j = parse_np(toks, i + 2, allow_relative=False)
+            if other is not None:
+                both = HNounPhrase(text=" ".join(x.text for x in toks[i:j]), kind="coordinated", number="pl",
+                                   coordinated=[np, other])
+                both.person = "1pl" if person.startswith("1") else "2pl" if person.startswith("2") else "3pl"
+                return both, j
         return np, i + 1
     if has(t, "DEM") and not (i + 1 < len(toks) and has(toks[i + 1], "NOUN", "ADJ")):
         np = HNounPhrase(text=t.text, hausa=t.lower, english=t.options["DEM"], kind="demonstrative")
@@ -535,7 +516,7 @@ def parse_np(toks, i, receiver=False, allow_relative=True):
         if i < len(toks) and has(toks[i], "DIN"):         # fim ɗin
             linked = True
             i += 1
-    elif has(t, "QNOUN", "YINOUN") and not receiver:      # a bare quality noun used as a noun
+    elif has(t, "QNOUN", "YINOUN") and not receiver:
         info = (t.options.get("QNOUN") or t.options.get("YINOUN"))[0]
         np.hausa, np.english = t.lower, info["english"]
         i += 1
@@ -570,7 +551,7 @@ def parse_np(toks, i, receiver=False, allow_relative=True):
             i += 2
         elif has(t, "ADJ") and not t.options["ADJ"][0]["linked"] \
                 and not has(toks[i + 1] if i + 1 < len(toks) else None, "COP") \
-                and not (receiver and has(t, "NOUN")):           # wa mahaifiyarta | kyauta (the object)
+                and not (receiver and has(t, "NOUN")):
             np.adjectives.append(t.options["ADJ"][0]["english"])
             i += 1
         elif has(t, "QUANT") and t.options["QUANT"][1] == "after":
@@ -582,7 +563,6 @@ def parse_np(toks, i, receiver=False, allow_relative=True):
     np.text = " ".join(x.text for x in toks[start:i])
     np.person = person_of(np)
 
-    # relative clause: noun-n/-r + da + clause
     if allow_relative and i < len(toks) and has(toks[i], "DA") and (linked or np.kind == "name") \
             and clause_has_pac(toks[i + 1:]) or (allow_relative and i < len(toks) and has(toks[i], "DA")
                                                  and linked and has_cop(toks[i + 1:])):
@@ -594,7 +574,6 @@ def parse_np(toks, i, receiver=False, allow_relative=True):
             np.text = " ".join(x.text for x in toks[start:end])
             return np, end
 
-    # coordination: Musa da Ada
     if i + 1 < len(toks) and has(toks[i], "DA") and not linked and has(toks[i + 1], "NAME", "NOUN", "PRON") \
             and not receiver:
         other, j = parse_np(toks, i + 1, allow_relative=False)
@@ -611,13 +590,7 @@ def has_cop(toks):
 
 
 def relative_end(toks, k):
-    """Where does a relative clause that starts at k end?
-
-    It ends before the second PAC (Matar da muka ziyarta | tana zama ...),
-    after a ne/ce followed by a PAC (Yarinyar da mahaifinta likita ne | ta ci ...),
-    or, when the main clause is X ... ne/ce, before the word in front of ne/ce
-    (Mutumin da ya kira jiya | kawuna ne).
-    """
+    """Where does a relative clause that starts at k end?"""
     pacs = [p for p in range(k, len(toks)) if pac_at(toks, p)
             and not (p > k and has(toks[p], "PRON") and has(toks[p - 1], "VERB"))]
     cops = [p for p in range(k, len(toks)) if has(toks[p], "COP")]
@@ -645,27 +618,22 @@ def parse_relative(toks, head):
         cl.gap = "subject"
     else:                                   # Matar da [muka ziyarta]: the object is missing
         cl = parse_clause(toks, role="relative", linker="da")
-        owner_suffix = isinstance(cl.subject, HNounPhrase) and cl.subject.possessor == head.person
+        owner_suffix = any(isinstance(np, HNounPhrase) and np.possessor == head.person
+                           for np in (cl.subject, cl.obj))
         owner_receiver = cl.receiver is not None and cl.receiver.person == head.person
         # whose: mahaifinta (her father) / aka sace masa keke (his bicycle was stolen)
         cl.gap = "possessor" if owner_suffix or owner_receiver else "object"
     return cl
 
 
-# ===========================================================================
-# Step 4: clauses
-# ===========================================================================
+# ===== Step 4: clauses =====
 
 # Set by analyse(): does the sentence end in "?"  (then ina / me are question words)
 SENTENCE_IS_QUESTION = False
 
 
 def choose_pac(readings, toks, start, end, context):
-    """Pick one reading of an ambiguous PAC.
-
-    context: 'relative' (after a question word, a focus, lokacin da ...),
-    'subjunctive' (commands, kada, infinitive) or ''.
-    """
+    """Pick one reading of an ambiguous PAC."""
     ends_with_ba = toks and toks[-1].lower == "ba" and end < len(toks)
     by_col = {c: p for p, c in readings}
 
@@ -715,6 +683,13 @@ def parse_clause(toks, role="main", linker="", gap_subject=None, context=""):
     if i < len(toks) and toks[i].lower == "har" and pac_at(toks, i + 1):
         cl.adverbs.append("already")
         i += 1
+    if i < len(toks) and has(toks[i], "MODAL"):          # Dole ne ka tafi
+        cl.modal = toks[i].options["MODAL"]
+        i += 1
+        context = "subjunctive"
+    if i >= len(toks):
+        cl.construction = cl.construction or "command"
+        return cl
 
     # --- there is / there is no
     if has(toks[i], "EXIST"):
@@ -766,7 +741,7 @@ def parse_clause(toks, role="main", linker="", gap_subject=None, context=""):
         for k in range(i + 1, len(toks) - 1):
             say_verb = has(toks[k], "VERB") and k > 0 and pac_at(toks, k - 1)   # ya ce = he said
             focus_ok = has(toks[k], "COP") and not say_verb and clause_has_pac(toks[k + 1:]) \
-                and not any(has(x, "DA") for x in toks[i:k])          # not inside a relative clause
+                and not any(has(x, "DA") for x in toks[i:k])
             if focus_ok:
                 focus_toks = toks[i:k]
                 focus = parse_focus(focus_toks)
@@ -782,7 +757,8 @@ def parse_clause(toks, role="main", linker="", gap_subject=None, context=""):
 
     # --- nobody
     if gap_subject is None and i < len(toks) and has(toks[i], "NOBODY"):
-        cl.subject = HNounPhrase(text=toks[i].text, english="nobody", kind="indefinite", negative=True)
+        cl.subject = HNounPhrase(text=toks[i].text, english=toks[i].options["NOBODY"], kind="indefinite",
+                                 negative=True)
         cl.negative = True
         i += 1
         found = pac_at(toks, i)
@@ -791,6 +767,10 @@ def parse_clause(toks, role="main", linker="", gap_subject=None, context=""):
             person, column = choose_pac(readings, toks, i, i + n, "relative")
             cl.pac = make_pac(" ".join(t.text for t in toks[i:i + n]), person, column)
             return parse_predicate(cl, toks, i + n)
+
+    if i >= len(toks):
+        cl.construction = "what-is"
+        return cl
 
     # --- non-verbal clause ending in ne/ce: Ada malama ce
     belong_end = len(toks) >= 3 and has(toks[-3], "OF") and has(toks[-2], "NOUN", "NAME")
@@ -812,6 +792,12 @@ def parse_clause(toks, role="main", linker="", gap_subject=None, context=""):
         cl.obj = np
         return parse_rest(cl, toks, j)
 
+    # --- time and manner words before the subject: Kullum yana zuwa, Jiya na tafi kasuwa
+    while gap_subject is None and i < len(toks) - 1 and toks[i].lower in HW.ADVERBS and not pac_at(toks, i) \
+            and not has(toks[i], "NAME", "PRON", "PREP"):
+        cl.adverbs.append(toks[i].options["ADV"])
+        i += 1
+
     # --- subject, then the PAC
     if gap_subject is not None:
         cl.subject = gap_subject
@@ -832,6 +818,10 @@ def parse_clause(toks, role="main", linker="", gap_subject=None, context=""):
     person, column = choose_pac(readings, toks, j, j + n, context)
     cl.pac = make_pac(" ".join(t.text for t in toks[j:j + n]), person, column)
     cl.negative = cl.negative or cl.pac.negative
+    if cl.subject is None and j > i and "UNKNOWN" in toks[i].options:   # unknown subject: keep it, in [brackets]
+        words = " ".join(t.text for t in toks[i:j])
+        cl.subject = HNounPhrase(text=words, english=f"[{words}]", kind="name", person=person,
+                                 number="pl" if "pl" in person else "sg")
     if cl.subject is None:
         cl.subject = HNounPhrase(text="", kind="pronoun", person=person, from_pac=True,
                                  number="pl" if "pl" in person else "sg",
@@ -878,10 +868,19 @@ def parse_copular(cl, toks, i):
         if len(body) >= 2 and has(body[-1], "NOUN", "NAME") and has(body[-2], "OF"):
             y_len = 2
         x_toks, y_toks = body[:-y_len], body[-y_len:]
-    cl.subject, _ = parse_np(x_toks, 0) if x_toks else (None, 0)
+    if len(x_toks) == 1 and x_toks[0].lower in HW.TIME_SUBJECTS:      # Yau Juma'a ce
+        cl.subject = HNounPhrase(text=x_toks[0].text, english=HW.TIME_SUBJECTS[x_toks[0].lower], kind="name")
+    else:
+        cl.subject, _ = parse_np(x_toks, 0) if x_toks else (None, 0)
+        if cl.subject is None and x_toks and "UNKNOWN" in x_toks[0].options:
+            words = " ".join(t.text for t in x_toks)
+            cl.subject = HNounPhrase(text=words, english=f"[{words}]", kind="name")
     y = y_toks[0] if y_toks else None
     if y is None:
         cl.construction = "equational"
+    elif len(y_toks) == 1 and y.lower in HW.POSSESSIVE_PRONOUNS:        # Motar tawa ce
+        cl.construction = "equational"
+        cl.complement = ("noun", HW.POSSESSIVE_PRONOUNS[y.lower])
     elif has(y, "OF") and len(y_toks) > 1:            # Littafin na Musa ne
         cl.construction = "belong"
         owner, _ = parse_np(y_toks, 1)
@@ -897,6 +896,8 @@ def parse_copular(cl, toks, i):
         cl.construction = "equational"
         pred, _ = parse_np(y_toks, 0, allow_relative=False)
         cl.complement = ("noun", pred)
+        if pred is None:                              # a word not in the lexicon: keep it, in [brackets]
+            cl.leftovers = [t.text for t in y_toks]
     cl.copula = toks[cop].lower
     return cl
 
@@ -930,7 +931,7 @@ def parse_verb(toks, k, continuous):
     if k >= len(toks):
         return None, k, None
     t = toks[k]
-    if t.lower == HW.DO_VERB and k + 1 < len(toks):       # yi + noun
+    if t.lower == HW.DO_VERB and k + 1 < len(toks):
         n = toks[k + 1]
         if has(n, "YINOUN"):                               # ya yi dariya -> laughed
             info = n.options["YINOUN"][0]
@@ -981,7 +982,7 @@ def parse_predicate(cl, toks, k, command=False):
     # --- continuous PAC without a verb
     if continuous and t is not None:
         parts = t.parts if len(t.parts) > 1 and t.parts[0] == "da" else None
-        if t.lower == "da" or parts:                         # tana da ...
+        if t.lower == "da" or parts:
             rest = toks[k + 1:] if not parts else split_off_da(t) + toks[k + 1:]
             nxt = rest[0] if rest else None
             if has(nxt, "QNOUN") and nxt.options["QNOUN"][0]["type"] in ("noun with da", "verb"):
@@ -1003,6 +1004,8 @@ def parse_predicate(cl, toks, k, command=False):
         if has(t, "PREP") and not has(t, "VERB"):            # Yaran suna cikin gida
             cl.construction = "locative"
             np, j = parse_np(toks, k + 1)
+            if np is not None:
+                np.after = t.lower
             cl.complement = ("place", (t.options["PREP"], np))
             return parse_rest(cl, toks, j)
         if has(t, "NOUN", "NAME") and not has(t, "VERB", "YINOUN"):   # Musa yana kasuwa
@@ -1020,6 +1023,15 @@ def parse_predicate(cl, toks, k, command=False):
         cl.construction = "adjective"
         cl.complement = ("adjective", t.options["QNOUN"][0]["english"])
         return parse_rest(cl, toks, k + 1)
+
+    # --- feelings: Ina jin yunwa (I am hungry), Zan ji ƙishin ruwa
+    if t is not None and t.lower in ("jin", "ji") and k + 1 < len(toks):
+        for n in (2, 1):
+            words = " ".join(x.lower for x in toks[k + 1:k + 1 + n])
+            if len(toks) > k + n and words in HW.FEELINGS:
+                cl.construction = "adjective"
+                cl.complement = ("adjective", HW.FEELINGS[words])
+                return parse_rest(cl, toks, k + 1 + n)
 
     # --- verb group
     verb, k, extra = parse_verb(toks, k, continuous)
@@ -1039,6 +1051,10 @@ def parse_predicate(cl, toks, k, command=False):
         cl.construction = cl.construction or "verbal"
         cl.leftovers = [x.text for x in toks[k:] if not has(x, "NEG")]
         return cl
+    if verb.hausa in HW.STATE_VERBS and not (k < len(toks) and has(toks[k], "NOUN", "NAME", "PRON")):
+        cl.construction = "adjective"                 # Mun gaji -> We are tired
+        cl.complement = ("adjective", HW.STATE_VERBS[verb.hausa])
+        return parse_rest(cl, toks, k)
     cl.verb = verb
     cl.construction = "command" if command else "verbal"
     # an yi + noun (not a yi-verb): there was ...
@@ -1127,7 +1143,7 @@ def parse_objects(cl, toks, k):
                         cl.obj = first
                         return j + 1
             if second is not None and cl.receiver is None and verb is not None and verb.hausa == "ba":
-                cl.receiver, cl.obj, k = first, second, j2      # ya ba Ada littafi
+                cl.receiver, cl.obj, k = first, second, j2
             else:
                 cl.obj, k = first, j
     return k
@@ -1148,6 +1164,7 @@ def parse_rest(cl, toks, k):
         if has(t, "PREP"):
             np, j = parse_np(toks, k + 1)
             if np is not None:
+                np.after = t.lower
                 cl.places.append((t.options["PREP"], np))
                 k = j
                 continue
@@ -1159,7 +1176,7 @@ def parse_rest(cl, toks, k):
                 continue
         if has(t, "NOUN", "NAME") and cl.verb is not None and cl.verb.english in HW.MOTION_VERBS \
                 and not cl.places:
-            np, j = parse_np(toks, k)                 # za mu tafi kasuwa: to the market
+            np, j = parse_np(toks, k)
             if np is not None:
                 cl.places.append(("to", np))
                 k = j
@@ -1175,9 +1192,7 @@ def parse_rest(cl, toks, k):
     return cl
 
 
-# ===========================================================================
-# The whole pipeline
-# ===========================================================================
+# ===== The whole pipeline =====
 
 def analyse(sentence):
     """Analyse one Hausa sentence. Returns an HAnalysis."""
@@ -1223,9 +1238,7 @@ def check(analysis):
     return problems
 
 
-# ===========================================================================
-# Showing the result
-# ===========================================================================
+# ===== Showing the result =====
 
 def describe_np(np):
     if np is None:

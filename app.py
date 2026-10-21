@@ -48,7 +48,10 @@ if pressed and sentence.strip():
     except Exception as err:          # never crash in front of an audience
         st.error(f"Sorry, the system could not translate this sentence ({err}).")
     else:
-        st.subheader(output)
+        if not output.strip():
+            st.warning("There are no words to translate. Please type a sentence.")
+        else:
+            st.subheader(output)
         if t.missing:
             st.caption("Words in [brackets] are not in the lexicon yet: "
                        + ", ".join(word for _, word in t.missing))

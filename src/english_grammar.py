@@ -1,15 +1,10 @@
-"""English grammar tables and choices used by Hausa -> English (transfer_ha_en.py).
+"""English grammar choices used by Hausa -> English. DATA: linguists can edit it.
 
-This file is DATA, not program logic. Linguists can edit it freely.
-
-Hausa often does not show what English must show (a/the, simple or -ing,
-past or present perfect). Each choice below is the DEFAULT the system makes,
-and the rule that overrides it.
+Hausa often leaves out what English must show (a/the, simple or -ing, past or perfect).
+Each value below is the default the system uses.
 """
 
-# ---------------------------------------------------------------------------
-# 1. Tense: which English tense each PAC column becomes
-# ---------------------------------------------------------------------------
+# ===== 1. Tense: which English tense each PAC column becomes =====
 # PAC column -> (English tense, aspect)
 TENSE = {
     "completive": ("past", "simple"),            # ya iso -> arrived
@@ -43,9 +38,7 @@ CONDITIONAL_LINKERS = {"if", "unless"}
 # present otherwise (I will wait until you come)
 TIME_LINKERS = {"before", "until"}
 
-# ---------------------------------------------------------------------------
-# 2. Choosing the English verb from the context (word senses)
-# ---------------------------------------------------------------------------
+# ===== 2. Choosing the English verb from the context (word senses) =====
 # One Hausa verb can mean several English verbs. Each rule:
 #   hausa: the Hausa verb   english: the English verb to use
 #   object: the rule applies when the object's English word is in this set
@@ -71,12 +64,8 @@ SENSE_RULES = [
     dict(hausa="ci gaba", object_is_quality=True, english="remain"),
 ]
 
-# ---------------------------------------------------------------------------
-# 3. Nouns, articles and pronouns
-# ---------------------------------------------------------------------------
-# Nouns written with no "a/an" and no plural in the English output, on top of
-# UNCOUNTABLE in english_words.py. (They are not in that list because the English
-# analysis must still read "lights" as a plural.)
+# ===== 3. Nouns, articles and pronouns =====
+# Nouns written with no "a/an" and no plural in English (besides UNCOUNTABLE in english_words.py)
 MASS_NOUNS = {"dinner", "lunch", "breakfast", "anger", "traffic", "soup", "electricity", "light"}
 # Nouns that take "the" even when Hausa has no -n/-r: UNIQUE_NOUNS in english_words.py
 # After a preposition a singular noun takes "the": a kasuwa -> in the market
@@ -94,17 +83,13 @@ PERSON_NOUNS = {"man", "woman", "boy", "girl", "child", "children", "teacher", "
                 "person", "people", "doctor", "farmer", "player", "fan", "cook", "baby", "uncle", "wife",
                 "husband", "friend", "lecturer", "sister", "brother", "parent"}
 
-# ---------------------------------------------------------------------------
-# 4. Verbs with two objects: gave Ada a book (not "gave a book for Ada")
-# ---------------------------------------------------------------------------
+# ===== 4. Verbs with two objects: gave Ada a book (not "gave a book for Ada") =====
 # Verbs that need a preposition before their object in English: ta kai ƙauyen -> leads TO the village
 VERBS_WITH_PREPOSITION = {"lead": "to", "listen": "to", "look": "at", "wait": "for"}
 DOUBLE_OBJECT_VERBS = {"give", "send", "tell", "show", "buy", "cook", "bring", "teach", "lend", "sell", "pay"}
 # Other verbs put the receiver after "for": fetched water for the children
 
-# ---------------------------------------------------------------------------
-# 5. Small word choices
-# ---------------------------------------------------------------------------
+# ===== 5. Small word choices =====
 # "sosai" (a lot) before an adjective is "very": An yi iska sosai -> It was very windy
 A_LOT_BEFORE_ADJECTIVE = "very"
 # Weather words that are verbs in English (It is raining); the rest are adjectives (It is cold)

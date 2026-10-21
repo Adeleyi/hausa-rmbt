@@ -1,17 +1,8 @@
-"""Looking up Hausa words in the lexicon workbook.
+"""Looking up Hausa words in the lexicon workbook (read once).
 
-The workbook is read once. Every look-up goes through a function here, so the
-rest of the program never has to know about Excel columns.
-
-How a word is chosen when the workbook has several translations:
-  1. rows marked "Wrong" are never used
-  2. rows marked "Preferred" come first, then rows marked "Checked"
-  3. otherwise the first row in the tab wins
-So to change the translation the system uses, mark the row you want as
-"Preferred" in the workbook.
-
-A function returns None when the word is not in the workbook; the transfer
-stage then writes the English word in [brackets] and lists it as missing.
+When a word has several rows: "Wrong" rows are never used; "Preferred" comes first,
+then "Checked", then the first row. A function returns None when the word is missing,
+and the transfer stage writes the English word in [brackets].
 """
 from pathlib import Path
 
@@ -38,7 +29,7 @@ _INDEX = {}
 
 def _candidates(tab, english):
     """All usable rows whose 'keys' contain this English word, best first."""
-    if tab not in _INDEX:                      # build an index of the tab once
+    if tab not in _INDEX:
         index = {}
         for order, (_, row) in enumerate(tabs()[tab].iterrows()):
             if row.get("status") == "Wrong":
@@ -59,15 +50,10 @@ def first(text):
     return text.split(",")[0].strip()
 
 
-# ---------------------------------------------------------------------------
-# Content words
-# ---------------------------------------------------------------------------
+# ===== Content words =====
 
 def noun(english, sex=""):
-    """Return a dict for an English noun, or None.
-
-    sex ('m'/'f') picks between rows such as malami / malama for "teacher".
-    """
+    """Return a dict for an English noun, or None."""
     rows = _candidates("Nouns", english)
     if not rows:
         return None
@@ -86,14 +72,7 @@ FORM_COLUMNS = ["before_noun", "before_pronoun", "verbal_noun", "vn_with_object"
 
 
 def verb(english):
-    """Return a dict with every form of an English verb, or None.
-
-    The best row decides the Hausa verb, and its yi_verb and after_object
-    columns are used as they are. Empty form columns are filled from other
-    rows with the same Hausa verb and the same yi_verb value (so tafi "clap",
-    a yi-verb, does not lend its forms to tafi "go"). Forms that are still
-    empty fall back to the plain verb (correct for most grade 1 and 4 verbs).
-    """
+    """Return a dict with every form of an English verb, or None."""
     rows = _candidates("Verbs", english)
     if not rows and " " in english:                  # "sit down" -> try "sit"
         rows = _candidates("Verbs", english.split()[0])
@@ -144,9 +123,7 @@ def name_gender(name):
     return hit.iloc[0]["gender"] if len(hit) else ""
 
 
-# ---------------------------------------------------------------------------
-# Function words (the "Function words" tab)
-# ---------------------------------------------------------------------------
+# ===== Function words (the "Function words" tab) =====
 
 def _function(category, features_start):
     """The Hausa form whose features begin with features_start, e.g. '3sg.m; completive'."""
@@ -158,11 +135,7 @@ def _function(category, features_start):
 
 
 def pac(person, column):
-    """PAC form, e.g. pac('3sg.f', 'continuous') -> 'tana'.
-
-    person: 1sg, 2sg.m, 2sg.f, 3sg.m, 3sg.f, 1pl, 2pl, 3pl, or 4 (impersonal).
-    Negative completive comes back with '…' where the verb goes: 'ba ta … ba'.
-    """
+    """PAC form, e.g. pac('3sg.f', 'continuous') -> 'tana'."""
     return _function("PAC", f"{person}; {column}")
 
 
