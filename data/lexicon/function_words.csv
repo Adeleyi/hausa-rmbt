@@ -1,0 +1,235 @@
+﻿category,english,hausa,features,source
+PAC,I,na,1sg; completive,Rules doc
+PAC,you (m),ka,2sg.m; completive,Rules doc
+PAC,you (f),kin,2sg.f; completive,Rules doc
+PAC,he / masc. noun,ya,3sg.m; completive,Rules doc
+PAC,she / fem. noun,ta,3sg.f; completive,Rules doc
+PAC,we,mun,1pl; completive,Rules doc
+PAC,you (pl),kun,2pl; completive,Rules doc
+PAC,they / plural noun,sun,3pl; completive,Rules doc
+PAC,one / people (impersonal),an,4; completive,Rules doc
+PAC,I,na,1sg; relative completive,Rules doc
+PAC,you (m),ka,2sg.m; relative completive,Rules doc
+PAC,you (f),kika,2sg.f; relative completive,Rules doc
+PAC,he / masc. noun,ya,3sg.m; relative completive,Rules doc
+PAC,she / fem. noun,ta,3sg.f; relative completive,Rules doc
+PAC,we,muka,1pl; relative completive,Rules doc
+PAC,you (pl),kuka,2pl; relative completive,Rules doc
+PAC,they / plural noun,suka,3pl; relative completive,Rules doc
+PAC,one / people (impersonal),aka,4; relative completive,Rules doc
+PAC,I,ina,1sg; continuous,Rules doc
+PAC,you (m),kana,2sg.m; continuous,Rules doc
+PAC,you (f),kina,2sg.f; continuous,Rules doc
+PAC,he / masc. noun,yana,3sg.m; continuous,Rules doc
+PAC,she / fem. noun,tana,3sg.f; continuous,Rules doc
+PAC,we,muna,1pl; continuous,Rules doc
+PAC,you (pl),kuna,2pl; continuous,Rules doc
+PAC,they / plural noun,suna,3pl; continuous,Rules doc
+PAC,one / people (impersonal),ana,4; continuous,Rules doc
+PAC,I,nake,1sg; relative continuous,Rules doc
+PAC,you (m),kake,2sg.m; relative continuous,Rules doc
+PAC,you (f),kike,2sg.f; relative continuous,Rules doc
+PAC,he / masc. noun,yake,3sg.m; relative continuous,Rules doc
+PAC,she / fem. noun,take,3sg.f; relative continuous,Rules doc
+PAC,we,muke,1pl; relative continuous,Rules doc
+PAC,you (pl),kuke,2pl; relative continuous,Rules doc
+PAC,they / plural noun,suke,3pl; relative continuous,Rules doc
+PAC,one / people (impersonal),ake,4; relative continuous,Rules doc
+PAC,I,zan,1sg; future,Rules doc
+PAC,you (m),za ka,2sg.m; future,Rules doc
+PAC,you (f),za ki,2sg.f; future,Rules doc
+PAC,he / masc. noun,zai,3sg.m; future,Rules doc
+PAC,she / fem. noun,za ta,3sg.f; future,Rules doc
+PAC,we,za mu,1pl; future,Rules doc
+PAC,you (pl),za ku,2pl; future,Rules doc
+PAC,they / plural noun,za su,3pl; future,Rules doc
+PAC,one / people (impersonal),za a,4; future,Rules doc
+PAC,I,in,1sg; subjunctive,Rules doc
+PAC,you (m),ka,2sg.m; subjunctive,Rules doc
+PAC,you (f),ki,2sg.f; subjunctive,Rules doc
+PAC,he / masc. noun,ya,3sg.m; subjunctive,Rules doc
+PAC,she / fem. noun,ta,3sg.f; subjunctive,Rules doc
+PAC,we,mu,1pl; subjunctive,Rules doc
+PAC,you (pl),ku,2pl; subjunctive,Rules doc
+PAC,they / plural noun,su,3pl; subjunctive,Rules doc
+PAC,one / people (impersonal),a,4; subjunctive,Rules doc
+PAC,I,ban … ba,1sg; negative completive,Rules doc
+PAC,you (m),ba ka … ba,2sg.m; negative completive,Rules doc
+PAC,you (f),ba ki … ba,2sg.f; negative completive,Rules doc
+PAC,he / masc. noun,bai … ba,3sg.m; negative completive,Rules doc
+PAC,she / fem. noun,ba ta … ba,3sg.f; negative completive,Rules doc
+PAC,we,ba mu … ba,1pl; negative completive,Rules doc
+PAC,you (pl),ba ku … ba,2pl; negative completive,Rules doc
+PAC,they / plural noun,ba su … ba,3pl; negative completive,Rules doc
+PAC,one / people (impersonal),ba a … ba,4; negative completive,Rules doc
+PAC,I,ba na,1sg; negative continuous,Rules doc
+PAC,you (m),ba ka,2sg.m; negative continuous,Rules doc
+PAC,you (f),ba kya,2sg.f; negative continuous,Rules doc
+PAC,he / masc. noun,ba ya,3sg.m; negative continuous,Rules doc
+PAC,she / fem. noun,ba ta,3sg.f; negative continuous,Rules doc
+PAC,we,ba ma,1pl; negative continuous,Rules doc
+PAC,you (pl),ba kwa,2pl; negative continuous,Rules doc
+PAC,they / plural noun,ba sa,3pl; negative continuous,Rules doc
+PAC,one / people (impersonal),ba a,4; negative continuous,Rules doc
+Pronoun: independent,I,ni,1sg,Rules doc
+Pronoun: independent,you (m),kai,2sg.m,Rules doc
+Pronoun: independent,you (f),ke,2sg.f,Rules doc
+Pronoun: independent,he / masc. noun,shi,3sg.m,Rules doc
+Pronoun: independent,she / fem. noun,ita,3sg.f,Rules doc
+Pronoun: independent,we,mu,1pl,Rules doc
+Pronoun: independent,you (pl),ku,2pl,Rules doc
+Pronoun: independent,they / plural noun,su,3pl,Rules doc
+Pronoun: direct object,me,ni,1sg,Rules doc
+Pronoun: direct object,you (m),ka,2sg.m,Rules doc
+Pronoun: direct object,you (f),ki,2sg.f,Rules doc
+Pronoun: direct object,him,shi,3sg.m,Rules doc
+Pronoun: direct object,her,ta,3sg.f,Rules doc
+Pronoun: direct object,us,mu,1pl,Rules doc
+Pronoun: direct object,you (pl),ku,2pl,Rules doc
+Pronoun: direct object,them,su,3pl,Rules doc
+Pronoun: indirect object,to/for I,mini,1sg,Rules doc
+Pronoun: indirect object,to/for you (m),maka,2sg.m,Rules doc
+Pronoun: indirect object,to/for you (f),miki,2sg.f,Rules doc
+Pronoun: indirect object,to/for he,masa,3sg.m,Rules doc
+Pronoun: indirect object,to/for she,mata,3sg.f,Rules doc
+Pronoun: indirect object,to/for we,mana,1pl,Rules doc
+Pronoun: indirect object,to/for you (pl),muku,2pl,Rules doc
+Pronoun: indirect object,to/for they,musu,3pl,Rules doc
+Possessive suffix,my,-na,1sg; masc./plural head,Linkers PDF
+Possessive suffix,my,-ta,1sg; feminine head,Linkers PDF
+Possessive suffix,your (m),-nka,2sg.m; masc./plural head,Linkers PDF
+Possessive suffix,your (m),-rka,2sg.m; feminine head,Linkers PDF
+Possessive suffix,your (f),-nki,2sg.f; masc./plural head,Linkers PDF
+Possessive suffix,your (f),-rki,2sg.f; feminine head,Linkers PDF
+Possessive suffix,his,-nsa,3sg.m; masc./plural head,Linkers PDF
+Possessive suffix,his,-rsa,3sg.m; feminine head,Linkers PDF
+Possessive suffix,her,-nta,3sg.f; masc./plural head,Linkers PDF
+Possessive suffix,her,-rta,3sg.f; feminine head,Linkers PDF
+Possessive suffix,our,-nmu,1pl; masc./plural head,Linkers PDF
+Possessive suffix,our,-rmu,1pl; feminine head,Linkers PDF
+Possessive suffix,your (pl),-nku,2pl; masc./plural head,Linkers PDF
+Possessive suffix,your (pl),-rku,2pl; feminine head,Linkers PDF
+Possessive suffix,their,-nsu,3pl; masc./plural head,Linkers PDF
+Possessive suffix,their,-rsu,3pl; feminine head,Linkers PDF
+Possessive: independent,mine,nawa,1sg; masc./plural thing,Linkers PDF
+Possessive: independent,mine,tawa,1sg; feminine thing,Linkers PDF
+Possessive: independent,yours (m),naka,2sg.m; masc./plural thing,Linkers PDF
+Possessive: independent,yours (m),taka,2sg.m; feminine thing,Linkers PDF
+Possessive: independent,yours (f),naki,2sg.f; masc./plural thing,Linkers PDF
+Possessive: independent,yours (f),taki,2sg.f; feminine thing,Linkers PDF
+Possessive: independent,his,nasa,3sg.m; masc./plural thing,Linkers PDF
+Possessive: independent,his,tasa,3sg.m; feminine thing,Linkers PDF
+Possessive: independent,hers,nata,3sg.f; masc./plural thing,Linkers PDF
+Possessive: independent,hers,tata,3sg.f; feminine thing,Linkers PDF
+Possessive: independent,ours,namu,1pl; masc./plural thing,Linkers PDF
+Possessive: independent,ours,tamu,1pl; feminine thing,Linkers PDF
+Possessive: independent,yours (pl),naku,2pl; masc./plural thing,Linkers PDF
+Possessive: independent,yours (pl),taku,2pl; feminine thing,Linkers PDF
+Possessive: independent,theirs,nasu,3pl; masc./plural thing,Linkers PDF
+Possessive: independent,theirs,tasu,3pl; feminine thing,Linkers PDF
+Linker / definite,"linker (of, 's)",-n,masc./plural head,Linkers PDF + rule A6
+Linker / definite,"linker (of, 's)",-r,feminine head,Linkers PDF + rule A6
+Linker / definite,of (independent),na,masc./plural,Linkers PDF + rule A6
+Linker / definite,of (independent),ta,feminine,Linkers PDF + rule A6
+Linker / definite,the (definite),-n,masc./plural noun,Linkers PDF + rule A6
+Linker / definite,the (definite),-r,feminine noun,Linkers PDF + rule A6
+Copula,is / are (identity),ne,after masc./plural word,Rules doc
+Copula,is / are (identity),ce,after feminine word,Rules doc
+Negation,not,ba … ba,"completive, future, equational",Rules doc
+Negation,don't (command),kada,+ subjunctive PAC,Group verb list
+Negation,nobody,ba wanda,,Rules doc
+Existential,there is / there are,akwai,,Rules doc
+Existential,there is no,babu,,Rules doc
+Demonstrative,this,wannan,m/f singular,Group demonstratives list
+Demonstrative,these,waɗannan,plural,Group demonstratives list
+Demonstrative,that,wancan,masc. singular,Group demonstratives list
+Demonstrative,that,waccan,fem. singular,Group demonstratives list
+Demonstrative,those,waɗancan,plural,Group demonstratives list
+Demonstrative,this (after noun),-n nan,masc./plural noun,Group demonstratives list
+Demonstrative,this (after noun),-r nan,feminine noun,Group demonstratives list
+Demonstrative,that (after noun),-n can,masc./plural noun,Group demonstratives list
+Demonstrative,that (after noun),-r can,feminine noun,Group demonstratives list
+Question word,who,wa,; triggers relative PAC,Group question-words list
+Question word,what,me,emphatic: mene ne; triggers relative PAC,Group question-words list
+Question word,where,ina,; triggers relative PAC,Group question-words list
+Question word,when,yaushe,; triggers relative PAC,Group question-words list
+Question word,how,yaya,; triggers relative PAC,Group question-words list
+Question word,how much / how many,nawa,; triggers relative PAC,Group question-words list
+Question word,which,wane,masc.; triggers relative PAC,Group question-words list
+Question word,which,wace,fem.; triggers relative PAC,Group question-words list
+Question word,which,waɗanne,plural; triggers relative PAC,Group question-words list
+Question word,why,me ya sa,; triggers relative PAC,Group question-words list
+Question word,why,don me,; triggers relative PAC,Group question-words list
+Question word,why,saboda me,; triggers relative PAC,Group question-words list
+Question word,whose,N-n/-r wa,e.g. littafin wa; triggers relative PAC,Group question-words list
+Question word,yes/no question opener,shin,optional,Group question-words list
+Question word,question tag (right?),ko,at the end,Group question-words list
+Conjunction,and (nouns),da,,Rules doc
+Conjunction,and (clauses),kuma,,Rules doc
+Conjunction,but,amma,,Rules doc
+Conjunction,or,ko,,Rules doc
+Conjunction,"so, therefore",don haka,,Rules doc
+Conjunction,because,saboda,,Rules doc
+Conjunction,because,don,,Rules doc
+Conjunction,if,idan,+ completive,Rules doc
+Conjunction,if,in,+ completive,Rules doc
+Conjunction,when (past),lokacin da,+ relative completive,Rules doc
+Conjunction,while,yayin da,+ relative continuous,Rules doc
+Conjunction,although,ko da yake,,Rules doc
+Conjunction,since,tun da,,Rules doc
+Conjunction,unless,sai dai idan,,Rules doc
+Conjunction,that (reported),cewa,,Rules doc
+Conjunction,before,kafin,,Rules doc
+Conjunction,after,bayan,,Rules doc
+Conjunction,until,har,,Rules doc
+Conjunction,who/which/that (relative),da,after noun + linker; + relative PAC,Rules doc
+Conjunction,who/which (relative),wanda / wadda / waɗanda,m / f / pl,Rules doc
+Preposition,"in, at",a,,Rules doc
+Preposition,"in, inside",cikin,,Rules doc
+Preposition,on,a kan,,Rules doc
+Preposition,from,daga,,Rules doc
+Preposition,"to, towards",zuwa,,Rules doc
+Preposition,with,da,,Rules doc
+Preposition,to (a person),wa / ga,,Rules doc
+Preposition,near,kusa da,,Rules doc
+Preposition,behind,bayan,,Rules doc
+Preposition,in front of,gaban,,Rules doc
+Preposition,under,ƙarƙashin,,Rules doc
+Preposition,between,tsakanin,,Rules doc
+Preposition,like,kamar,,Rules doc
+Preposition,for,don,,Rules doc
+Number,one,ɗaya,follows the noun,Rules doc
+Number,two,biyu,follows the noun,Rules doc
+Number,three,uku,follows the noun,Rules doc
+Number,four,huɗu,follows the noun,Rules doc
+Number,five,biyar,follows the noun,Rules doc
+Number,six,shida,follows the noun,Rules doc
+Number,seven,bakwai,follows the noun,Rules doc
+Number,eight,takwas,follows the noun,Rules doc
+Number,nine,tara,follows the noun,Rules doc
+Number,ten,goma,follows the noun,Rules doc
+Number,twenty,ashirin,follows the noun,Rules doc
+Number,hundred,ɗari,follows the noun,Rules doc
+Number,thousand,dubu,follows the noun,Rules doc
+Adverb / quantifier,today,yau,,Rules doc
+Adverb / quantifier,tomorrow,gobe,,Rules doc
+Adverb / quantifier,yesterday,jiya,,Rules doc
+Adverb / quantifier,now,yanzu,,Rules doc
+Adverb / quantifier,"every day, always",kullum,,Rules doc
+Adverb / quantifier,last year,bara,,Rules doc
+Adverb / quantifier,this year,bana,,Rules doc
+Adverb / quantifier,in the morning,da safe,,Rules doc
+Adverb / quantifier,in the evening,da yamma,,Rules doc
+Adverb / quantifier,at night,da dare,,Rules doc
+Adverb / quantifier,early,da wuri,,Rules doc
+Adverb / quantifier,later,anjima,,Rules doc
+Adverb / quantifier,here,,,Rules doc
+Adverb / quantifier,there,can,,Rules doc
+Adverb / quantifier,"very, a lot",sosai,,Rules doc
+Adverb / quantifier,"many, much",da yawa,,Rules doc
+Adverb / quantifier,everyone,kowa,,Rules doc
+Adverb / quantifier,"everything, anything",komai,,Rules doc
+Adverb / quantifier,someone,wani / wata,,Rules doc
+Adverb / quantifier,some,wasu,,Rules doc
+Adverb / quantifier,all,duk,,Rules doc
+Adverb / quantifier,please,don Allah,,Rules doc

@@ -1,6 +1,6 @@
 """Hausa word lists for reading Hausa (Hausa -> English). DATA: linguists can edit it.
 
-Most Hausa words come from the lexicon workbook; this file holds the small closed classes.
+Most Hausa words come from the lexicon (data/lexicon/*.csv); this file holds the small closed classes.
 """
 import hausa_grammar as HG
 

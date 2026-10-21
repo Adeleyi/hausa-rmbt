@@ -26,7 +26,7 @@ Written Hausa does not show tone or vowel length. One written form can therefore
 | `src/run_analysis.py` | Runs the analysis on all 128 test sentences, checks it, writes a report | Nobody (just run it) |
 | `outputs/hausa_analysis_report.txt` | The report | Created automatically |
 
-Everything else is read from the lexicon workbook: nouns with their plurals and *-n/-r* forms, every verb form, adjectives, PAC forms, pronouns and possessive suffixes.
+Everything else is read from the lexicon (`data/lexicon/`): nouns with their plurals and *-n/-r* forms, every verb form, adjectives, PAC forms, pronouns and possessive suffixes.
 
 ## How to run it
 

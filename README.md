@@ -16,7 +16,7 @@ Both directions have the same three stages: **analysis → transfer → generati
 | 2. Transfer: one rule per construction | `src/transfer_en_ha.py` | `src/transfer_ha_en.py` |
 | 3. Generation: write the word forms | `src/hausa_generate.py` | `src/english_generate.py` |
 
-The word lists and the group's grammar decisions are in plain data files that linguists can edit: `english_words.py`, `hausa_words.py`, `hausa_grammar.py`, `english_grammar.py`. The lexicon is an Excel workbook (`data/lexicon/`), read by `src/hausa_lexicon.py`.
+The word lists and the group's grammar decisions are in plain data files that linguists can edit: `english_words.py`, `hausa_words.py`, `hausa_grammar.py`, `english_grammar.py`. The lexicon is a set of CSV files (`data/lexicon/`, one per word class), read by `src/hausa_lexicon.py`.
 
 ## Setup
 
@@ -50,7 +50,7 @@ Hausa:   Ina zuwa.
 | Folder | Contents |
 | --- | --- |
 | `src/` | the code |
-| `data/lexicon/` | the lexicon workbook, one tab per word class |
+| `data/lexicon/` | the lexicon, one CSV file per word class (see its README) |
 | `data/test/` | the 128 development sentences and the 30 blind test sentences, with the speaker's translations |
 | `outputs/` | scores and analysis reports written by the programs |
 | `docs/` | explanations of each stage, results, and the group's workflow |

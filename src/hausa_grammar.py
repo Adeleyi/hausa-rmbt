@@ -1,6 +1,6 @@
 """Hausa grammar choices used by English -> Hausa. DATA: linguists can edit it.
 
-Hausa words live in the lexicon workbook. This file holds the choices: prepositions,
+Hausa words live in the lexicon (data/lexicon/*.csv). This file holds the choices: prepositions,
 which tense uses which PAC column, and the group decisions (A2, A6, A7, A17 ...).
 """
 
@@ -35,7 +35,7 @@ NO_PLURAL_MEANS_SINGULAR = True
 COMMA_BEFORE_COORDINATOR = True
 
 # ===== 2. Which PAC column each English tense uses =====
-# (English tense, English aspect) -> PAC column in the lexicon "Function words" tab.
+# (English tense, English aspect) -> PAC column in the lexicon (function_words.csv).
 # English simple present describes habits ("Birds fly south"), and Hausa uses
 # the continuous for habits: Tsuntsaye suna tashi.
 PAC_COLUMN = {

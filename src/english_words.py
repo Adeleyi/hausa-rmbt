@@ -1,6 +1,6 @@
 """English word lists for reading and writing English. DATA: linguists can edit it.
 
-Most words come from the lexicon workbook. Here: grammar words, irregular forms,
+Most words come from the lexicon (data/lexicon/*.csv). Here: grammar words, irregular forms,
 names and the sex of people words, and words not yet in the lexicon.
 """
 
@@ -190,7 +190,7 @@ UNCOUNTABLE = {"rice", "water", "money", "food", "bread", "meat", "tea", "milk",
 
 # ===== 3. Names and the sex of people words =====
 # Person names used in our test sentences. More names are read from the
-# "Names" tab of the lexicon workbook.
+# lexicon file data/lexicon/names.csv.
 NAMES = {
     "ada": "f", "chika": "f", "ngozi": "f", "amina": "f", "aisha": "f",
     "musa": "m", "chinedu": "m", "audu": "m",

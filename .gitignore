@@ -9,3 +9,6 @@ venv/
 Thumbs.db
 # Excel lock files (created while a workbook is open)
 ~$*
+
+# Windows download metadata (created when copying files into WSL)
+*:Zone.Identifier

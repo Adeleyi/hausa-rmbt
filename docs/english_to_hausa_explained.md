@@ -17,10 +17,10 @@ All 128 test sentences are now covered by a rule.
 | File | What it is | Who edits it |
 | --- | --- | --- |
 | `src/hausa_grammar.py` | Grammar tables and group decisions (A2, A6, A7, A17 …), prepositions, adverbs, weather words | Linguists |
-| `data/lexicon/Hausa_RBMT_Lexicon_v3.xlsx` | All Hausa words, including the PAC table and pronouns in the "Function words" tab | Lexicographer only |
+| `data/lexicon/*.csv` | All Hausa words, including the PAC table and pronouns in `function_words.csv` | Lexicographer |
 | `src/transfer_en_ha.py` | One rule per construction (stage 2) | Coders |
 | `src/hausa_generate.py` | Word-building rules (stage 3) | Coders |
-| `src/hausa_lexicon.py` | Reads the workbook and looks words up | Coders |
+| `src/hausa_lexicon.py` | Reads the lexicon files and looks words up | Coders |
 | `src/try_sentence.py` | Type a sentence, see the Hausa | Nobody (just run it) |
 | `src/evaluate.py` | Scores the system against the speaker's translations | Nobody (just run it) |
 
@@ -249,7 +249,7 @@ Hausa has no passive verb form. Without *by*, it uses the impersonal PAC: **An**
 
 ## How the lexicon chooses a word
 
-When the workbook has several translations for one English word, the program picks in this order:
+When the lexicon has several translations for one English word, the program picks in this order:
 1. rows marked **Preferred**
 2. then rows marked **Checked**
 3. then the first row in the tab
@@ -258,7 +258,7 @@ Rows marked **Wrong** are never used.
 
 **To change the translation the system uses, mark the row you want as Preferred.** *Preferred* is a new status in v3. It is needed because some words have two Checked rows: *finish* has *ƙare* and *gama*, and the speaker uses *gama*.
 
-Lexicon v3 adds the words the three phases needed and marks the speaker's choices as Preferred, for example *mahaifiya* for "mother", *gama* for "finish" and *mutum* for "man". It also adds two columns: `type` in Adjectives and `after_object` in Verbs. Every change is listed in the workbook's "Changes in v3" tab.
+Lexicon v3 adds the words the three phases needed and marks the speaker's choices as Preferred, for example *mahaifiya* for "mother", *gama* for "finish" and *mutum* for "man". It also adds two columns: `type` in Adjectives and `after_object` in Verbs. Every change is listed in `data/lexicon/changes_v3.csv`.
 
 Five common words (*wait, think, hope, tired, sick*) were added while testing sentences outside the test set. They are marked **Needs check**, not Preferred, because the speaker has not seen them.
 

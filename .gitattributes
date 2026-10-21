@@ -1,0 +1,3 @@
+# Lexicon CSVs: always LF line endings, so edits saved from Excel on Windows
+# do not show every line as changed.
+data/lexicon/*.csv text eol=lf

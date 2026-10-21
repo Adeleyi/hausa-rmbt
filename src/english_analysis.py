@@ -91,7 +91,7 @@ class Analysis:
     problems: list = field(default_factory=list)
 
 
-# ===== Word classes from the lexicon workbook (loaded once) =====
+# ===== Word classes from the lexicon (loaded once) =====
 
 _WORDS = None
 

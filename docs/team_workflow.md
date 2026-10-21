@@ -22,7 +22,7 @@ git push
 
 ## Rules
 
-- **Only the lexicographer edits the lexicon workbook.** Git cannot merge two people's changes to an Excel file, so one set of edits would be lost. Everyone else sends lexicon changes to the lexicographer. If the workbook shows as changed and you are not the lexicographer, undo it before committing: `git restore data/lexicon/Hausa_RBMT_Lexicon_v3.xlsx`.
+- **The lexicographer owns the lexicon** (`data/lexicon/*.csv`). The files are plain text, so git can merge edits to different rows, and `git diff` shows exactly which words changed. Tell the lexicographer about any lexicon change you commit. Keep the files in UTF-8: in Excel, save with **Save As → "CSV UTF-8"**, never plain "CSV", or the hooked letters (ɓ ɗ ƙ) are lost. See `data/lexicon/README.md`.
 - **Linguists edit the data files** (`english_words.py`, `hausa_words.py`, `hausa_grammar.py`, `english_grammar.py`). They hold word lists and decisions, not logic.
 - **The blind test is never used to write rules.** Its official score was recorded on 20 October 2026. If rules are fixed after studying its errors, report the new score separately as "after error analysis".
 - Do not commit the `.venv` folder (`.gitignore` already excludes it).

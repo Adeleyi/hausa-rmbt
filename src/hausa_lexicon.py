@@ -1,4 +1,4 @@
-"""Looking up Hausa words in the lexicon workbook (read once).
+"""Looking up Hausa words in the lexicon (data/lexicon/*.csv, one file per word class, read once).
 
 When a word has several rows: "Wrong" rows are never used; "Preferred" comes first,
 then "Checked", then the first row. A function returns None when the word is missing,
@@ -9,18 +9,20 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-LEXICON_FILE = ROOT / "data" / "lexicon" / "Hausa_RBMT_Lexicon_v3.xlsx"
+LEXICON_DIR = ROOT / "data" / "lexicon"
+# tab name used in the code -> CSV file
+TAB_FILES = {"Nouns": "nouns.csv", "Verbs": "verbs.csv", "Adjectives": "adjectives.csv",
+             "Function words": "function_words.csv", "Other": "other.csv", "Names": "names.csv"}
 
 _TABS = None
 
 
 def tabs():
-    """Read the workbook once and keep it in memory."""
+    """Read the CSV files once and keep them in memory. Empty cells are ''."""
     global _TABS
     if _TABS is None:
-        _TABS = pd.read_excel(LEXICON_FILE, sheet_name=None, dtype=str)
-        for df in _TABS.values():
-            df.fillna("", inplace=True)
+        _TABS = {tab: pd.read_csv(LEXICON_DIR / name, dtype=str, keep_default_na=False, encoding="utf-8-sig")
+                 for tab, name in TAB_FILES.items()}
     return _TABS
 
 
